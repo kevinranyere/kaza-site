@@ -55,8 +55,13 @@ nav{background:var(--v);padding:0 2rem;display:flex;align-items:center;height:64
 .sbar i{font-size:18px;color:#aaa;margin-left:4px;flex-shrink:0}
 .sbar input{flex:1;min-width:140px;border:none;outline:none;font-family:var(--fb);font-size:.9rem;padding:.3rem .5rem}
 .sbar select{border:none;outline:none;font-family:var(--fb);font-size:.8rem;background:var(--a);border-radius:7px;padding:.35rem .5rem}
-.statbar{background:var(--v);border-top:1px solid rgba(255,255,255,.08);padding:.875rem 2rem;display:flex;justify-content:center;gap:3rem;flex-wrap:wrap}
-.stat{text-align:center;display:flex;align-items:center;gap:10px}.stat-n{font-family:var(--fd);font-size:1.2rem;color:#fff;font-weight:700}.stat-l{font-size:.68rem;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.07em;text-align:left}
+.statbar{background:var(--v);border-top:1px solid rgba(255,255,255,.1);padding:1rem 2rem;display:flex;justify-content:center;gap:2.5rem;flex-wrap:wrap}
+.stat{display:flex;align-items:center;gap:10px;padding:.25rem 0}
+.stat-ico{width:34px;height:34px;border-radius:9px;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.stat-ico i{font-size:17px;color:var(--tl)}
+.stat-txt{display:flex;flex-direction:column}
+.stat-n{font-family:var(--fd);font-size:1.1rem;color:#fff;font-weight:700;line-height:1.1}
+.stat-l{font-size:.62rem;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.08em}
 .lws{display:grid;grid-template-columns:250px 1fr;gap:1.5rem;align-items:start}
 @media(max-width:768px){.lws{grid-template-columns:1fr}}
 .sidebar{background:#fff;border-radius:12px;padding:1.25rem;position:sticky;top:72px;box-shadow:0 2px 8px rgba(30,58,47,.06)}
@@ -137,8 +142,29 @@ nav{background:var(--v);padding:0 2rem;display:flex;align-items:center;height:64
 .b-deal{background:#f97316;color:#fff}
 .b-fair{background:#059669;color:#fff}
 .b-swap{background:rgba(255,255,255,.9);color:#1E3A2F;border:1px solid rgba(30,58,47,.25)}
-footer{background:var(--ch);color:rgba(255,255,255,.55);padding:1.75rem;text-align:center;font-size:.83rem}
-footer strong{color:#fff}
+footer{background:var(--ch);color:rgba(255,255,255,.55);padding:3.5rem 2rem 2rem;font-size:.83rem}
+.footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1.2fr;gap:2.5rem;max-width:1240px;margin:0 auto 2.5rem}
+.footer-brand .logo-f{font-family:var(--fd);font-size:1.6rem;color:#fff;margin-bottom:.5rem}
+.footer-brand p{font-size:.83rem;line-height:1.65;color:rgba(255,255,255,.45);max-width:220px;margin-bottom:1.1rem}
+.footer-socials{display:flex;gap:.625rem}
+.footer-social{width:36px;height:36px;border-radius:9px;border:1px solid rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.5);transition:all .2s;text-decoration:none}
+.footer-social:hover{background:rgba(255,255,255,.08);color:#fff;border-color:rgba(255,255,255,.25)}
+.footer-social i{font-size:16px}
+.footer-col-title{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--tl);margin-bottom:1rem;display:flex;align-items:center;gap:8px}
+.footer-col-title::before,.footer-col-title::after{content:'';display:inline-block;width:18px;height:1px;background:var(--tl)}
+.footer-links{display:flex;flex-direction:column;gap:.65rem}
+.footer-links a{color:rgba(255,255,255,.5);text-decoration:none;font-size:.85rem;transition:color .15s}
+.footer-links a:hover{color:#fff}
+.footer-contact{display:flex;flex-direction:column;gap:.75rem}
+.footer-contact-item{display:flex;gap:9px;align-items:flex-start;font-size:.83rem;color:rgba(255,255,255,.5)}
+.footer-contact-item i{font-size:15px;color:var(--tl);flex-shrink:0;margin-top:2px}
+.footer-contact-item a{color:rgba(255,255,255,.5);text-decoration:none;transition:color .15s}
+.footer-contact-item a:hover{color:#fff}
+.footer-bottom{max-width:1240px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;padding-top:1.75rem;font-size:.75rem;color:rgba(255,255,255,.3);border-top:1px solid rgba(255,255,255,.08)}
+.footer-bottom a{color:rgba(255,255,255,.3);text-decoration:none;transition:color .15s}
+.footer-bottom a:hover{color:rgba(255,255,255,.6)}
+@media(max-width:900px){.footer-grid{grid-template-columns:1fr 1fr!important;gap:2rem!important}}
+@media(max-width:560px){.footer-grid{grid-template-columns:1fr!important}footer{padding:2.5rem 1.5rem 1.5rem!important}}
 /* ── RADAR ── */
 .rdr-hero{background:var(--v);padding:3.5rem 2rem;text-align:center;position:relative;overflow:hidden}
 .rdr-hero::before{content:'';position:absolute;top:-40px;right:-40px;width:300px;height:300px;border-radius:50%;background:rgba(196,98,45,.06);pointer-events:none}
@@ -341,10 +367,22 @@ function homePg(){
     </div>
   </div>
   <div class="statbar">
-    <div class="stat"><div class="stat-n">8+</div><div class="stat-l">Imóveis</div></div>
-    <div class="stat"><div class="stat-n">todo o</div><div class="stat-l">Brasil</div></div>
-    <div class="stat"><div class="stat-n">gratuito</div><div class="stat-l">para anunciar</div></div>
-    <div class="stat"><div class="stat-n">100%</div><div class="stat-l">Digital</div></div>
+    <div class="stat">
+      <div class="stat-ico"><i class="ti ti-map-pin" aria-hidden="true"></i></div>
+      <div class="stat-txt"><div class="stat-n">Brasil</div><div class="stat-l">todo o país</div></div>
+    </div>
+    <div class="stat">
+      <div class="stat-ico"><i class="ti ti-gift" aria-hidden="true"></i></div>
+      <div class="stat-txt"><div class="stat-n">Grátis</div><div class="stat-l">para anunciar</div></div>
+    </div>
+    <div class="stat">
+      <div class="stat-ico"><i class="ti ti-rocket" aria-hidden="true"></i></div>
+      <div class="stat-txt"><div class="stat-n">100%</div><div class="stat-l">digital</div></div>
+    </div>
+    <div class="stat">
+      <div class="stat-ico"><i class="ti ti-shield-check" aria-hidden="true"></i></div>
+      <div class="stat-txt"><div class="stat-n">LGPD</div><div class="stat-l">dados seguros</div></div>
+    </div>
   </div>
 
   <div class="stories-wrap"><div class="stories-label"><i class="ti ti-video" aria-hidden="true"></i>KAZA Stories</div><div class="stories-row">${STORIES.map(s=>`<div class="story-item" data-story="${s.id}" onclick="openStory('${s.id}')"><div class="story-ring ${s.seen?'seen':''}"><div class="story-inner"><img src="${s.img}" loading="lazy" alt="${s.name}"></div></div><span class="story-name">${s.name}</span></div>`).join('')}</div></div>
@@ -417,7 +455,50 @@ function homePg(){
     ].map(([ic,l])=>`<span style="display:inline-flex;align-items:center;gap:6px;color:rgba(255,255,255,.45);font-size:.78rem"><i class="ti ${ic}" style="font-size:14px;color:rgba(255,255,255,.3)" aria-hidden="true"></i>${l}</span>`).join('')}
   </div>
 
-  <footer><strong>KAZA Imóveis</strong> · Brasil · @kazaimoveis · kazaimoveis.com.br</footer>`;
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo-f">KAZA<span style="color:var(--t)">.</span> <span style="font-size:.9rem;font-family:var(--fb);font-weight:300;color:rgba(255,255,255,.4);letter-spacing:.08em">IMÓVEIS</span></div>
+        <p>O portal que conecta quem busca a quem oferece imóveis em todo o Brasil.</p>
+        <div class="footer-socials">
+          <a href="#" class="footer-social" aria-label="Instagram"><i class="ti ti-brand-instagram" aria-hidden="true"></i></a>
+          <a href="https://wa.me/5577999999999" class="footer-social" aria-label="WhatsApp"><i class="ti ti-brand-whatsapp" aria-hidden="true"></i></a>
+          <a href="#" class="footer-social" aria-label="Facebook"><i class="ti ti-brand-facebook" aria-hidden="true"></i></a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Explorar</div>
+        <div class="footer-links">
+          <a href="#" onclick="setF('purpose','sale');setF('type','all');go('listings');return false">Comprar</a>
+          <a href="#" onclick="setF('purpose','rent');setF('type','all');go('listings');return false">Alugar</a>
+          <a href="#" onclick="setF('type','rural');setF('purpose','all');go('listings');return false">Imóveis rurais</a>
+          <a href="#" onclick="go('radar');return false">KAZA Radar</a>
+          <a href="#" onclick="go('indice');return false">KAZA Índice</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Anunciantes</div>
+        <div class="footer-links">
+          <a href="#" onclick="go('login');return false">Criar conta grátis</a>
+          <a href="#" onclick="go('create');return false">Anunciar imóvel</a>
+          <a href="#" onclick="go('dashboard');return false">Entrar no painel</a>
+          <a href="#">Para corretores</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Contato</div>
+        <div class="footer-contact">
+          <div class="footer-contact-item"><i class="ti ti-map-pin" aria-hidden="true"></i><span>Barreiras, Bahia<br><span style="font-size:.75rem;color:rgba(255,255,255,.3)">Atendendo todo o Brasil</span></span></div>
+          <div class="footer-contact-item"><i class="ti ti-brand-whatsapp" aria-hidden="true"></i><a href="https://wa.me/5577999999999">(77) 9 9999-9999</a></div>
+          <div class="footer-contact-item"><i class="ti ti-mail" aria-hidden="true"></i><a href="mailto:contato@kazaimoveis.com.br">contato@kazaimoveis.com.br</a></div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2026 KAZA Imóveis. Todos os direitos reservados.</div>
+      <div style="display:flex;gap:1.5rem"><a href="#">Termos de uso</a><a href="#">Privacidade</a><a href="#">LGPD</a></div>
+    </div>
+  </footer>`;
 }
 
 function listPg(){
