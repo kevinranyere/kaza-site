@@ -1252,6 +1252,272 @@ async function go(page, id) {
 }
 
 // ── Render síncrono (com dados já no cache) ───────────
+function radarPg(){
+  return`
+  <div class="rdr-hero">
+    <div class="cnt">
+      <div class="rdr-tag"><i class="ti ti-radar" aria-hidden="true"></i>KAZA Radar</div>
+      <div class="rdr-h1">O classificado que trabalha<br>para você <em>antes de listar</em></div>
+      <div class="rdr-sub">Registre o que você busca e seja avisado no WhatsApp quando aparecer — mesmo antes do anúncio existir. Para todos os tipos de imóvel.</div>
+      <div class="rdr-demand">
+        ${[['ti-home','Residencial aluguel',DEMAND.residential_rent,'buscas ativas'],['ti-home','Residencial venda',DEMAND.residential_sale,'buscas ativas'],['ti-building','Comercial',DEMAND.commercial_rent+DEMAND.commercial_sale,'buscas ativas'],['ti-tractor','Rural/Fazenda',DEMAND.rural_sale,'buscas ativas'],['ti-layout-board','Lotes',DEMAND.lot_sale,'buscas ativas']].map(([ic,l,n,s])=>
+          `<div class="rdr-dm"><i class="ti ${ic}" style="font-size:16px;color:var(--tl)" aria-hidden="true"></i><div><div class="rdr-dm-n">${n}</div><div class="rdr-dm-l"><strong>${l}</strong>${s}</div></div></div>`).join('')}
+      </div>
+      <div class="rdr-cta">
+        <div class="rdr-opt" onclick="S.rq={step:1,finalidade:'comprar',type:null,done:false};go('quero')">
+          <div class="rdr-opt-ico" style="background:rgba(196,98,45,.2)"><i class="ti ti-heart" style="color:var(--tl)" aria-hidden="true"></i></div>
+          <div class="rdr-opt-t">Quero comprar ou alugar</div>
+          <div class="rdr-opt-s">Registre sua busca e receba alertas no WhatsApp quando aparecer algo compatível</div>
+        </div>
+        <div class="rdr-opt" onclick="S.rp={step:1,finalidade:'vender',type:null,done:false};go('posso')">
+          <div class="rdr-opt-ico" style="background:rgba(255,255,255,.12)"><i class="ti ti-home-signal" style="color:#fff" aria-hidden="true"></i></div>
+          <div class="rdr-opt-t">Posso vender ou alugar</div>
+          <div class="rdr-opt-s">Registre seu imóvel discretamente e receba contato de compradores já cadastrados</div>
+        </div>
+      </div>
+      <button class="rdr-ind-btn" onclick="go('indice')"><i class="ti ti-chart-area" aria-hidden="true"></i>Ver KAZA Índice — preços de referência da região</button>
+    </div>
+  </div>
+  <div class="sec sec-a">
+    <div class="cnt">
+      <div style="font-family:var(--fd);font-size:1.5rem;margin-bottom:.4rem">Como funciona</div>
+      <div style="color:var(--cz);font-size:.88rem;margin-bottom:1.5rem">Três passos. Sem burocracia.</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem">
+        ${[[1,'Registre sua busca','Diga o que quer: tipo, localização, faixa de preço. Leva 2 minutos.','ti-pencil'],
+           [2,'KAZA monitora por você','Quando aparecer algo compatível — mesmo que não esteja listado — você é avisado no WhatsApp.','ti-bell'],
+           [3,'Conectamos as partes','Se houver match, a KAZA apresenta comprador e proprietário. Sem intermediários desnecessários.','ti-handshake']].map(([n,t,s,ic])=>
+          `<div style="background:#fff;border-radius:12px;padding:1.25rem;border:1px solid rgba(0,0,0,.07)">
+            <div style="width:32px;height:32px;border-radius:50%;background:var(--v);display:flex;align-items:center;justify-content:center;margin-bottom:10px;font-family:var(--fd);font-size:.9rem;color:#fff;font-weight:700">${n}</div>
+            <div style="font-weight:600;font-size:.9rem;margin-bottom:5px">${t}</div>
+            <div style="font-size:.78rem;color:var(--cz);line-height:1.55">${s}</div>
+          </div>`).join('')}
+      </div>
+    </div>
+  </div>`;
+}
+
+function queroPg(){
+  const q=S.rq;
+  const types=[['residential','ti-home','Residencial','Casa, apto, kitnet'],['commercial','ti-building','Comercial','Sala, loja, galpão'],['rural','ti-tractor','Rural/Fazenda','Sítio, fazenda, área'],['lot','ti-layout-board','Lote/Terreno','Urbano ou rural']];
+  const fields=q.type==='residential'?`
+    <div class="fg"><label class="fl">Bairro ou cidade</label><input class="fi" placeholder="Ex: Centro, Jardins, Morada..."></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:.875rem">
+      <div class="fg"><label class="fl">Quartos (mín.)</label><select class="fs"><option>Qualquer</option><option>1+</option><option>2+</option><option>3+</option><option>4+</option></select></div>
+      <div class="fg"><label class="fl">Área mín. (m²)</label><input class="fi" type="number" placeholder="Ex: 60"></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:.875rem">
+      <div class="fg"><label class="fl">${q.finalidade==='alugar'?'Aluguel máx. (R$)':'Preço máx. (R$)'}</label><input class="fi" type="number" placeholder="${q.finalidade==='alugar'?'Ex: 2500':'Ex: 400000'}"></div>
+      <div class="fg"><label class="fl">Vagas de garagem</label><select class="fs"><option>Indiferente</option><option>1+</option><option>2+</option></select></div>
+    </div>`:
+  q.type==='commercial'?`
+    <div class="fg"><label class="fl">Bairro ou cidade</label><input class="fi" placeholder="Ex: Centro, Zona Industrial..."></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:.875rem">
+      <div class="fg"><label class="fl">Área mín. (m²)</label><input class="fi" type="number" placeholder="Ex: 60"></div>
+      <div class="fg"><label class="fl">Área máx. (m²)</label><input class="fi" type="number" placeholder="Ex: 200"></div>
+    </div>
+    <div class="fg"><label class="fl">${q.finalidade==='alugar'?'Aluguel máx. (R$/mês)':'Preço máx. (R$)'}</label><input class="fi" type="number" placeholder="${q.finalidade==='alugar'?'Ex: 5000':'Ex: 800000'}"></div>
+    <div class="fg"><label class="fl">Tipo de espaço</label><select class="fs"><option>Qualquer</option><option>Sala comercial</option><option>Loja</option><option>Galpão</option><option>Prédio comercial</option></select></div>`:
+  q.type==='rural'?`
+    <div class="fg"><label class="fl">Município ou região</label><select class="fs"><option>Qualquer</option><option>Barreiras</option><option>São Desidério</option><option>Luís Eduardo Magalhães</option><option>Jaborandi</option><option>Formosa do Rio Preto</option></select></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:.875rem">
+      <div class="fg"><label class="fl">Área mín. (ha)</label><input class="fi" type="number" placeholder="Ex: 200"></div>
+      <div class="fg"><label class="fl">Área máx. (ha)</label><input class="fi" type="number" placeholder="Ex: 600"></div>
+    </div>
+    <div class="fg"><label class="fl">Orçamento máx. (R$)</label><input class="fi" type="number" placeholder="Ex: 8000000"></div>
+    <div class="fg"><label class="fl">Cultura preferencial</label><select class="fs"><option>Indiferente</option><option>Soja</option><option>Algodão</option><option>Milho</option><option>Pecuária</option><option>Fruticultura</option></select></div>`:
+  `<div class="fg"><label class="fl">Bairro ou cidade</label><input class="fi" placeholder="Ex: Bela Vista, LEM..."></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:.875rem">
+      <div class="fg"><label class="fl">Área mín. (m²)</label><input class="fi" type="number" placeholder="Ex: 200"></div>
+      <div class="fg"><label class="fl">Área máx. (m²)</label><input class="fi" type="number" placeholder="Ex: 600"></div>
+    </div>
+    <div class="fg"><label class="fl">Orçamento máx. (R$)</label><input class="fi" type="number" placeholder="Ex: 150000"></div>`;
+  return`
+  <div class="rdr-wrap">
+    <div class="cnt">
+      <button style="background:none;border:none;color:var(--cz);font-size:.8rem;cursor:pointer;margin-bottom:1.5rem;display:flex;align-items:center;gap:5px;font-family:var(--fb)" onclick="go('radar')"><i class="ti ti-arrow-left" aria-hidden="true"></i>Voltar ao Radar</button>
+      <div class="rdr-form">
+        ${q.done?`<div class="rdr-success">
+          <i class="ti ti-circle-check" style="color:var(--v)" aria-hidden="true"></i>
+          <div class="rdr-success-t">Radar ativado!</div>
+          <div class="rdr-success-s">Você será avisado por WhatsApp assim que aparecer um imóvel compatível com sua busca — mesmo que ainda não esteja listado.</div>
+          <div class="rdr-notif-box">
+            <i class="ti ti-brand-whatsapp" aria-hidden="true"></i>
+            <div class="rdr-notif-txt">Fique de olho no WhatsApp.<br><strong>Barreiras, Bahia — KAZA Radar ativo</strong></div>
+          </div>
+          <button class="btn btn-o" onclick="go('listings')"><i class="ti ti-home" aria-hidden="true"></i>Ver imóveis disponíveis agora</button>
+        </div>`:`
+        <div class="rdr-form-title">Quero ${q.step===1?'comprar ou alugar':'— detalhes da busca'}</div>
+        <div class="rdr-form-sub">${q.step===1?'Selecione a finalidade e o tipo de imóvel que você busca.':q.step===2?'Conte um pouco mais sobre o que você procura.':'Quase lá — como podemos avisar você?'}</div>
+        ${q.step===1?`
+          <div class="rdr-seg">
+            <button class="rdr-seg-btn ${q.finalidade==='comprar'?'on':''}" onclick="S.rq.finalidade='comprar';render()">Quero comprar</button>
+            <button class="rdr-seg-btn ${q.finalidade==='alugar'?'on':''}" onclick="S.rq.finalidade='alugar';render()">Quero alugar</button>
+          </div>
+          <div class="rdr-types">
+            ${types.map(([v,ic,l,s])=>`<div class="rdr-type ${q.type===v?'sel':''}" onclick="S.rq.type='${v}';render()"><div class="rdr-type-ico"><i class="ti ${ic}" aria-hidden="true"></i></div><div class="rdr-type-l">${l}</div><div class="rdr-type-s">${s}</div></div>`).join('')}
+          </div>`:
+        q.step===2?fields:`
+          <div class="fg"><label class="fl">Seu nome</label><input class="fi" placeholder="Nome completo" id="rq-name"></div>
+          <div class="fg"><label class="fl">WhatsApp</label><input class="fi" type="tel" placeholder="(77) 9 9999-9999" id="rq-phone"></div>
+          <div style="background:var(--a);border-radius:9px;padding:.875rem;font-size:.78rem;color:var(--cz);margin-bottom:1rem;display:flex;gap:8px;align-items:flex-start">
+            <i class="ti ti-shield-lock" style="font-size:14px;margin-top:1px;flex-shrink:0" aria-hidden="true"></i>
+            <span>Seus dados são usados apenas para te avisar quando aparecer um imóvel compatível. Não compartilhamos com terceiros.</span>
+          </div>`}
+        <div style="display:flex;justify-content:space-between;margin-top:1.5rem;padding-top:1.25rem;border-top:1px solid var(--a)">
+          ${q.step>1?`<button class="btn btn-o" onclick="S.rq.step--;render()"><i class="ti ti-arrow-left" aria-hidden="true"></i>Anterior</button>`:'<div></div>'}
+          ${q.step<3?`<button class="btn btn-p" onclick="${q.step===1&&!q.type?`alert('Selecione o tipo de imóvel.')`:q.step===1?`S.rq.step=2;render()`:q.step===2?`S.rq.step=3;render()`:``}"><i class="ti ti-arrow-right" aria-hidden="true"></i>Próximo</button>`:
+          `<button class="btn btn-p" onclick="S.rq.done=true;render()"><i class="ti ti-radar" aria-hidden="true"></i>Ativar meu Radar</button>`}
+        </div>`}
+      </div>
+    </div>
+  </div>`;
+}
+
+function possoPg(){
+  const p=S.rp;
+  const types=[['residential','ti-home','Residencial','Casa, apto, kitnet'],['commercial','ti-building','Comercial','Sala, loja, galpão'],['rural','ti-tractor','Rural/Fazenda','Sítio, fazenda, área'],['lot','ti-layout-board','Lote/Terreno','Urbano ou rural']];
+  const totalDemand=Object.values(DEMAND).reduce((a,b)=>a+b,0);
+  const demandByType={'residential':DEMAND.residential_rent+DEMAND.residential_sale,'commercial':DEMAND.commercial_rent+DEMAND.commercial_sale,'rural':DEMAND.rural_sale,'lot':DEMAND.lot_sale};
+  const fields2=p.type==='residential'?`
+    <div style="background:var(--a);border-radius:9px;padding:.875rem;font-size:.78rem;color:var(--v);margin-bottom:1rem;display:flex;gap:8px;align-items:flex-start;font-weight:500">
+      <i class="ti ti-eye-off" style="font-size:14px;margin-top:1px;flex-shrink:0" aria-hidden="true"></i>
+      <span>Seu imóvel não aparece na listagem pública. Só você e o comprador/inquilino saberão.</span>
+    </div>
+    <div class="fg"><label class="fl">Bairro ou localidade</label><input class="fi" placeholder="Ex: Morada dos Pássaros, Centro..."></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:.875rem">
+      <div class="fg"><label class="fl">Quartos</label><select class="fs"><option>1</option><option>2</option><option selected>3</option><option>4</option><option>5+</option></select></div>
+      <div class="fg"><label class="fl">Área aproximada (m²)</label><input class="fi" type="number" placeholder="Ex: 120"></div>
+    </div>
+    <div class="fg"><label class="fl">${p.finalidade==='alugar'?'Valor de aluguel desejado (R$)':'Valor de venda desejado (R$)'}</label><input class="fi" type="number" placeholder="${p.finalidade==='alugar'?'Ex: 2400':'Ex: 380000'}"></div>`:
+  p.type==='commercial'?`
+    <div style="background:var(--a);border-radius:9px;padding:.875rem;font-size:.78rem;color:var(--v);margin-bottom:1rem;display:flex;gap:8px;align-items:flex-start;font-weight:500">
+      <i class="ti ti-eye-off" style="font-size:14px;margin-top:1px;flex-shrink:0" aria-hidden="true"></i>
+      <span>Cadastro discreto. Compradores/inquilinos compatíveis serão apresentados diretamente a você.</span>
+    </div>
+    <div class="fg"><label class="fl">Bairro ou cidade</label><input class="fi" placeholder="Ex: Centro, Centro Empresarial..."></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:.875rem">
+      <div class="fg"><label class="fl">Área (m²)</label><input class="fi" type="number" placeholder="Ex: 80"></div>
+      <div class="fg"><label class="fl">Tipo</label><select class="fs"><option>Sala</option><option>Loja</option><option>Galpão</option><option>Prédio</option></select></div>
+    </div>
+    <div class="fg"><label class="fl">${p.finalidade==='alugar'?'Valor de aluguel (R$/mês)':'Valor de venda (R$)'}</label><input class="fi" type="number" placeholder="${p.finalidade==='alugar'?'Ex: 3200':'Ex: 600000'}"></div>`:
+  p.type==='rural'?`
+    <div style="background:var(--a);border-radius:9px;padding:.875rem;font-size:.78rem;color:var(--v);margin-bottom:1rem;display:flex;gap:8px;align-items:flex-start;font-weight:500">
+      <i class="ti ti-eye-off" style="font-size:14px;margin-top:1px;flex-shrink:0" aria-hidden="true"></i>
+      <span>Cadastro confidencial. Sem endereço exato, sem fotos obrigatórias. Você decide se avança.</span>
+    </div>
+    <div class="fg"><label class="fl">Município</label><select class="fs"><option>Barreiras</option><option>São Desidério</option><option>Luís Eduardo Magalhães</option><option>Jaborandi</option><option>Formosa do Rio Preto</option></select></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:.875rem">
+      <div class="fg"><label class="fl">Área aproximada (ha)</label><input class="fi" type="number" placeholder="Ex: 420"></div>
+      <div class="fg"><label class="fl">Cultura principal</label><select class="fs"><option>Soja</option><option>Algodão</option><option>Milho</option><option>Pecuária</option><option>Fruticultura</option><option>Mista</option></select></div>
+    </div>
+    <div class="fg"><label class="fl">Valor pretendido (R$)</label><input class="fi" type="number" placeholder="Ex: 8500000"></div>`:
+  `<div style="background:var(--a);border-radius:9px;padding:.875rem;font-size:.78rem;color:var(--v);margin-bottom:1rem;display:flex;gap:8px;align-items:flex-start;font-weight:500">
+      <i class="ti ti-eye-off" style="font-size:14px;margin-top:1px;flex-shrink:0" aria-hidden="true"></i>
+      <span>Cadastro discreto. Compradores compatíveis serão apresentados a você.</span>
+    </div>
+    <div class="fg"><label class="fl">Bairro ou cidade</label><input class="fi" placeholder="Ex: Bela Vista, LEM..."></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:.875rem">
+      <div class="fg"><label class="fl">Área (m²)</label><input class="fi" type="number" placeholder="Ex: 360"></div>
+      <div class="fg"><label class="fl">Valor (R$)</label><input class="fi" type="number" placeholder="Ex: 95000"></div>
+    </div>`;
+  return`
+  <div class="rdr-wrap">
+    <div class="cnt">
+      <button style="background:none;border:none;color:var(--cz);font-size:.8rem;cursor:pointer;margin-bottom:1.5rem;display:flex;align-items:center;gap:5px;font-family:var(--fb)" onclick="go('radar')"><i class="ti ti-arrow-left" aria-hidden="true"></i>Voltar ao Radar</button>
+      <div class="rdr-form">
+        ${p.done?`<div class="rdr-success">
+          <i class="ti ti-circle-check" style="color:var(--v)" aria-hidden="true"></i>
+          <div class="rdr-success-t">Imóvel registrado!</div>
+          <div class="rdr-success-s">Seu imóvel está no Radar. Quando aparecer um comprador ou inquilino compatível, entraremos em contato pelo WhatsApp. Discretamente.</div>
+          <div class="rdr-notif-box">
+            <i class="ti ti-brand-whatsapp" aria-hidden="true"></i>
+            <div class="rdr-notif-txt">Aguarde nosso contato via WhatsApp.<br><strong>Nenhuma informação pública foi divulgada.</strong></div>
+          </div>
+          <button class="btn btn-o" onclick="go('radar')"><i class="ti ti-radar" aria-hidden="true"></i>Ver o Radar</button>
+        </div>`:`
+        <div class="rdr-form-title">Posso ${p.step===1?'vender ou alugar':'— dados do imóvel'}</div>
+        <div class="rdr-form-sub">${p.step===1?'Veja a demanda ativa na região e registre seu imóvel de forma discreta.':p.step===2?'Informações básicas — sem fotos, sem endereço exato.':'Seus contatos — para apresentarmos o comprador.'}</div>
+        ${p.step===1?`
+          <div style="background:var(--v);border-radius:10px;padding:1rem 1.25rem;margin-bottom:1.25rem;display:flex;align-items:center;gap:10px">
+            <i class="ti ti-users" style="font-size:22px;color:var(--tl);flex-shrink:0" aria-hidden="true"></i>
+            <div>
+              <div style="font-size:1.1rem;font-weight:700;color:#fff">${totalDemand} compradores ativos</div>
+              <div style="font-size:.75rem;color:rgba(255,255,255,.6)">buscando imóveis no Oeste da Bahia agora</div>
+            </div>
+          </div>
+          <div class="rdr-seg">
+            <button class="rdr-seg-btn ${p.finalidade==='vender'?'on':''}" onclick="S.rp.finalidade='vender';render()">Quero vender</button>
+            <button class="rdr-seg-btn ${p.finalidade==='alugar'?'on':''}" onclick="S.rp.finalidade='alugar';render()">Quero alugar</button>
+          </div>
+          <div class="rdr-types">
+            ${types.map(([v,ic,l,s])=>{const d=demandByType[v]||0;return`<div class="rdr-type ${p.type===v?'sel':''}" onclick="S.rp.type='${v}';render()"><div class="rdr-type-ico"><i class="ti ${ic}" aria-hidden="true"></i></div><div class="rdr-type-l">${l}</div><div class="rdr-type-s">${d} buscadores ativos</div></div>`;}).join('')}
+          </div>`:
+        p.step===2?fields2:`
+          <div class="fg"><label class="fl">Seu nome</label><input class="fi" placeholder="Nome completo"></div>
+          <div class="fg"><label class="fl">WhatsApp</label><input class="fi" type="tel" placeholder="(77) 9 9999-9999"></div>
+          <div style="background:var(--a);border-radius:9px;padding:.875rem;font-size:.78rem;color:var(--cz);margin-bottom:1rem;display:flex;gap:8px;align-items:flex-start">
+            <i class="ti ti-lock" style="font-size:14px;margin-top:1px;flex-shrink:0" aria-hidden="true"></i>
+            <span>Seu imóvel não aparece publicamente. Só entraremos em contato quando houver um comprador/inquilino compatível com seu perfil.</span>
+          </div>`}
+        <div style="display:flex;justify-content:space-between;margin-top:1.5rem;padding-top:1.25rem;border-top:1px solid var(--a)">
+          ${p.step>1?`<button class="btn btn-o" onclick="S.rp.step--;render()"><i class="ti ti-arrow-left" aria-hidden="true"></i>Anterior</button>`:'<div></div>'}
+          ${p.step<3?`<button class="btn btn-p" onclick="${p.step===1&&!p.type?`alert('Selecione o tipo do imóvel.')`:p.step===1?`S.rp.step=2;render()`:p.step===2?`S.rp.step=3;render()`:``}"><i class="ti ti-arrow-right" aria-hidden="true"></i>Próximo</button>`:
+          `<button class="btn btn-p" onclick="S.rp.done=true;render()"><i class="ti ti-check" aria-hidden="true"></i>Registrar meu imóvel</button>`}
+        </div>`}
+      </div>
+    </div>
+  </div>`;
+}
+
+function indicePg(){
+  const tabs=[['residential','ti-home','Residencial'],['commercial','ti-building','Comercial'],['rural','ti-tractor','Rural'],['lot','ti-layout-board','Lotes']];
+  const data=INDICE[S.itab]||[];
+  return`
+  <div style="background:var(--a);padding:2rem;min-height:calc(100vh - 64px)">
+    <div class="cnt">
+      <button style="background:none;border:none;color:var(--cz);font-size:.8rem;cursor:pointer;margin-bottom:1.5rem;display:flex;align-items:center;gap:5px;font-family:var(--fb)" onclick="go('radar')"><i class="ti ti-arrow-left" aria-hidden="true"></i>Voltar ao Radar</button>
+      <div style="font-family:var(--fd);font-size:1.7rem;margin-bottom:.3rem">KAZA Índice</div>
+      <div style="color:var(--cz);font-size:.85rem;margin-bottom:1.5rem">Preços de referência por tipo e região — atualizado com transações do portal</div>
+      <div class="ind-tabs">
+        ${tabs.map(([v,ic,l])=>`<button class="ind-tab ${S.itab===v?'on':''}" onclick="S.itab='${v}';render()"><i class="ti ${ic}" aria-hidden="true"></i>${l}</button>`).join('')}
+      </div>
+      <div class="ind-cards">
+        ${data.map(d=>`
+          <div class="ind-card">
+            <div class="ind-card-head">
+              <div class="ind-area">${d.area}</div>
+              <span class="ind-trend ind-up">${d.trend} <i class="ti ti-trending-up" style="font-size:11px" aria-hidden="true"></i></span>
+            </div>
+            <div class="ind-price">${d.venda}</div>
+            <div class="ind-label">${S.itab==='rural'?'Referência de venda':S.itab==='lot'?'Referência de venda':'Venda'}${d.aluguel!=='—'?` · Aluguel: ${d.aluguel}`:''}</div>
+            <div class="ind-bar-wrap"><div class="ind-bar-fill" style="width:${d.fill}%;background:var(--v)"></div></div>
+            <div class="ind-bar-meta"><span>Baixo</span><span>Referência</span><span>Alto</span></div>
+            <div>
+              ${d.fill<45?`<span class="ind-sem ind-abaixo"><i class="ti ti-arrow-down" style="font-size:10px" aria-hidden="true"></i>Preço baixo na região</span>`:
+                d.fill>70?`<span class="ind-sem ind-acima"><i class="ti ti-arrow-up" style="font-size:10px" aria-hidden="true"></i>Preço acima da média</span>`:
+                `<span class="ind-sem ind-medio"><i class="ti ti-minus" style="font-size:10px" aria-hidden="true"></i>Preço na média</span>`}
+            </div>
+          </div>`).join('')}
+      </div>
+      <div style="margin-top:1.5rem;background:#fff;border-radius:12px;padding:1.25rem;border:1px solid rgba(0,0,0,.07);font-size:.78rem;color:var(--cz);display:flex;gap:8px;align-items:flex-start">
+        <i class="ti ti-info-circle" style="font-size:16px;flex-shrink:0;margin-top:1px" aria-hidden="true"></i>
+        <span>Os valores do KAZA Índice são calculados com base nas transações registradas no portal e servem como referência para o mercado do Oeste da Bahia. Não constituem avaliação formal de imóvel. Quanto mais transações ocorrerem via KAZA, mais preciso o índice fica.</span>
+      </div>
+    </div>
+  </div>`;
+}
+
+const PG={home:homePg,listings:listPg,detail:detailPg,dashboard:dashPg,create:createPg,login:loginPg,radar:radarPg,quero:queroPg,posso:possoPg,indice:indicePg};
+function go(p,id){S.page=p;if(id)S.lid=id;if(p==='create'){S.cstep=1;S.ctype=null;}if(p==='home')S.sent=false;render();document.getElementById('app').scrollTop=0;}
+function setF(k,v){S.f[k]=v}
+function sendC(){const n=document.getElementById('cname')?.value,p=document.getElementById('cphone')?.value;if(!n||!p){alert('Preencha nome e WhatsApp.');return;}S.sent=true;render();}
+function chPhoto(src,el){document.getElementById('mphoto').src=src;document.querySelectorAll('.thumb').forEach(t=>t.classList.remove('act'));el.classList.add('act');}
+function render(){document.getElementById('app').innerHTML=nav()+(PG[S.page]||homePg)();}
+render();
+</script>
+</body>
+</html>
+
 function render() {
   const pages = {
     home:      homePg,
