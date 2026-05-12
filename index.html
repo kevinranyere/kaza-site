@@ -55,13 +55,8 @@ nav{background:var(--v);padding:0 2rem;display:flex;align-items:center;height:64
 .sbar i{font-size:18px;color:#aaa;margin-left:4px;flex-shrink:0}
 .sbar input{flex:1;min-width:140px;border:none;outline:none;font-family:var(--fb);font-size:.9rem;padding:.3rem .5rem}
 .sbar select{border:none;outline:none;font-family:var(--fb);font-size:.8rem;background:var(--a);border-radius:7px;padding:.35rem .5rem}
-.statbar{background:var(--v);border-top:1px solid rgba(255,255,255,.1);padding:1rem 2rem;display:flex;justify-content:center;gap:2.5rem;flex-wrap:wrap}
-.stat{display:flex;align-items:center;gap:10px;padding:.25rem 0}
-.stat-ico{width:34px;height:34px;border-radius:9px;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.stat-ico i{font-size:17px;color:var(--tl)}
-.stat-txt{display:flex;flex-direction:column}
-.stat-n{font-family:var(--fd);font-size:1.1rem;color:#fff;font-weight:700;line-height:1.1}
-.stat-l{font-size:.62rem;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.08em}
+.statbar{background:var(--v);border-top:1px solid rgba(255,255,255,.08);padding:.875rem 2rem;display:flex;justify-content:center;gap:3rem;flex-wrap:wrap}
+.stat{text-align:center;display:flex;align-items:center;gap:10px}.stat-n{font-family:var(--fd);font-size:1.2rem;color:#fff;font-weight:700}.stat-l{font-size:.68rem;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.07em;text-align:left}
 .lws{display:grid;grid-template-columns:250px 1fr;gap:1.5rem;align-items:start}
 @media(max-width:768px){.lws{grid-template-columns:1fr}}
 .sidebar{background:#fff;border-radius:12px;padding:1.25rem;position:sticky;top:72px;box-shadow:0 2px 8px rgba(30,58,47,.06)}
@@ -117,99 +112,8 @@ nav{background:var(--v);padding:0 2rem;display:flex;align-items:center;height:64
 .feat-info{display:grid;grid-template-columns:repeat(auto-fit,minmax(90px,1fr));gap:.875rem}
 .feat-box{text-align:center;padding:.875rem;background:var(--a);border-radius:9px}
 .feat-box i{font-size:18px;color:var(--v);display:block;margin-bottom:4px}
-
-
-
-/* ── Create Story Modal ── */
-.cs-modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:400;display:flex;align-items:center;justify-content:center;padding:1rem;backdrop-filter:blur(6px);animation:fadeIn .25s ease}
-@keyframes fadeIn{from{opacity:0}to{opacity:1}}
-.cs-modal{background:#fff;border-radius:20px;width:100%;max-width:480px;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.25)}
-.cs-header{background:linear-gradient(135deg,#1E3A2F,#2a4d3f);padding:1.5rem;display:flex;align-items:center;gap:12px}
-.cs-header-icon{width:44px;height:44px;border-radius:12px;background:rgba(196,98,45,.3);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.cs-header-icon i{font-size:22px;color:#E8845A}
-.cs-header-title{font-family:'Playfair Display',serif;font-size:1.2rem;color:#fff}
-.cs-header-sub{font-size:.75rem;color:rgba(255,255,255,.55);margin-top:2px}
-.cs-close{margin-left:auto;width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.1);border:none;color:rgba(255,255,255,.7);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px}
-.cs-close:hover{background:rgba(255,255,255,.2);color:#fff}
-.cs-body{padding:1.5rem}
-.cs-step{display:none}.cs-step.active{display:block}
-.cs-label{font-size:.75rem;font-weight:600;color:#2d2d2d;letter-spacing:.02em;margin-bottom:6px;display:flex;align-items:center;gap:5px}
-.cs-label i{font-size:14px;color:#C4622D}
-.cs-input{width:100%;padding:.75rem 1rem;border:1.5px solid #EDE4D4;border-radius:10px;font-family:var(--fb,sans-serif);font-size:.88rem;color:#111;outline:none;transition:border-color .2s;background:#fff}
-.cs-input:focus{border-color:#1E3A2F;box-shadow:0 0 0 3px rgba(30,58,47,.08)}
-.cs-input::placeholder{color:#b3a89f}
-.cs-video-preview{margin-top:10px;border-radius:12px;overflow:hidden;background:#000;aspect-ratio:16/9;display:none;align-items:center;justify-content:center;position:relative}
-.cs-video-preview iframe{width:100%;height:100%;border:none}
-.cs-video-preview.show{display:flex}
-.cs-tip{background:#F5EFE6;border-radius:9px;padding:.75rem 1rem;font-size:.78rem;color:#8A7F77;display:flex;gap:8px;align-items:flex-start;line-height:1.55;margin-top:8px}
-.cs-tip i{flex-shrink:0;font-size:14px;color:#C4622D;margin-top:1px}
-.cs-property-grid{display:flex;flex-direction:column;gap:.5rem;max-height:220px;overflow-y:auto;margin-top:4px}
-.cs-prop{border:1.5px solid #EDE4D4;border-radius:10px;padding:.75rem;display:flex;align-items:center;gap:10px;cursor:pointer;transition:all .15s}
-.cs-prop:hover{border-color:#C4622D;background:rgba(196,98,45,.04)}
-.cs-prop.sel{border-color:#1E3A2F;background:rgba(30,58,47,.06)}
-.cs-prop-img{width:48px;height:38px;border-radius:6px;object-fit:cover;background:#EDE4D4;flex-shrink:0}
-.cs-prop-name{font-size:.84rem;font-weight:500;color:#111;line-height:1.3}
-.cs-prop-meta{font-size:.72rem;color:#8A7F77;margin-top:1px}
-.cs-prop-check{margin-left:auto;width:20px;height:20px;border-radius:50%;border:2px solid #EDE4D4;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .15s}
-.cs-prop.sel .cs-prop-check{background:#1E3A2F;border-color:#1E3A2F;color:#fff}
-.cs-steps-indicator{display:flex;gap:6px;justify-content:center;margin-bottom:1.25rem}
-.cs-dot{width:6px;height:6px;border-radius:50%;background:#EDE4D4;transition:all .25s}
-.cs-dot.on{background:#1E3A2F;width:20px;border-radius:99px}
-.cs-footer{padding:1rem 1.5rem;border-top:1px solid #F5EFE6;display:flex;justify-content:space-between;align-items:center}
-.cs-btn{display:inline-flex;align-items:center;gap:6px;padding:.625rem 1.25rem;border-radius:9px;font-family:var(--fb,sans-serif);font-size:.84rem;font-weight:500;cursor:pointer;border:none;transition:all .18s}
-.cs-btn-p{background:#1E3A2F;color:#fff}.cs-btn-p:hover{background:#2a4d3f}
-.cs-btn-t{background:#C4622D;color:#fff}.cs-btn-t:hover{background:#E8845A}
-.cs-btn-o{background:#fff;color:#8A7F77;border:1.5px solid #EDE4D4}.cs-btn-o:hover{border-color:#1E3A2F;color:#1E3A2F}
-.cs-success{text-align:center;padding:1.5rem 1rem}
-.cs-success-ring{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,#1E3A2F,#2a4d3f);display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;box-shadow:0 8px 24px rgba(30,58,47,.3)}
-.cs-success-ring i{font-size:30px;color:#4ade80}
-
-.stories-wrap{padding:16px 28px 0;max-width:1240px;margin:0 auto}
-.stories-label{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--cz);margin-bottom:10px;display:flex;align-items:center;gap:6px}
-.stories-row{display:flex;gap:14px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none}
-.stories-row::-webkit-scrollbar{display:none}
-.story-item{display:flex;flex-direction:column;align-items:center;gap:5px;cursor:pointer;flex-shrink:0}
-.story-ring{width:60px;height:60px;border-radius:50%;padding:2.5px;background:linear-gradient(135deg,#C4622D,#E8845A);transition:transform .2s}
-.story-ring.seen{background:#ddd}
-.story-ring:hover{transform:scale(1.05)}
-.story-inner{width:100%;height:100%;border-radius:50%;overflow:hidden;border:2.5px solid #fff}
-.story-inner img{width:100%;height:100%;object-fit:cover}
-.story-name{font-size:.65rem;color:var(--cm);max-width:64px;text-align:center;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;font-weight:500}
-.story-modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:300;display:flex;align-items:center;justify-content:center;cursor:pointer}
-.story-modal{background:#000;border-radius:16px;overflow:hidden;width:340px;position:relative;cursor:default}
-.story-modal img{width:100%;display:block;max-height:450px;object-fit:cover}
-.story-modal-info{background:#111;padding:14px 16px;display:flex;align-items:center;gap:10px}
-.story-modal-av{width:36px;height:36px;border-radius:50%;background:var(--v);display:flex;align-items:center;justify-content:center;color:#fff;font-family:var(--fd);font-size:.9rem;font-weight:700;flex-shrink:0}
-.story-modal-title{font-size:.88rem;font-weight:500;color:#fff}
-.story-modal-meta{font-size:.75rem;color:rgba(255,255,255,.5)}
-.story-modal-btn{margin-left:auto;background:var(--t);color:#fff;border:none;border-radius:8px;padding:7px 14px;font-size:.78rem;cursor:pointer;font-family:var(--fb);display:flex;align-items:center;gap:5px}
-.story-close{position:absolute;top:12px;right:12px;width:30px;height:30px;border-radius:50%;background:rgba(0,0,0,.6);border:none;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center}
-.b-deal{background:#f97316;color:#fff}
-.b-fair{background:#059669;color:#fff}
-.b-swap{background:rgba(255,255,255,.9);color:#1E3A2F;border:1px solid rgba(30,58,47,.25)}
-footer{background:var(--ch);color:rgba(255,255,255,.55);padding:3.5rem 2rem 2rem;font-size:.83rem}
-.footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1.2fr;gap:2.5rem;max-width:1240px;margin:0 auto 2.5rem}
-.footer-brand .logo-f{font-family:var(--fd);font-size:1.6rem;color:#fff;margin-bottom:.5rem}
-.footer-brand p{font-size:.83rem;line-height:1.65;color:rgba(255,255,255,.45);max-width:220px;margin-bottom:1.1rem}
-.footer-socials{display:flex;gap:.625rem}
-.footer-social{width:36px;height:36px;border-radius:9px;border:1px solid rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.5);transition:all .2s;text-decoration:none}
-.footer-social:hover{background:rgba(255,255,255,.08);color:#fff;border-color:rgba(255,255,255,.25)}
-.footer-social i{font-size:16px}
-.footer-col-title{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--tl);margin-bottom:1rem;display:flex;align-items:center;gap:8px}
-.footer-col-title::before,.footer-col-title::after{content:'';display:inline-block;width:18px;height:1px;background:var(--tl)}
-.footer-links{display:flex;flex-direction:column;gap:.65rem}
-.footer-links a{color:rgba(255,255,255,.5);text-decoration:none;font-size:.85rem;transition:color .15s}
-.footer-links a:hover{color:#fff}
-.footer-contact{display:flex;flex-direction:column;gap:.75rem}
-.footer-contact-item{display:flex;gap:9px;align-items:flex-start;font-size:.83rem;color:rgba(255,255,255,.5)}
-.footer-contact-item i{font-size:15px;color:var(--tl);flex-shrink:0;margin-top:2px}
-.footer-contact-item a{color:rgba(255,255,255,.5);text-decoration:none;transition:color .15s}
-.footer-contact-item a:hover{color:#fff}
-.footer-bottom{max-width:1240px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;padding-top:1.75rem;font-size:.75rem;color:rgba(255,255,255,.3);border-top:1px solid rgba(255,255,255,.08)}
-.footer-bottom a{color:rgba(255,255,255,.3);text-decoration:none;transition:color .15s}
-.footer-bottom a:hover{color:rgba(255,255,255,.6)}
-@media(max-width:900px){.footer-grid{grid-template-columns:1fr 1fr!important;gap:2rem!important}}
-@media(max-width:560px){.footer-grid{grid-template-columns:1fr!important}footer{padding:2.5rem 1.5rem 1.5rem!important}}
+footer{background:var(--ch);color:rgba(255,255,255,.55);padding:1.75rem;text-align:center;font-size:.83rem}
+footer strong{color:#fff}
 /* ── RADAR ── */
 .rdr-hero{background:var(--v);padding:3.5rem 2rem;text-align:center;position:relative;overflow:hidden}
 .rdr-hero::before{content:'';position:absolute;top:-40px;right:-40px;width:300px;height:300px;border-radius:50%;background:rgba(196,98,45,.06);pointer-events:none}
@@ -274,11 +178,512 @@ footer{background:var(--ch);color:rgba(255,255,255,.55);padding:3.5rem 2rem 2rem
 .rdr-notif-txt{font-size:.8rem;color:rgba(255,255,255,.8);line-height:1.5}
 .rdr-notif-txt strong{color:#fff}
 @media(max-width:580px){.rdr-cta{grid-template-columns:1fr}.rdr-demand{gap:.6rem}}
+
+
+/* === NEW FEATURES CSS === */
+.hamburger{display:none;flex-direction:column;gap:4px;cursor:pointer;padding:6px;background:rgba(255,255,255,.1);border-radius:8px;border:none;margin-left:auto}
+.hamburger span{display:block;width:20px;height:2px;background:#fff;border-radius:2px;transition:all .25s}
+.mob-drawer{display:none;position:fixed;inset:0;z-index:200}
+.mob-drawer.open{display:block}
+.mob-bg{position:absolute;inset:0;background:rgba(0,0,0,.5)}
+.mob-panel{position:absolute;top:0;right:0;width:260px;height:100%;background:var(--v);padding:1.25rem;overflow-y:auto;transform:translateX(100%);transition:transform .28s}
+.mob-drawer.open .mob-panel{transform:none}
+.mob-item{display:flex;align-items:center;gap:10px;color:rgba(255,255,255,.85);font-size:.9rem;font-weight:500;padding:.75rem 1rem;border-radius:9px;cursor:pointer;transition:all .15s}
+.mob-item:hover{background:rgba(255,255,255,.12);color:#fff}
+.mob-sep{height:1px;background:rgba(255,255,255,.1);margin:.5rem 0}
+.bot-nav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:100;background:#fff;border-top:1px solid rgba(0,0,0,.08);padding:.5rem 0;box-shadow:0 -4px 16px rgba(0,0,0,.06)}
+.bn-row{display:flex;justify-content:space-around}
+.bn-btn{display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;padding:.35rem .75rem;background:none;border:none;font-family:var(--fb);position:relative}
+.bn-btn span{font-size:.6rem;color:var(--cz);font-weight:500}
+.bn-btn i{font-size:22px;color:var(--cz)}
+.bn-btn.act i,.bn-btn.act span{color:var(--t)}
+.bn-badge{position:absolute;top:4px;right:6px;min-width:16px;height:16px;border-radius:99px;background:var(--t);color:#fff;font-size:.55rem;font-weight:700;display:flex;align-items:center;justify-content:center;padding:0 3px}
+@media(max-width:768px){.nav-links .nl:not(:last-child){display:none}.hamburger{display:flex}.bot-nav{display:block}body{padding-bottom:68px}}
+.hrt{position:absolute;top:10px;right:10px;z-index:3;width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.92);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+.hrt:hover{transform:scale(1.15)}
+.hrt i{font-size:15px;color:#aaa;transition:color .2s}
+.hrt.on i{color:#e53935}
+@keyframes shimmer{0%{background-position:-1000px 0}100%{background-position:1000px 0}}
+.sk{background:linear-gradient(90deg,#e8e0d8 25%,#f5efe6 50%,#e8e0d8 75%);background-size:2000px 100%;animation:shimmer 1.8s infinite;border-radius:6px;display:block}
+.sort-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:.75rem}
+.sort-sel{padding:.4rem .75rem;border-radius:8px;border:1.5px solid #EDE4D4;font-family:var(--fb);font-size:.82rem;background:#fff;color:var(--ch);cursor:pointer;outline:none}
+.wa-fab{position:fixed;bottom:80px;right:18px;z-index:150;width:52px;height:52px;border-radius:50%;background:#25D366;color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(37,211,102,.4);cursor:pointer;text-decoration:none;transition:all .2s}
+.wa-fab:hover{transform:scale(1.08)}
+.wa-fab i{font-size:26px}
+@media(min-width:769px){.wa-fab{bottom:24px;right:84px}}
+.gal-dots{display:flex;gap:5px;justify-content:center;margin-top:8px}
+.gal-dot{width:7px;height:7px;border-radius:50%;background:rgba(30,58,47,.2);cursor:pointer;transition:all .2s}
+.gal-dot.on{background:var(--t);width:18px;border-radius:99px}
+.gal-ctr{position:absolute;bottom:10px;right:12px;background:rgba(0,0,0,.55);color:#fff;font-size:.72rem;padding:2px 8px;border-radius:99px}
+.ac-wrap{position:relative;flex:1;min-width:140px}
+.ac-drop{position:absolute;top:100%;left:0;right:0;background:#fff;border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,.12);z-index:100;margin-top:4px;max-height:220px;overflow-y:auto}
+.ac-item{padding:.625rem 1rem;cursor:pointer;font-size:.86rem;display:flex;align-items:center;gap:8px;transition:background .12s}
+.ac-item:hover{background:var(--a)}
+.card-date{font-size:.7rem;color:var(--cz);margin-top:4px;display:flex;align-items:center;gap:3px}
+.b-deal{background:#f97316;color:#fff}.b-fair{background:#059669;color:#fff}
+.b-swap{background:rgba(255,255,255,.9);color:#1E3A2F;border:1px solid rgba(30,58,47,.25)}
+.b-pnd{background:#fef9c3;color:#854d0e}
+.stories-wrap{padding:16px 28px 0;max-width:1240px;margin:0 auto}
+.stories-label{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--cz);margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.stories-row{display:flex;gap:14px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none}
+.stories-row::-webkit-scrollbar{display:none}
+.story-item{display:flex;flex-direction:column;align-items:center;gap:5px;cursor:pointer;flex-shrink:0}
+.story-ring{width:60px;height:60px;border-radius:50%;padding:2.5px;background:linear-gradient(135deg,#C4622D,#E8845A);transition:transform .2s}
+.story-ring.seen{background:#ddd}
+.story-ring:hover{transform:scale(1.05)}
+.story-inner{width:100%;height:100%;border-radius:50%;overflow:hidden;border:2.5px solid #fff}
+.story-inner img{width:100%;height:100%;object-fit:cover}
+.story-name{font-size:.62rem;color:var(--cz);max-width:64px;text-align:center;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;font-weight:500}
+.story-modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:300;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.story-modal{background:#000;border-radius:16px;overflow:hidden;width:340px;position:relative;cursor:default}
+.story-modal img,.story-modal video{width:100%;display:block;max-height:450px;object-fit:cover}
+.story-modal-info{background:#111;padding:14px 16px;display:flex;align-items:center;gap:10px}
+.story-modal-av{width:36px;height:36px;border-radius:50%;background:var(--v);display:flex;align-items:center;justify-content:center;color:#fff;font-family:var(--fd);font-size:.9rem;font-weight:700;flex-shrink:0}
+.story-modal-title{font-size:.88rem;font-weight:500;color:#fff}
+.story-modal-btn{margin-left:auto;background:var(--t);color:#fff;border:none;border-radius:8px;padding:7px 14px;font-size:.78rem;cursor:pointer;font-family:var(--fb);display:flex;align-items:center;gap:5px}
+.story-close{position:absolute;top:12px;right:12px;width:30px;height:30px;border-radius:50%;background:rgba(0,0,0,.6);border:none;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.cs-modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:400;display:flex;align-items:center;justify-content:center;padding:1rem;backdrop-filter:blur(6px)}
+.cs-modal{background:#fff;border-radius:20px;width:100%;max-width:480px;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.25)}
+.cs-header{background:linear-gradient(135deg,#1E3A2F,#2a4d3f);padding:1.5rem;display:flex;align-items:center;gap:12px}
+.cs-header-title{font-family:'Playfair Display',serif;font-size:1.2rem;color:#fff}
+.cs-close{margin-left:auto;width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.1);border:none;color:rgba(255,255,255,.7);cursor:pointer;display:flex;align-items:center;justify-content:center}
+.cs-body{padding:1.5rem}
+.cs-step{display:none}.cs-step.active{display:block}
+.cs-label{font-size:.75rem;font-weight:600;color:#2d2d2d;letter-spacing:.02em;margin-bottom:6px}
+.cs-input{width:100%;padding:.75rem 1rem;border:1.5px solid #EDE4D4;border-radius:10px;font-family:var(--fb);font-size:.88rem;color:#111;outline:none;transition:border-color .2s}
+.cs-input:focus{border-color:#1E3A2F}
+.cs-prop{border:1.5px solid #EDE4D4;border-radius:10px;padding:.75rem;display:flex;align-items:center;gap:10px;cursor:pointer;transition:all .15s;margin-bottom:.5rem}
+.cs-prop:hover{border-color:#C4622D}
+.cs-prop.sel{border-color:#1E3A2F;background:rgba(30,58,47,.06)}
+.cs-footer{padding:1rem 1.5rem;border-top:1px solid #F5EFE6;display:flex;justify-content:space-between}
+.cs-btn{display:inline-flex;align-items:center;gap:6px;padding:.625rem 1.25rem;border-radius:9px;font-family:var(--fb);font-size:.84rem;font-weight:500;cursor:pointer;border:none;transition:all .18s}
+.cs-btn-p{background:#1E3A2F;color:#fff}.cs-btn-t{background:#C4622D;color:#fff}.cs-btn-o{background:#fff;color:var(--cz);border:1.5px solid #EDE4D4}
+.cs-steps{display:flex;gap:6px;justify-content:center;margin-bottom:1.25rem}
+.cs-dot{width:6px;height:6px;border-radius:50%;background:#EDE4D4;transition:all .25s}
+.cs-dot.on{background:#1E3A2F;width:20px;border-radius:99px}
+
+/* ── KAZA IA ── */
+#kz-ia-btn{position:fixed;bottom:24px;right:24px;z-index:200;display:flex;align-items:center;gap:9px;background:#1E3A2F;color:#fff;border:none;border-radius:99px;padding:12px 20px 12px 14px;cursor:pointer;box-shadow:0 4px 20px rgba(30,58,47,.35);font-family:'DM Sans',system-ui,sans-serif;font-size:.88rem;font-weight:500;transition:all .2s;user-select:none}
+#kz-ia-btn:hover{background:#2a4d3f;transform:translateY(-2px)}
+#kz-ia-btn .ia-av{width:32px;height:32px;border-radius:50%;background:rgba(196,98,45,.25);border:2px solid rgba(232,132,90,.4);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',Georgia,serif;font-size:14px;font-weight:700;color:#E8845A;flex-shrink:0}
+#kz-ia-btn .ia-dot{width:8px;height:8px;border-radius:50%;background:#4ade80;position:absolute;top:10px;right:10px;box-shadow:0 0 0 2px #1E3A2F}
+#kz-ia-panel{position:fixed;bottom:88px;right:24px;z-index:200;width:380px;height:540px;background:#F5EFE6;border-radius:18px;box-shadow:0 8px 40px rgba(0,0,0,.18);display:none;flex-direction:column;overflow:hidden;font-family:'DM Sans',system-ui,sans-serif;border:1.5px solid rgba(30,58,47,.15)}
+#kz-ia-panel.open{display:flex;animation:iaIn .25s cubic-bezier(.4,0,.2,1)}
+@keyframes iaIn{from{opacity:0;transform:translateY(16px) scale(.97)}to{opacity:1;transform:none}}
+.ia-header{background:#1E3A2F;padding:12px 14px;display:flex;align-items:center;gap:10px;flex-shrink:0}
+.ia-hav{width:36px;height:36px;border-radius:50%;background:rgba(196,98,45,.2);border:2px solid rgba(232,132,90,.35);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',Georgia,serif;font-size:15px;font-weight:700;color:#E8845A;flex-shrink:0}
+.ia-hname{font-size:.9rem;font-weight:500;color:#fff}
+.ia-hstatus{font-size:.68rem;color:rgba(255,255,255,.5);display:flex;align-items:center;gap:4px;margin-top:2px}
+.ia-hstatus span{width:5px;height:5px;border-radius:50%;background:#4ade80;display:inline-block}
+.ia-hpow{margin-left:auto;font-size:.6rem;color:rgba(255,255,255,.35);text-align:right;line-height:1.5}
+.ia-hpow b{color:rgba(255,255,255,.58)}
+.ia-close{background:rgba(255,255,255,.1);border:none;border-radius:7px;width:28px;height:28px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:rgba(255,255,255,.6);transition:all .15s;flex-shrink:0}
+.ia-close:hover{background:rgba(255,255,255,.18);color:#fff}
+.ia-msgs{flex:1;overflow-y:auto;padding:14px 12px;display:flex;flex-direction:column;scroll-behavior:smooth}
+.ia-msgs::-webkit-scrollbar{width:3px}
+.ia-msgs::-webkit-scrollbar-thumb{background:rgba(0,0,0,.1);border-radius:3px}
+.ia-welcome{text-align:center;padding-top:8px}
+.ia-wlogo{width:48px;height:48px;border-radius:50%;background:#1E3A2F;display:flex;align-items:center;justify-content:center;margin:0 auto 10px;font-family:'Playfair Display',Georgia,serif;font-size:20px;font-weight:700;color:#E8845A}
+.ia-wtitle{font-family:'Playfair Display',Georgia,serif;font-size:1.1rem;font-weight:700;color:#1E3A2F;margin-bottom:6px}
+.ia-wsub{font-size:.78rem;color:#8A7F77;line-height:1.6;margin-bottom:14px;max-width:260px;margin-left:auto;margin-right:auto}
+.ia-sugs{display:flex;flex-direction:column;gap:6px;max-width:290px;margin:0 auto}
+.ia-sug{background:#fff;border:1px solid rgba(30,58,47,.15);border-radius:9px;padding:8px 11px;font-size:.75rem;color:#1E3A2F;cursor:pointer;text-align:left;line-height:1.4;font-family:'DM Sans',system-ui,sans-serif;transition:all .15s}
+.ia-sug:hover{background:#1E3A2F;color:#fff}
+.ia-row{display:flex;flex-direction:column;margin-bottom:9px}
+.ia-row.usr{align-items:flex-end}
+.ia-row.bot{align-items:flex-start}
+.ia-byline{display:flex;align-items:center;gap:5px;margin-bottom:4px}
+.ia-byav{width:22px;height:22px;border-radius:50%;background:#1E3A2F;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:10px;font-weight:700;color:#E8845A}
+.ia-bubble{max-width:88%;padding:9px 12px;font-size:.82rem;line-height:1.6}
+.ia-bubble.usr{background:#1E3A2F;color:#fff;border-radius:13px 13px 3px 13px}
+.ia-bubble.bot{background:#fff;color:#111;border-radius:3px 13px 13px 13px;border:1px solid rgba(0,0,0,.07)}
+.ia-typing{display:flex;align-items:center;gap:6px;margin-bottom:8px}
+.ia-typing-bub{background:#fff;border-radius:3px 12px 12px 12px;padding:9px 12px;border:1px solid rgba(0,0,0,.07);display:flex;gap:3px;align-items:center}
+.ia-dot-anim{width:5px;height:5px;border-radius:50%;background:#C4622D;animation:iaBounce .9s ease-in-out infinite}
+@keyframes iaBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+.ia-input-wrap{background:#fff;border-top:1px solid rgba(0,0,0,.07);padding:9px 10px;display:flex;gap:7px;align-items:flex-end;flex-shrink:0}
+#kz-ia-inp{flex:1;border:1.5px solid rgba(30,58,47,.2);border-radius:9px;padding:8px 10px;font-size:.82rem;font-family:'DM Sans',system-ui,sans-serif;outline:none;resize:none;line-height:1.5;max-height:70px;background:#fff;color:#111;transition:border-color .2s}
+#kz-ia-inp:focus{border-color:#1E3A2F}
+#kz-ia-send{width:34px;height:34px;border-radius:8px;background:#C4622D;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .15s}
+#kz-ia-send:hover{background:#E8845A}
+#kz-ia-send:disabled{background:#ddd;cursor:not-allowed}
+@media(max-width:440px){#kz-ia-panel{width:calc(100vw - 16px);right:8px;bottom:80px}}
+@media(max-width:768px){#kz-ia-btn{bottom:80px}}
+
+/* === SHARE FEATURE === */
+.share-action-bar{display:flex;align-items:center;gap:.625rem;margin-bottom:1.25rem;flex-wrap:wrap}
+.share-btn-pill{display:inline-flex;align-items:center;gap:7px;padding:.48rem 1.1rem;border-radius:99px;border:1.5px solid #ddd;background:#fff;font-family:var(--fb);font-size:.82rem;font-weight:500;cursor:pointer;color:var(--ch);transition:all .18s;line-height:1}
+.share-btn-pill i{font-size:15px}
+.share-btn-pill:hover{border-color:var(--t);color:var(--t);background:#fff8f5}
+.share-btn-pill.fav-on{border-color:var(--t);color:var(--t);background:#fff1eb}
+.share-overlay{position:fixed;inset:0;z-index:500;display:flex;align-items:flex-end;justify-content:center;background:rgba(0,0,0,.52);animation:shrOverIn .18s}
+@keyframes shrOverIn{from{opacity:0}to{opacity:1}}
+.share-sheet{background:#fff;border-radius:20px 20px 0 0;padding:1.25rem 1.5rem 2rem;width:100%;max-width:440px;animation:shrSheetUp .25s cubic-bezier(.34,1.18,.64,1)}
+@keyframes shrSheetUp{from{transform:translateY(80px);opacity:.2}to{transform:none;opacity:1}}
+.share-handle{width:40px;height:4px;border-radius:99px;background:#e0e0e0;margin:0 auto 1.1rem}
+.share-sheet-title{font-family:var(--fd);font-size:1.1rem;text-align:center;margin-bottom:.25rem;color:var(--ch)}
+.share-sheet-sub{font-size:.74rem;color:var(--cz);text-align:center;margin-bottom:1.5rem;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;padding:0 .5rem}
+.share-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.5rem;margin-bottom:1.25rem}
+.share-item{display:flex;flex-direction:column;align-items:center;gap:5px;cursor:pointer;padding:.6rem .3rem;border-radius:12px;transition:background .15s;border:none;background:none;font-family:var(--fb)}
+.share-item:hover{background:var(--a)}
+.share-item:active{transform:scale(.96)}
+.share-ico{width:52px;height:52px;border-radius:16px;display:flex;align-items:center;justify-content:center;margin-bottom:1px;flex-shrink:0}
+.share-ico i{font-size:23px}
+.share-item-lbl{font-size:.68rem;font-weight:500;color:var(--ch)}
+.share-copy-row{background:var(--a);border-radius:10px;padding:.75rem;display:flex;gap:.5rem;align-items:center}
+.share-copy-txt{flex:1;font-size:.74rem;color:var(--cz);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.share-copy-action{flex-shrink:0;background:var(--v);color:#fff;border:none;border-radius:7px;padding:.4rem .875rem;font-size:.75rem;font-weight:500;cursor:pointer;font-family:var(--fb);display:inline-flex;align-items:center;gap:5px;transition:all .15s;white-space:nowrap}
+.share-copy-action:hover{background:var(--t)}
+.share-dismiss{width:100%;margin-top:.875rem;background:none;border:1.5px solid #eee;border-radius:10px;padding:.65rem;font-family:var(--fb);font-size:.85rem;color:var(--cz);cursor:pointer;transition:all .15s}
+.share-dismiss:hover{border-color:var(--t);color:var(--t)}
+@media(max-width:480px){.share-sheet{padding:1.1rem 1.1rem 2rem}.share-grid{gap:.25rem}.share-ico{width:46px;height:46px}.share-ico i{font-size:20px}}
 </style>
 </head>
 <body>
 <div id="app"></div>
 <script>
+
+// === API BASE ===
+const API_BASE = 'https://web-production-66119.up.railway.app/api';
+
+// === TOAST ===
+function showToast(msg, type) {
+  let t = document.getElementById('kz-toast');
+  if (!t) {
+    t = document.createElement('div');
+    t.id = 'kz-toast';
+    t.style.cssText = 'position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(20px);background:#1A1A1A;color:#fff;padding:.75rem 1.4rem;border-radius:10px;font-family:DM Sans,sans-serif;font-size:.88rem;font-weight:500;box-shadow:0 8px 24px rgba(0,0,0,.25);z-index:9999;opacity:0;transition:all .3s;pointer-events:none;white-space:nowrap;max-width:90vw;text-align:center';
+    document.body.appendChild(t);
+  }
+  t.style.background = type === 'err' ? '#c62828' : '#1A1A1A';
+  t.textContent = msg;
+  t.style.opacity = '1';
+  t.style.transform = 'translateX(-50%) translateY(0)';
+  clearTimeout(t._h);
+  t._h = setTimeout(() => { t.style.opacity = '0'; t.style.transform = 'translateX(-50%) translateY(20px)'; }, 2800);
+}
+
+// === SCORE ===
+const BENCHMARKS = { residential_m2: 3200, commercial_m2: 2800, lot_m2: 850, rural_ha: 19400 };
+function calcScore(l) {
+  let s = 5;
+  if (l.price) {
+    let r = null;
+    if (l.type === 'rural' && l.area_ha) r = { val: l.price / l.area_ha, b: BENCHMARKS.rural_ha };
+    else if (l.area && l.type === 'residential') r = { val: l.price / l.area, b: BENCHMARKS.residential_m2 };
+    else if (l.area && l.type === 'commercial') r = { val: l.price / l.area, b: BENCHMARKS.commercial_m2 };
+    else if (l.area && l.type === 'lot') r = { val: l.price / l.area, b: BENCHMARKS.lot_m2 };
+    if (r) { const ratio = r.val / r.b; if (ratio < 0.80) s += 2.5; else if (ratio < 0.92) s += 1.5; else if (ratio < 1.05) s += 0.5; else if (ratio > 1.25) s -= 1.5; else if (ratio > 1.10) s -= 0.5; }
+  }
+  const np = (l.imgs || []).length || 1;
+  if (np >= 7) s += 1.2; else if (np >= 4) s += 0.7; else if (np <= 1) s -= 1;
+  const dl = (l.desc || '').length;
+  if (dl > 300) s += 0.8; else if (dl > 100) s += 0.4; else s -= 0.5;
+  const score = Math.min(10, Math.max(1, Math.round(s * 10) / 10));
+  let label = null;
+  if (score >= 8.0) label = { text: 'Oportunidade', cls: 'b-deal', icon: 'ti-bolt' };
+  else if (score >= 6.5) label = { text: 'Preço Justo', cls: 'b-fair', icon: 'ti-check' };
+  return { score, label };
+}
+
+// === API FETCH ===
+async function apiFetch(path, method, body) {
+  if (!method) method = 'GET';
+  try {
+    const headers = { 'Content-Type': 'application/json' };
+    const token = S.token || localStorage.getItem('kaza_token');
+    if (token) headers['Authorization'] = 'Bearer ' + token;
+    const res = await fetch(API_BASE + path, { method, headers, body: body ? JSON.stringify(body) : undefined });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Erro na requisição');
+    return data;
+  } catch (e) { throw e; }
+}
+
+// === AUTH ===
+async function doLogin() {
+  const email = document.getElementById('login-email') && document.getElementById('login-email').value.trim();
+  const pass = document.getElementById('login-pass') && document.getElementById('login-pass').value;
+  if (!email || !pass) return showToast('Preencha e-mail e senha');
+  try {
+    const data = await apiFetch('/auth/login', 'POST', { email: email, password: pass });
+    if (!data) return showToast('E-mail ou senha incorretos');
+    S.token = data.token; S.user = data.user; S.auth = true;
+    localStorage.setItem('kaza_token', S.token);
+    localStorage.setItem('kaza_user', JSON.stringify(S.user));
+    go('dashboard');
+  } catch (err) { showToast('E-mail ou senha incorretos', 'err'); }
+}
+
+async function doRegister() {
+  const name = document.getElementById('reg-name') && document.getElementById('reg-name').value.trim();
+  const email = document.getElementById('reg-email') && document.getElementById('reg-email').value.trim();
+  const phone = document.getElementById('reg-phone') && document.getElementById('reg-phone').value.trim();
+  const pass = document.getElementById('reg-pass') && document.getElementById('reg-pass').value;
+  const agency = document.getElementById('reg-agency') && document.getElementById('reg-agency').value;
+  const creci = document.getElementById('reg-creci') && document.getElementById('reg-creci').value;
+  if (!name || !email || !phone || !pass) return showToast('Preencha todos os campos obrigatórios');
+  if (pass.length < 8) return showToast('Senha deve ter no mínimo 8 caracteres');
+  try {
+    const data = await apiFetch('/auth/register', 'POST', { name: name, email: email, phone: phone, password: pass, type: S.rt || 'person', agency_name: agency || undefined, creci: creci || undefined });
+    if (!data) return showToast('Erro ao criar conta. Tente novamente.');
+    S.token = data.token; S.user = data.user; S.auth = true;
+    localStorage.setItem('kaza_token', S.token);
+    localStorage.setItem('kaza_user', JSON.stringify(S.user));
+    showToast('Conta criada com sucesso!');
+    go('dashboard');
+  } catch (err) { showToast(err.message || 'Erro ao criar conta', 'err'); }
+}
+
+async function doLogout() {
+  S.token = null; S.user = null; S.auth = false; S.cache = {};
+  localStorage.removeItem('kaza_token');
+  localStorage.removeItem('kaza_user');
+  go('home');
+}
+
+// === FAVORITES ===
+function toggleFav(id) {
+  if (!S.saved) S.saved = {};
+  if (S.saved[id]) delete S.saved[id];
+  else S.saved[id] = true;
+  localStorage.setItem('kaza_favs', JSON.stringify(S.saved));
+  render();
+}
+
+// === STORIES DATA ===
+const STORIES = [
+  { id: 's1', lid: '1', name: 'Fazenda 500ha', seen: false, img: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=200&q=70' },
+  { id: 's2', lid: '2', name: 'Casa Piscina', seen: false, img: 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=200&q=70' },
+  { id: 's3', lid: '4', name: 'Apto Centro', seen: true, img: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=200&q=70' },
+  { id: 's4', lid: '3', name: 'Fazenda 200ha', seen: false, img: 'https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=200&q=70' },
+  { id: 's5', lid: '5', name: 'Sala Comercial', seen: true, img: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=200&q=70' },
+];
+
+function openStory(sid) {
+  const s = STORIES.find(x => x.id === sid);
+  if (!s) return;
+  s.seen = true;
+  const r = document.querySelector('[data-story="' + sid + '"] .story-ring');
+  if (r) r.classList.add('seen');
+  const videoSrc = s.nativeVideoUrl || s.localVideoUrl || null;
+  const media = videoSrc
+    ? '<video src="' + videoSrc + '" controls autoplay muted playsinline style="width:100%;max-height:460px;display:block;object-fit:contain"></video>'
+    : '<img src="' + s.img + '" alt="' + s.name + '" style="width:100%;display:block;max-height:450px;object-fit:cover">';
+  const bg = document.createElement('div');
+  bg.className = 'story-modal-bg';
+  bg.onclick = function() { bg.remove(); };
+  bg.innerHTML = '<div class="story-modal" onclick="event.stopPropagation()">'
+    + '<button class="story-close" onclick="this.closest(\'.story-modal-bg\').remove()"><i class="ti ti-x"></i></button>'
+    + media
+    + '<div class="story-modal-info">'
+    + '<div class="story-modal-av">' + s.name[0] + '</div>'
+    + '<div><div class="story-modal-title">' + s.name + '</div></div>'
+    + '<button class="story-modal-btn" onclick="document.querySelector(\'.story-modal-bg\').remove();go(\'detail\',\'' + s.lid + '\')"><i class="ti ti-arrow-right"></i>Ver imóvel</button>'
+    + '</div></div>';
+  document.body.appendChild(bg);
+}
+
+// === NEW PAGE FUNCTIONS ===
+function favoritosPg() {
+  const ids = Object.keys(S.saved || {});
+  const fl = L.filter(function(l) { return ids.indexOf(String(l.id)) > -1; });
+  const emptyHtml = '<div style="text-align:center;padding:4rem 1rem">'
+    + '<i class="ti ti-heart-off" style="font-size:3.5rem;color:#EDE4D4;display:block;margin-bottom:1rem"></i>'
+    + '<div style="font-family:var(--fd);font-size:1.3rem;margin-bottom:.5rem">Nenhum favorito ainda</div>'
+    + '<div style="color:var(--cz);margin-bottom:1.5rem">Clique no ♡ em qualquer imóvel para salvar aqui.</div>'
+    + '<button class="btn btn-p" onclick="go(\'listings\')">Explorar imóveis</button>'
+    + '</div>';
+  const clearBtn = fl.length > 0 ? '<button class="btn btn-o" onclick="S.saved={};localStorage.removeItem(\'kaza_favs\');render()">Limpar tudo</button>' : '';
+  return '<div class="sec sec-a" style="min-height:calc(100vh - 64px)">'
+    + '<div class="cnt">'
+    + '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:2rem;flex-wrap:wrap;gap:1rem">'
+    + '<div><div class="eyebrow">Salvos</div><div class="sh">Meus Favoritos</div></div>'
+    + clearBtn
+    + '</div>'
+    + (fl.length === 0 ? emptyHtml : '<div class="g3">' + fl.map(cardH).join('') + '</div>')
+    + '</div></div>';
+}
+
+function comprarPg() { setF('purpose', 'sale'); setF('type', 'all'); S.page = 'listings'; return listPg(); }
+function alugarPg() { setF('purpose', 'rent'); setF('type', 'all'); S.page = 'listings'; return listPg(); }
+function ruraisPg() { setF('type', 'rural'); setF('purpose', 'all'); S.page = 'listings'; return listPg(); }
+
+function anunciarPg() {
+  return '<div class="hero" style="min-height:80vh;display:flex;flex-direction:column;justify-content:center">'
+    + '<h1>Anuncie seus imóveis<br>e receba leads no WhatsApp</h1>'
+    + '<p>100% gratuito · Painel completo · KAZA Radar incluso</p>'
+    + '<div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">'
+    + '<button class="btn btn-p btn-lg" onclick="go(\'login\')"><i class="ti ti-user-plus"></i>Criar conta grátis</button>'
+    + '<button class="btn btn-o btn-lg" style="color:#fff;border-color:#fff" onclick="go(\'listings\')">Ver imóveis</button>'
+    + '</div></div>'
+    + '<div class="sec sec-a"><div class="cnt" style="text-align:center">'
+    + '<div class="sh">Como funciona</div>'
+    + '<div class="ss">Em 3 passos você já recebe os primeiros contatos</div>'
+    + '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:2rem;margin-top:2rem">'
+    + ['<i class="ti ti-user-plus" style="font-size:2.5rem;color:var(--t);display:block;margin-bottom:1rem"></i><div style="font-weight:600;font-size:1rem;margin-bottom:.5rem">1. Crie sua conta</div><div style="font-size:.88rem;color:var(--cz)">Cadastro gratuito em menos de 1 minuto</div>',
+       '<i class="ti ti-home-plus" style="font-size:2.5rem;color:var(--t);display:block;margin-bottom:1rem"></i><div style="font-weight:600;font-size:1rem;margin-bottom:.5rem">2. Publique seu imóvel</div><div style="font-size:.88rem;color:var(--cz)">Fotos, descrição e KAZA Score automático</div>',
+       '<i class="ti ti-brand-whatsapp" style="font-size:2.5rem;color:var(--t);display:block;margin-bottom:1rem"></i><div style="font-weight:600;font-size:1rem;margin-bottom:.5rem">3. Receba leads</div><div style="font-size:.88rem;color:var(--cz)">Clientes entram em contato pelo WhatsApp</div>']
+      .map(function(h) { return '<div style="background:#fff;border-radius:12px;padding:1.75rem;box-shadow:0 2px 8px rgba(30,58,47,.08)">' + h + '</div>'; }).join('')
+    + '</div>'
+    + '<button class="btn btn-p btn-lg" style="margin-top:2.5rem" onclick="go(\'login\')">Começar agora — é grátis</button>'
+    + '</div></div>';
+}
+
+// === Create Story Modal ===
+var CS = { step: 1, videoFile: null, localVideoUrl: null, listingId: null, listings: [] };
+
+async function openCreateStory() {
+  CS = { step: 1, videoFile: null, localVideoUrl: null, listingId: null, listings: [] };
+  try {
+    const data = await apiFetch('/me/listings');
+    CS.listings = (data && data.listings || []).filter(function(l) { return l.status === 'active'; });
+  } catch (e) { CS.listings = []; }
+  renderCreateStory();
+}
+
+function renderCreateStory() {
+  document.getElementById('cs-modal-bg') && document.getElementById('cs-modal-bg').remove();
+  const bg = document.createElement('div');
+  bg.id = 'cs-modal-bg';
+  bg.className = 'cs-modal-bg';
+  bg.onclick = function(e) { if (e.target === bg) bg.remove(); };
+
+  const stepDots = '<div class="cs-steps">'
+    + [1,2,3].map(function(n) { return '<div class="cs-dot' + (CS.step >= n ? ' on' : '') + '"></div>'; }).join('')
+    + '</div>';
+
+  let step1Html = CS.localVideoUrl
+    ? '<div style="border-radius:12px;overflow:hidden;background:#000;margin-bottom:10px;position:relative">'
+        + '<video src="' + CS.localVideoUrl + '" controls style="width:100%;max-height:260px;display:block"></video>'
+        + '<button onclick="csClearVideo()" style="position:absolute;top:8px;right:8px;width:28px;height:28px;border-radius:50%;background:rgba(0,0,0,.6);border:none;color:#fff;cursor:pointer">✕</button>'
+        + '</div>'
+        + '<div style="background:#e8f5e9;border-radius:9px;padding:.75rem;font-size:.82rem;color:#2e7d32">Vídeo pronto para publicar!</div>'
+    : '<div id="cs-drop" style="border:2px dashed #EDE4D4;border-radius:14px;padding:2rem;text-align:center;cursor:pointer;background:#fafaf8" onclick="document.getElementById(\'cs-file\').click()">'
+        + '<div style="width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#1E3A2F,#2a4d3f);display:flex;align-items:center;justify-content:center;margin:0 auto 12px">'
+        + '<i class="ti ti-video-plus" style="font-size:26px;color:#E8845A"></i></div>'
+        + '<div style="font-size:.95rem;font-weight:600;color:#111;margin-bottom:4px">Clique para selecionar o vídeo</div>'
+        + '<div style="font-size:.78rem;color:var(--cz)">MP4, MOV ou WebM · Máximo 1 minuto · até 100MB</div>'
+        + '</div>'
+        + '<input type="file" id="cs-file" accept="video/*" style="display:none" onchange="csHandleFile(this.files)">'
+        + '<div style="background:#F5EFE6;border-radius:9px;padding:.75rem;font-size:.78rem;color:var(--cz);margin-top:10px">'
+        + '<i class="ti ti-bulb"></i> Grave pelo celular! Mostre a fachada e os destaques do imóvel em até 60 segundos.</div>';
+
+  let step2Html = CS.listings.length === 0
+    ? '<div style="text-align:center;padding:1.5rem"><div style="font-size:.84rem;color:var(--cz)">Você precisa ter um anúncio ativo para criar um Story.</div></div>'
+    : CS.listings.slice(0, 8).map(function(l) {
+        const photo = l.listing_photos && l.listing_photos[0];
+        const img = photo && photo.url || 'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=200&q=70';
+        const price = l.price ? 'R$ ' + (l.price >= 1e6 ? (l.price/1e6).toFixed(1)+'mi' : (l.price/1e3).toFixed(0)+'mil') : '';
+        return '<div class="cs-prop' + (CS.listingId === l.id ? ' sel' : '') + '" onclick="csSelectListing(\'' + l.id + '\')">'
+          + '<img src="' + img + '" style="width:48px;height:38px;border-radius:6px;object-fit:cover" alt="">'
+          + '<div style="flex:1"><div style="font-size:.84rem;font-weight:500">' + l.title + '</div>'
+          + '<div style="font-size:.72rem;color:var(--cz)">' + (l.city || '') + ' · ' + price + '</div></div>'
+          + '<div style="width:20px;height:20px;border-radius:50%;border:2px solid #EDE4D4;display:flex;align-items:center;justify-content:center">'
+          + (CS.listingId === l.id ? '<i class="ti ti-check" style="font-size:11px;color:var(--v)"></i>' : '')
+          + '</div></div>';
+      }).join('');
+
+  const listing = CS.listings.find(function(l) { return l.id === CS.listingId; });
+  let step3Html = '<div style="background:#F5EFE6;border-radius:12px;padding:1rem;margin-bottom:1rem">'
+    + '<div style="font-size:.88rem;font-weight:600;margin-bottom:4px">Tudo pronto para publicar!</div>'
+    + '<div style="font-size:.78rem;color:var(--cz)">Seu story vai aparecer na tira de stories da home.</div>'
+    + '</div>'
+    + (listing ? '<div style="background:#fff;border:1.5px solid #EDE4D4;border-radius:10px;padding:.875rem">'
+        + '<div style="font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--cz);margin-bottom:.5rem">Imóvel selecionado</div>'
+        + '<div style="font-size:.84rem;font-weight:500">' + listing.title + '</div>'
+        + '<div style="font-size:.78rem;color:var(--cz)">' + (listing.city || '') + '</div>'
+        + '</div>' : '');
+
+  const backBtn = CS.step > 1
+    ? '<button class="cs-btn cs-btn-o" onclick="csStep(' + (CS.step-1) + ')"><i class="ti ti-arrow-left"></i>Voltar</button>'
+    : '<button class="cs-btn cs-btn-o" onclick="document.getElementById(\'cs-modal-bg\').remove()">Cancelar</button>';
+  const nextBtn = CS.step < 3
+    ? '<button class="cs-btn cs-btn-p" onclick="csNext()">Próximo <i class="ti ti-arrow-right"></i></button>'
+    : '<button class="cs-btn cs-btn-t" onclick="csPublish()"><i class="ti ti-rocket"></i>Publicar story!</button>';
+
+  bg.innerHTML = '<div class="cs-modal">'
+    + '<div class="cs-header">'
+    + '<div style="width:44px;height:44px;border-radius:12px;background:rgba(196,98,45,.3);display:flex;align-items:center;justify-content:center;flex-shrink:0"><i class="ti ti-video-plus" style="font-size:22px;color:#E8845A"></i></div>'
+    + '<div><div class="cs-header-title">Criar Story</div><div style="font-size:.75rem;color:rgba(255,255,255,.55)">Mostre seu imóvel para quem busca</div></div>'
+    + '<button class="cs-close" onclick="document.getElementById(\'cs-modal-bg\').remove()"><i class="ti ti-x"></i></button>'
+    + '</div>'
+    + '<div class="cs-body">'
+    + stepDots
+    + '<div class="cs-step' + (CS.step===1?' active':'') + '">' + step1Html + '</div>'
+    + '<div class="cs-step' + (CS.step===2?' active':'') + '">'
+    + '<div class="cs-label">Qual imóvel esse vídeo mostra?</div>'
+    + step2Html + '</div>'
+    + '<div class="cs-step' + (CS.step===3?' active':'') + '">' + step3Html + '</div>'
+    + '</div>'
+    + '<div class="cs-footer">' + backBtn + nextBtn + '</div>'
+    + '</div>';
+  document.body.appendChild(bg);
+}
+
+function csStep(n) { CS.step = n; renderCreateStory(); }
+function csSelectListing(id) { CS.listingId = id; renderCreateStory(); }
+function csClearVideo() { if (CS.localVideoUrl) URL.revokeObjectURL(CS.localVideoUrl); CS.videoFile = null; CS.localVideoUrl = null; renderCreateStory(); }
+function csHandleFile(files) {
+  if (!files || !files[0]) return;
+  const f = files[0];
+  if (!f.type.startsWith('video/')) return showToast('Selecione um arquivo de vídeo');
+  if (f.size > 100 * 1024 * 1024) return showToast('Vídeo muito grande. Máx 100MB.');
+  CS.videoFile = f;
+  CS.localVideoUrl = URL.createObjectURL(f);
+  renderCreateStory();
+}
+function csNext() {
+  if (CS.step === 1 && !CS.videoFile) return showToast('Selecione um vídeo para continuar');
+  if (CS.step === 2 && !CS.listingId && CS.listings.length > 0) return showToast('Selecione o imóvel que o vídeo mostra');
+  csStep(CS.step + 1);
+}
+async function csPublish() {
+  if (!CS.videoFile) return showToast('Nenhum vídeo selecionado');
+  const listing = CS.listings.find(function(l) { return l.id === CS.listingId; });
+  const btn = document.querySelector('.cs-btn-t');
+  if (btn) { btn.disabled = true; btn.innerHTML = '<i class="ti ti-loader" style="animation:spin 1s linear infinite"></i>Enviando...'; }
+  try {
+    const fd = new FormData();
+    fd.append('video', CS.videoFile);
+    if (CS.listingId) fd.append('listing_id', CS.listingId);
+    const token = localStorage.getItem('kaza_token');
+    const res = await fetch(API_BASE + '/stories', { method: 'POST', headers: token ? { 'Authorization': 'Bearer ' + token } : {}, body: fd });
+    const data = res.ok ? await res.json() : null;
+    const videoUrl = data && data.video_url || CS.localVideoUrl;
+    const thumbUrl = data && data.thumb_url || (listing && listing.listing_photos && listing.listing_photos[0] && listing.listing_photos[0].url) || 'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=200&q=70';
+    STORIES.unshift({ id: 's' + Date.now(), lid: CS.listingId || '', name: (listing && listing.title.substring(0, 16)) || 'Meu vídeo', seen: false, img: thumbUrl, nativeVideoUrl: videoUrl, localVideoUrl: CS.localVideoUrl, isOwn: true });
+    document.getElementById('cs-modal-bg') && document.getElementById('cs-modal-bg').remove();
+    showToast('Story publicado com sucesso!');
+    render();
+  } catch (e) {
+    STORIES.unshift({ id: 's' + Date.now(), lid: CS.listingId || '', name: (listing && listing.title.substring(0, 16)) || 'Meu vídeo', seen: false, img: (listing && listing.listing_photos && listing.listing_photos[0] && listing.listing_photos[0].url) || 'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=200&q=70', localVideoUrl: CS.localVideoUrl, isOwn: true });
+    document.getElementById('cs-modal-bg') && document.getElementById('cs-modal-bg').remove();
+    showToast('Story adicionado!');
+    render();
+  }
+}
+
+// === LOAD AND RENDER ===
+async function loadAndRender() {
+  try {
+    const savedToken = localStorage.getItem('kaza_token');
+    const savedUser = localStorage.getItem('kaza_user');
+    if (savedToken && savedUser) { S.token = savedToken; S.user = JSON.parse(savedUser); S.auth = true; }
+  } catch (e) {}
+  try { const f = localStorage.getItem('kaza_favs'); if (f) S.saved = JSON.parse(f); } catch (e) {}
+  const d = await apiFetch('/listings?limit=6&is_featured=true').catch(function() { return null; });
+  if (d && d.listings && d.listings.length > 0) {
+    const norm = function(l) {
+      return { id: l.id, type: l.type, purpose: l.purpose, featured: l.is_featured, title: l.title, desc: l.description, city: l.city, neigh: l.neighborhood || l.city, price: l.price, area: l.area_m2, area_ha: l.area_ha, beds: l.bedrooms, baths: l.bathrooms, park: l.parking, views: l.views || 0, swap: l.accepts_swap || false, video_url: l.video_url || null, created_at: l.created_at, img: (l.listing_photos && l.listing_photos[0] && l.listing_photos[0].url) || 'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=800&q=70', imgs: (l.listing_photos || []).map(function(p) { return p.url; }), adv: { name: (l.users && l.users.name) || 'Anunciante', agency: (l.users && l.users.agency_name) || 'KAZA Imóveis', ok: (l.users && l.users.is_verified) || false, phone: ((l.users && l.users.phone) || '').replace(/\D/g, '') } };
+    };
+    window._feat = d.listings.map(norm);
+    window._all = d.listings.map(norm);
+  }
+  render();
+}
+
+
 const L=[
   {id:1,type:'residential',purpose:'sale',featured:true,title:'Casa 3/4 no Morada dos Pássaros',city:'Barreiras',neigh:'Morada dos Pássaros',price:380000,area:120,beds:3,baths:2,park:2,views:847,
    img:'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=800&q=70',
@@ -342,46 +747,128 @@ function fmt(n,rent){
 function btag(t){return`<span class="badge ${TC[t]}"><i class="ti ${TI[t]}" aria-hidden="true"></i>${TL[t]}</span>`}
 function ptag(p){return p==='sale'?'<span class="badge b-vnd">Venda</span>':'<span class="badge b-alg">Aluguel</span>'}
 
-function calcScore(l){let s=5;if(l.price){let r=null;const B={residential_m2:3200,commercial_m2:2800,lot_m2:850,rural_ha:19400};if(l.type==='rural'&&l.area_ha)r={val:l.price/l.area_ha,b:B.rural_ha};else if(l.area&&l.type==='residential')r={val:l.price/l.area,b:B.residential_m2};else if(l.area&&l.type==='commercial')r={val:l.price/l.area,b:B.commercial_m2};else if(l.area&&l.type==='lot')r={val:l.price/l.area,b:B.lot_m2};if(r){const ratio=r.val/r.b;if(ratio<0.80)s+=2.5;else if(ratio<0.92)s+=1.5;else if(ratio<1.05)s+=0.5;else if(ratio>1.25)s-=1.5;else if(ratio>1.10)s-=0.5;}}const np=(l.imgs||[]).length||1;if(np>=7)s+=1.2;else if(np>=4)s+=0.7;else if(np<=1)s-=1;const dl=(l.desc||'').length;if(dl>300)s+=0.8;else if(dl>100)s+=0.4;else s-=0.5;const score=Math.min(10,Math.max(1,Math.round(s*10)/10));let label=null;if(score>=8.0)label={text:'Oportunidade',cls:'b-deal',icon:'ti-bolt'};else if(score>=6.5)label={text:'Preço Justo',cls:'b-fair',icon:'ti-check'};return{score,label};}
-
 function cardH(l){
   const price=fmt(l.price,l.purpose==='rent');
-  const {label}=calcScore(l);
   const feats=l.beds
     ?`<span class="cf"><i class="ti ti-bed" aria-hidden="true"></i>${l.beds}</span><span class="cf"><i class="ti ti-bath" aria-hidden="true"></i>${l.baths}</span><span class="cf"><i class="ti ti-car" aria-hidden="true"></i>${l.park}</span>`
     :l.area_ha?`<span class="cf"><i class="ti ti-map" aria-hidden="true"></i>${l.area_ha}ha</span>`
     :`<span class="cf"><i class="ti ti-ruler-measure" aria-hidden="true"></i>${l.area}m²</span>`;
-  const topR=[l.featured?`<span class="badge b-feat"><i class="ti ti-star" aria-hidden="true"></i>Destaque</span>`:'',label?`<span class="badge ${label.cls}"><i class="ti ${label.icon}" aria-hidden="true"></i>${label.text}</span>`:''].filter(Boolean);
   return`<div class="card" onclick="go('detail',${l.id})">
-    <div class="card-imgwrap">
+    <div style="position:relative;overflow:hidden">
       <img class="card-img" src="${l.img}" loading="lazy" onerror="this.style.background='#c8d5cf'">
-      <div style="position:absolute;top:12px;left:12px;z-index:2">${btag(l.type)}</div>
-      ${topR.length?`<div style="position:absolute;top:12px;right:12px;z-index:2;display:flex;flex-direction:column;gap:4px;align-items:flex-end">${topR.join('')}</div>`:''}
+      <div style="position:absolute;top:10px;left:10px">${btag(l.type)}</div>
+      ${l.featured?'<div style="position:absolute;top:10px;right:10px"><span class="badge b-feat"><i class="ti ti-star" aria-hidden="true"></i>Destaque</span></div>':''}
     </div>
     <div class="card-body">
-      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:4px">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:5px">
         <div class="card-price">${price}</div>${ptag(l.purpose)}
       </div>
       <div class="card-title">${l.title}</div>
       <div class="card-loc"><i class="ti ti-map-pin" aria-hidden="true"></i>${l.neigh} · ${l.city}</div>
-      <div class="card-feats">${feats}${l.swap?`<span class="badge b-swap" style="font-size:.62rem;padding:2px 6px"><i class="ti ti-arrows-exchange" aria-hidden="true"></i>Permuta</span>`:''}<span style="flex:1"></span><span class="cf" style="color:var(--cz)"><i class="ti ti-eye" aria-hidden="true"></i>${l.views}</span></div>
+      <div class="card-feats">${feats}<span style="flex:1"></span><span class="cf" style="color:var(--cz)"><i class="ti ti-eye" aria-hidden="true"></i>${l.views}</span></div>
     </div>
   </div>`;
 }
 
+
+
 function nav(){
-  return`<nav>
-    <div class="logo" onclick="go('home')">KAZA<span class="dot">.</span><span class="sub">Imóveis</span></div>
-    <div class="nav-links">
-      <span class="nl" onclick="setF('purpose','sale');go('listings')">Comprar</span>
-      <span class="nl" onclick="setF('purpose','rent');go('listings')">Alugar</span>
-      <span class="nl" onclick="setF('type','rural');go('listings')">Rurais</span>
-      <span class="nl" onclick="go('radar')" style="${S.page==='radar'||S.page==='quero'||S.page==='posso'||S.page==='indice'?'color:#fff;background:rgba(196,98,45,.25)':''}"><i class="ti ti-radar" style="font-size:14px;vertical-align:-2px" aria-hidden="true"></i> Radar</span>
-      ${S.auth
-        ?`<span class="nl" onclick="go('dashboard')"><i class="ti ti-layout-dashboard" style="font-size:15px;vertical-align:-2px" aria-hidden="true"></i> Painel</span><button class="btn btn-p" onclick="go('create')"><i class="ti ti-plus" aria-hidden="true"></i>Anunciar</button>`
-        :`<span class="nl" onclick="go('login')">Entrar</span><button class="btn btn-p" onclick="go('login')">Anunciar grátis</button>`}
-    </div>
-  </nav>`;
+  var fav=Object.keys(S.saved||{}).length;
+  var favB=fav>0?'<sup style="background:var(--t);color:#fff;font-size:.5rem;border-radius:99px;padding:1px 4px;margin-left:2px">'+fav+'</sup>':'';
+  var auth=S.auth;
+  var navHtml='<nav>'
+    +'<div class="logo" onclick="go(\'home\')" tabindex="0" aria-label="KAZA">KAZA<span class="dot">.</span><span class="sub">Imóveis</span></div>'
+    +'<div class="nav-links">'
+    +'<span class="nl" onclick="go(\'comprar\')">Comprar</span>'
+    +'<span class="nl" onclick="go(\'alugar\')">Alugar</span>'
+    +'<span class="nl" onclick="go(\'rurais\')">Rurais</span>'
+    +'<span class="nl" onclick="go(\'radar\')"><i class="ti ti-radar" style="font-size:13px;vertical-align:-2px"></i> Radar</span>';
+  if(auth){
+    navHtml+='<span class="nl" onclick="go(\'favoritos\')" aria-label="Favoritos"><i class="ti ti-heart" style="font-size:15px;vertical-align:-2px"></i>'+favB+'</span>'
+      +'<span class="nl" onclick="go(\'dashboard\')"><i class="ti ti-layout-dashboard" style="font-size:15px;vertical-align:-2px"></i> Painel</span>'
+      +'<button class="btn btn-p" onclick="go(\'create\')"><i class="ti ti-plus"></i>Anunciar</button>';
+  } else {
+    navHtml+='<span class="nl" onclick="go(\'login\')">Entrar</span>'
+      +'<button class="btn btn-p" onclick="go(\'anunciar\')"><i class="ti ti-plus"></i>Anunciar grátis</button>';
+  }
+  navHtml+='</div>'
+    +'<button class="hamburger" onclick="S._mob=!S._mob;render()" aria-label="Menu">'
+    +'<span></span><span></span><span></span></button></nav>';
+
+  // Mobile drawer
+  var mobItems='<div class="mob-item" onclick="go(\'comprar\');S._mob=false;render()">Comprar</div>'
+    +'<div class="mob-item" onclick="go(\'alugar\');S._mob=false;render()">Alugar</div>'
+    +'<div class="mob-item" onclick="go(\'rurais\');S._mob=false;render()">Rurais</div>'
+    +'<div class="mob-item" onclick="go(\'radar\');S._mob=false;render()"><i class="ti ti-radar"></i>Radar</div>';
+  var mobAuth=auth
+    ?'<div class="mob-item" onclick="go(\'favoritos\');S._mob=false;render()"><i class="ti ti-heart"></i>Favoritos'+(fav>0?' ('+fav+')':'')+'</div>'
+     +'<div class="mob-item" onclick="go(\'dashboard\');S._mob=false;render()"><i class="ti ti-layout-dashboard"></i>Meu painel</div>'
+     +'<div class="mob-item" onclick="go(\'create\');S._mob=false;render()"><i class="ti ti-plus"></i>Novo anúncio</div>'
+     +'<div class="mob-sep"></div>'
+     +'<div class="mob-item" onclick="doLogout();S._mob=false" style="color:rgba(255,100,100,.8)"><i class="ti ti-logout"></i>Sair</div>'
+    :'<div class="mob-item" onclick="go(\'login\');S._mob=false;render()"><i class="ti ti-login"></i>Entrar</div>'
+     +'<div class="mob-item" style="background:var(--t);color:#fff;border-radius:8px;margin-top:.25rem" onclick="go(\'anunciar\');S._mob=false;render()"><i class="ti ti-plus"></i>Anunciar grátis</div>';
+
+  navHtml+='<div class="mob-drawer'+(S._mob?' open':'')+'">'
+    +'<div class="mob-bg" onclick="S._mob=false;render()"></div>'
+    +'<div class="mob-panel">'
+    +'<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.75rem">'
+    +'<div style="font-family:var(--fd);color:#fff;font-size:1.1rem">KAZA<span style="color:var(--tl)">.</span></div>'
+    +'<button onclick="S._mob=false;render()" style="background:rgba(255,255,255,.1);border:none;border-radius:6px;width:28px;height:28px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fff"><i class="ti ti-x"></i></button>'
+    +'</div>'+mobItems+'<div class="mob-sep"></div>'+mobAuth+'</div></div>';
+
+  // Bottom nav
+  var isR=['radar','quero','posso','indice'].indexOf(S.page)>-1;
+  var bnFavBadge=fav>0?'<span class="bn-badge">'+fav+'</span>':'';
+  navHtml+='<div class="bot-nav"><div class="bn-row">'
+    +'<button class="bn-btn'+(S.page==='listings'||S.page==='comprar'||S.page==='alugar'?' act':'')+'" onclick="go(\'listings\')" aria-label="Buscar"><i class="ti ti-search"></i><span>Buscar</span></button>'
+    +'<button class="bn-btn'+(S.page==='favoritos'?' act':'')+'" onclick="go(\'favoritos\')" aria-label="Salvos"><i class="ti ti-heart"></i>'+bnFavBadge+'<span>Salvos</span></button>'
+    +'<button class="bn-btn'+(isR?' act':'')+'" onclick="go(\'radar\')" aria-label="Radar"><i class="ti ti-radar"></i><span>Radar</span></button>';
+  if(auth){navHtml+='<button class="bn-btn'+(S.page==='dashboard'||S.page==='create'?' act':'')+'" onclick="go(\'dashboard\')" aria-label="Painel"><i class="ti ti-user"></i><span>Painel</span></button>';}
+  else{navHtml+='<button class="bn-btn" onclick="go(\'login\')" aria-label="Entrar"><i class="ti ti-user"></i><span>Entrar</span></button>';}
+  navHtml+='</div></div>';
+  return navHtml;
+}
+
+
+function cardH(l){
+  var price=fmt(l.price,l.purpose==='rent');
+  var sc=calcScore(l);var lbl=sc&&sc.label;
+  var isFav=!!(S.saved&&S.saved[l.id]);
+  var feats=l.beds
+    ?('<span class="cf"><i class="ti ti-bed"></i>'+l.beds+'</span>'
+      +'<span class="cf"><i class="ti ti-bath"></i>'+l.baths+'</span>'
+      +'<span class="cf"><i class="ti ti-car"></i>'+l.park+'</span>')
+    :l.area_ha?('<span class="cf"><i class="ti ti-map"></i>'+l.area_ha+'ha</span>')
+    :('<span class="cf"><i class="ti ti-ruler-measure"></i>'+(l.area||'')+'m²</span>');
+  var topBadges='';
+  if(l.featured)topBadges+='<span class="badge b-feat"><i class="ti ti-star"></i>Destaque</span>';
+  if(lbl)topBadges+='<span class="badge '+lbl.cls+'"><i class="ti '+lbl.icon+'"></i>'+lbl.text+'</span>';
+  var dstr='';
+  if(l.created_at){
+    var d=Math.floor((Date.now()-new Date(l.created_at))/864e5);
+    dstr=d===0?'Publicado hoje':d===1?'Publicado ontem':d<7?'Publicado há '+d+' dias':d<30?'Publicado há '+Math.floor(d/7)+' sem.':'';
+  }
+  return'<div class="card" onclick="go(\'detail\',\''+l.id+'\')">'
+    +'<div class="card-imgwrap" style="position:relative">'
+    +'<img class="card-img" src="'+l.img+'" loading="lazy" alt="'+l.title+'" onerror="this.style.background=\'#c8d5cf\'">'
+    +(l.video_url?'<div style="position:absolute;bottom:10px;left:10px;z-index:2"><span class="badge" style="background:rgba(0,0,0,.55);color:#fff"><i class="ti ti-player-play"></i>Vídeo</span></div>':'')
+    +'<div style="position:absolute;top:12px;left:12px;z-index:2">'+btag(l.type)+'</div>'
+    +(topBadges?'<div style="position:absolute;top:12px;right:46px;z-index:2;display:flex;flex-direction:column;gap:4px;align-items:flex-end">'+topBadges+'</div>':'')
+    +'<button class="hrt'+(isFav?' on':'')+'" onclick="event.stopPropagation();toggleFav(\''+l.id+'\')" aria-label="'+(isFav?'Remover':'Salvar')+' favorito">'
+    +'<i class="ti ti-heart'+(isFav?'-filled':'')+'"></i></button>'
+    +'</div>'
+    +'<div class="card-body">'
+    +'<div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:4px">'
+    +'<div class="card-price">'+price+'</div>'+ptag(l.purpose)+'</div>'
+    +'<div class="card-title">'+l.title+'</div>'
+    +'<div class="card-loc"><i class="ti ti-map-pin"></i>'+l.neigh+' · '+l.city+'</div>'
+    +(dstr?'<div class="card-date"><i class="ti ti-clock"></i>'+dstr+'</div>':'')
+    +'<div class="card-feats">'+feats
+    +(l.swap?'<span class="badge b-swap" style="font-size:.62rem;padding:2px 6px"><i class="ti ti-arrows-exchange"></i>Permuta</span>':'')
+    +'<span style="flex:1"></span>'
+    +'<span class="cf" style="color:var(--cz)"><i class="ti ti-eye"></i>'+l.views+'</span>'
+    +'</div></div></div>';
 }
 
 function homePg(){
@@ -412,42 +899,14 @@ function homePg(){
     </div>
   </div>
   <div class="statbar">
-    <div class="stat">
-      <div class="stat-ico"><i class="ti ti-map-pin" aria-hidden="true"></i></div>
-      <div class="stat-txt"><div class="stat-n">Brasil</div><div class="stat-l">todo o país</div></div>
-    </div>
-    <div class="stat">
-      <div class="stat-ico"><i class="ti ti-gift" aria-hidden="true"></i></div>
-      <div class="stat-txt"><div class="stat-n">Grátis</div><div class="stat-l">para anunciar</div></div>
-    </div>
-    <div class="stat">
-      <div class="stat-ico"><i class="ti ti-rocket" aria-hidden="true"></i></div>
-      <div class="stat-txt"><div class="stat-n">100%</div><div class="stat-l">digital</div></div>
-    </div>
-    <div class="stat">
-      <div class="stat-ico"><i class="ti ti-shield-check" aria-hidden="true"></i></div>
-      <div class="stat-txt"><div class="stat-n">LGPD</div><div class="stat-l">dados seguros</div></div>
-    </div>
+    <div class="stat"><div class="stat-n">8+</div><div class="stat-l">Imóveis</div></div>
+    <div class="stat"><div class="stat-n">todo o</div><div class="stat-l">Brasil</div></div>
+    <div class="stat"><div class="stat-n">gratuito</div><div class="stat-l">para anunciar</div></div>
+    <div class="stat"><div class="stat-n">100%</div><div class="stat-l">Digital</div></div>
   </div>
 
-  <div class="stories-wrap">
-    <div class="stories-label"><i class="ti ti-video" aria-hidden="true"></i>KAZA Stories</div>
-    <div class="stories-row">
-      ${S.auth ? `
-      <div class="story-item" onclick="openCreateStory()" title="Adicionar story">
-        <div style="width:60px;height:60px;border-radius:50%;padding:2.5px;background:linear-gradient(135deg,#C4622D,#E8845A)">
-          <div style="width:100%;height:100%;border-radius:50%;background:#fff;border:2.5px solid #fff;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden">
-            <div style="position:absolute;inset:0;background:linear-gradient(135deg,#F5EFE6,#EDE4D4)"></div>
-            <div style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:1px">
-              <i class="ti ti-plus" style="font-size:20px;color:#1E3A2F;font-weight:700" aria-hidden="true"></i>
-            </div>
-          </div>
-        </div>
-        <span class="story-name" style="color:#1E3A2F;font-weight:600">Seu story</span>
-      </div>` : ''}
-      ${STORIES.map(s=>`<div class="story-item" data-story="${s.id}" onclick="openStory('${s.id}')"><div class="story-ring ${s.seen?'seen':''}"><div class="story-inner"><img src="${s.img}" loading="lazy" alt="${s.name}"></div></div><span class="story-name">${s.name}</span></div>`).join('')}
-    </div>
-  </div>
+  <div class="stories-wrap"><div class="stories-label"><i class="ti ti-video"></i>KAZA Stories</div><div class="stories-row" id="stories-row">${(function(){var html='';if(S.auth)html+='<div class="story-item" onclick="openCreateStory()"><div class="story-ring"><div class="story-inner" style="display:flex;align-items:center;justify-content:center;background:#F5EFE6"><i class="ti ti-plus" style="font-size:22px;color:var(--v)"></i></div></div><span class="story-name" style="color:var(--v);font-weight:600">Seu story</span></div>';for(var i=0;i<STORIES.length;i++){var s=STORIES[i];html+='<div class="story-item" data-story="'+s.id+'"><div class="story-ring'+(s.seen?' seen':'')+' "><div class="story-inner"><img src="'+s.img+'" loading="lazy" alt="'+s.name+'"></div></div><span class="story-name">'+s.name+'</span></div>';}return html;})()}</div></div>
+
   <div class="sec sec-a">
     <div class="cnt">
       <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:1.75rem">
@@ -517,50 +976,68 @@ function homePg(){
     ].map(([ic,l])=>`<span style="display:inline-flex;align-items:center;gap:6px;color:rgba(255,255,255,.45);font-size:.78rem"><i class="ti ${ic}" style="font-size:14px;color:rgba(255,255,255,.3)" aria-hidden="true"></i>${l}</span>`).join('')}
   </div>
 
-  <footer>
-    <div class="footer-grid">
-      <div class="footer-brand">
-        <div class="logo-f">KAZA<span style="color:var(--t)">.</span> <span style="font-size:.9rem;font-family:var(--fb);font-weight:300;color:rgba(255,255,255,.4);letter-spacing:.08em">IMÓVEIS</span></div>
-        <p>O portal que conecta quem busca a quem oferece imóveis em todo o Brasil.</p>
-        <div class="footer-socials">
-          <a href="#" class="footer-social" aria-label="Instagram"><i class="ti ti-brand-instagram" aria-hidden="true"></i></a>
-          <a href="https://wa.me/5577999999999" class="footer-social" aria-label="WhatsApp"><i class="ti ti-brand-whatsapp" aria-hidden="true"></i></a>
-          <a href="#" class="footer-social" aria-label="Facebook"><i class="ti ti-brand-facebook" aria-hidden="true"></i></a>
+  <div id="similar-inject"></div>
+  <footer style="background:var(--ch);color:rgba(255,255,255,.55);padding:3rem 2rem 2rem;font-size:.83rem">
+    <div style="display:grid;grid-template-columns:1.5fr 1fr 1fr 1.2fr;gap:2rem;max-width:1240px;margin:0 auto 2rem">
+      <div>
+        <div style="font-family:var(--fd);font-size:1.5rem;color:#fff;margin-bottom:.5rem">KAZA<span style="color:var(--t)">.</span></div>
+        <p style="font-size:.83rem;line-height:1.65;color:rgba(255,255,255,.4);max-width:220px;margin-bottom:1rem">O portal que conecta quem busca a quem oferece imóveis em todo o Brasil.</p>
+        <div style="display:flex;gap:.5rem">
+          <button onclick="showToast('Instagram em breve!')" style="width:36px;height:36px;border-radius:9px;border:1px solid rgba(255,255,255,.12);background:none;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.5);cursor:pointer"><i class="ti ti-brand-instagram"></i></button>
+          <button onclick="showToast('WhatsApp em breve!')" style="width:36px;height:36px;border-radius:9px;border:1px solid rgba(255,255,255,.12);background:none;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.5);cursor:pointer"><i class="ti ti-brand-whatsapp"></i></button>
+          <button onclick="showToast('Facebook em breve!')" style="width:36px;height:36px;border-radius:9px;border:1px solid rgba(255,255,255,.12);background:none;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.5);cursor:pointer"><i class="ti ti-brand-facebook"></i></button>
         </div>
       </div>
       <div>
-        <div class="footer-col-title">Explorar</div>
-        <div class="footer-links">
-          <a href="#" onclick="setF('purpose','sale');setF('type','all');go('listings');return false">Comprar</a>
-          <a href="#" onclick="setF('purpose','rent');setF('type','all');go('listings');return false">Alugar</a>
-          <a href="#" onclick="setF('type','rural');setF('purpose','all');go('listings');return false">Imóveis rurais</a>
-          <a href="#" onclick="go('radar');return false">KAZA Radar</a>
-          <a href="#" onclick="go('indice');return false">KAZA Índice</a>
+        <div style="font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--tl);margin-bottom:1rem">Explorar</div>
+        <div style="display:flex;flex-direction:column;gap:.6rem">
+          <span style="cursor:pointer;transition:color .15s" onclick="go('comprar')" onmouseover="this.style.color='#fff'" onmouseout="this.style.color=''">Comprar</span>
+          <span style="cursor:pointer;transition:color .15s" onclick="go('alugar')" onmouseover="this.style.color='#fff'" onmouseout="this.style.color=''">Alugar</span>
+          <span style="cursor:pointer;transition:color .15s" onclick="go('rurais')" onmouseover="this.style.color='#fff'" onmouseout="this.style.color=''">Imóveis rurais</span>
+          <span style="cursor:pointer;transition:color .15s" onclick="go('radar')" onmouseover="this.style.color='#fff'" onmouseout="this.style.color=''">KAZA Radar</span>
+          <span style="cursor:pointer;transition:color .15s" onclick="go('indice')" onmouseover="this.style.color='#fff'" onmouseout="this.style.color=''">KAZA Índice</span>
         </div>
       </div>
       <div>
-        <div class="footer-col-title">Anunciantes</div>
-        <div class="footer-links">
-          <a href="#" onclick="go('login');return false">Criar conta grátis</a>
-          <a href="#" onclick="go('create');return false">Anunciar imóvel</a>
-          <a href="#" onclick="go('dashboard');return false">Entrar no painel</a>
-          <a href="#">Para corretores</a>
+        <div style="font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--tl);margin-bottom:1rem">Anunciantes</div>
+        <div style="display:flex;flex-direction:column;gap:.6rem">
+          <span style="cursor:pointer;transition:color .15s" onclick="go('login')" onmouseover="this.style.color='#fff'" onmouseout="this.style.color=''">Criar conta grátis</span>
+          <span style="cursor:pointer;transition:color .15s" onclick="go('anunciar')" onmouseover="this.style.color='#fff'" onmouseout="this.style.color=''">Anunciar imóvel</span>
+          <span style="cursor:pointer;transition:color .15s" onclick="go('dashboard')" onmouseover="this.style.color='#fff'" onmouseout="this.style.color=''">Entrar no painel</span>
+          <span style="cursor:pointer;transition:color .15s" onclick="go('anunciar')" onmouseover="this.style.color='#fff'" onmouseout="this.style.color=''">Para corretores</span>
         </div>
       </div>
       <div>
-        <div class="footer-col-title">Contato</div>
-        <div class="footer-contact">
-          <div class="footer-contact-item"><i class="ti ti-map-pin" aria-hidden="true"></i><span>Barreiras, Bahia<br><span style="font-size:.75rem;color:rgba(255,255,255,.3)">Atendendo todo o Brasil</span></span></div>
-          <div class="footer-contact-item"><i class="ti ti-brand-whatsapp" aria-hidden="true"></i><a href="https://wa.me/5577999999999">(77) 9 9999-9999</a></div>
-          <div class="footer-contact-item"><i class="ti ti-mail" aria-hidden="true"></i><a href="mailto:contato@kazaimoveis.com.br">contato@kazaimoveis.com.br</a></div>
+        <div style="font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--tl);margin-bottom:1rem">Contato</div>
+        <div style="display:flex;flex-direction:column;gap:.75rem;font-size:.83rem">
+          <div style="display:flex;gap:9px;align-items:flex-start"><i class="ti ti-map-pin" style="color:var(--tl);flex-shrink:0;margin-top:2px"></i><span>Barreiras, Bahia<br><span style="font-size:.75rem;color:rgba(255,255,255,.3)">Atendendo todo o Brasil</span></span></div>
+          <div style="display:flex;gap:9px"><i class="ti ti-brand-whatsapp" style="color:var(--tl)"></i><span>(77) 9 9999-9999</span></div>
+          <div style="display:flex;gap:9px"><i class="ti ti-mail" style="color:var(--tl)"></i><span>contato@kazaimoveis.com.br</span></div>
         </div>
       </div>
     </div>
-    <div class="footer-bottom">
+    <div style="max-width:1240px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;padding-top:1.5rem;border-top:1px solid rgba(255,255,255,.08);font-size:.75rem;color:rgba(255,255,255,.3)">
       <div>© 2026 KAZA Imóveis. Todos os direitos reservados.</div>
-      <div style="display:flex;gap:1.5rem"><a href="#">Termos de uso</a><a href="#">Privacidade</a><a href="#">LGPD</a></div>
+      <div style="display:flex;gap:1.5rem">
+        <span style="cursor:pointer;transition:color .15s" onmouseover="this.style.color='rgba(255,255,255,.6)'" onmouseout="this.style.color=''">Termos de uso</span>
+        <span style="cursor:pointer;transition:color .15s" onmouseover="this.style.color='rgba(255,255,255,.6)'" onmouseout="this.style.color=''">Privacidade</span>
+        <span style="cursor:pointer;transition:color .15s" onmouseover="this.style.color='rgba(255,255,255,.6)'" onmouseout="this.style.color=''">LGPD</span>
+      </div>
     </div>
   </footer>`;
+
+  // Inject similar properties after render
+  setTimeout(function() {
+    var container = document.getElementById('similar-inject');
+    if (!container) return;
+    var similar = L.filter(function(x){ return x.id !== l.id && (x.city===l.city || x.type===l.type); }).slice(0,3);
+    if (similar.length === 0) similar = L.filter(function(x){ return x.id !== l.id; }).slice(0,3);
+    if (similar.length === 0) return;
+    container.innerHTML = '<div class="sec sec-a"><div class="cnt">'
+      + '<div class="sh" style="margin-bottom:1.5rem">Você também pode gostar</div>'
+      + '<div class="g3">' + similar.map(cardH).join('') + '</div>'
+      + '</div></div>';
+  }, 50);
 }
 
 function listPg(){
@@ -615,6 +1092,7 @@ function listPg(){
 function detailPg(){
   const l=L.find(x=>x.id===S.lid)||L[0];
   const price=fmt(l.price,l.purpose==='rent');
+  const isFav=!!(S.saved&&S.saved[l.id]);
   const feats=[];
   if(l.beds)feats.push(['ti-bed',l.beds,'Quartos'],['ti-bath',l.baths,'Banheiros'],['ti-car',l.park,'Vagas']);
   if(l.area)feats.push(['ti-ruler-measure',l.area+'m²','Área']);
@@ -633,7 +1111,11 @@ function detailPg(){
             <div style="display:flex;gap:7px;margin-bottom:.875rem;flex-wrap:wrap">${btag(l.type)} ${ptag(l.purpose)} ${l.featured?'<span class="badge b-feat"><i class="ti ti-star" aria-hidden="true"></i>Destaque</span>':''}</div>
             <h1 style="font-family:var(--fd);font-size:1.6rem;margin-bottom:.5rem;line-height:1.2">${l.title}</h1>
             <div style="font-size:1.9rem;font-weight:700;color:var(--t);margin-bottom:.6rem">${price}</div>
-            <div style="color:var(--cz);margin-bottom:1.25rem;font-size:.9rem;display:flex;align-items:center;gap:4px"><i class="ti ti-map-pin" aria-hidden="true"></i>${l.neigh}, ${l.city} — BA</div>
+            <div style="color:var(--cz);margin-bottom:.75rem;font-size:.9rem;display:flex;align-items:center;gap:4px"><i class="ti ti-map-pin" aria-hidden="true"></i>${l.neigh}, ${l.city} — BA</div>
+            <div class="share-action-bar">
+              <button class="share-btn-pill" onclick="openShare(${l.id})"><i class="ti ti-share-2"></i>Compartilhar</button>
+              <button class="share-btn-pill${isFav?' fav-on':''}" onclick="toggleFav('${l.id}')"><i class="ti ti-heart${isFav?'-filled':''}"></i>${isFav?'Salvo':'Salvar'}</button>
+            </div>
             <div class="feat-info">
               ${feats.map(([ic,v,lb])=>`<div class="feat-box"><i class="ti ${ic}" aria-hidden="true"></i><div style="font-weight:700;font-size:.88rem;margin:3px 0">${v}</div><div style="font-size:.68rem;color:var(--cz);text-transform:uppercase;letter-spacing:.05em">${lb}</div></div>`).join('')}
             </div>
@@ -679,293 +1161,64 @@ function detailPg(){
 }
 
 function dashPg(){
-  const u = S.user || {};
-  const firstName = (u.name||'Usuário').split(' ')[0];
-  const initials  = (u.name||'U').split(' ').map(w=>w[0]).join('').substring(0,2).toUpperCase();
-  const notifCount = S.myLeads ? S.myLeads.filter(l=>!l.read).length : 0;
-
-  // Stats reais ou fallback
-  const stats = S.dashStats || { listings:0, views:0, leads:0, featured:0 };
-
-  // Anúncios do usuário
-  const myListings = S.myListings || [];
-
-  // Leads do usuário
-  const myLeads = S.myLeads || [];
-
-  // Função WhatsApp com mensagem rica
-  const waLink = (lead) => {
-    const prop = lead.listing || {};
-    const price = prop.price
-      ? (prop.purpose==='rent'
-          ? 'R$ '+prop.price.toLocaleString('pt-BR')+'/mês'
-          : prop.price>=1e6
-            ? 'R$ '+(prop.price/1e6).toFixed(1).replace('.',',')+' mi'
-            : 'R$ '+(prop.price/1e3).toFixed(0)+'mil')
-      : '';
-    const msg = [
-      'Olá, '+lead.name+'! 👋',
-      '',
-      'Recebi seu contato pela *KAZA Imóveis* e quero te atender rapidinho! 🏠',
-      '',
-      '📋 *Você entrou em contato sobre:*',
-      '🏠 *'+(prop.title||lead.listing_title||'Imóvel')+'*',
-      (prop.city ? '📍 '+(prop.neighborhood ? prop.neighborhood+' · ' : '')+prop.city : ''),
-      (price ? '💰 '+price : ''),
-      '',
-      '💬 *Sua mensagem:*',
-      '_"'+lead.message+'"_',
-      '',
-      'Como posso te ajudar? Estou disponível agora! 😊',
-    ].filter(Boolean).join('\n');
-    const phone = (lead.phone||'').replace(/\D/g,'');
-    return 'https://wa.me/55'+phone+'?text='+encodeURIComponent(msg);
-  };
-
-  // Carregar dados se ainda não carregou
-  if (!S.myListings && !S._loadingDash) {
-    S._loadingDash = true;
-    Promise.all([
-      apiFetch('/me/listings').then(d=>{ S.myListings=d?.listings||[]; S.dashStats={listings:(d?.listings||[]).filter(x=>x.status==='active').length, views:(d?.listings||[]).reduce((a,x)=>a+(x.views||0),0), leads:(d?.listings||[]).reduce((a,x)=>a+(x.contact_count||0),0), featured:(d?.listings||[]).filter(x=>x.is_featured).length}; }).catch(()=>{ S.myListings=[]; }),
-      apiFetch('/me/leads').then(d=>{ S.myLeads=d?.leads||[]; }).catch(()=>{ S.myLeads=[]; }),
-    ]).then(()=>{ S._loadingDash=false; render(); });
-  }
-
-  const tabs=[
-    ['listings','ti-home','Anúncios', stats.listings],
-    ['leads','ti-message','Leads', myLeads.length],
-    ['profile','ti-user','Perfil', 0],
-  ];
-
+  const myL=L.slice(0,4);
+  const tabs=[['listings','ti-home','Anúncios'],['leads','ti-message','Leads'],['profile','ti-user','Perfil']];
   return`<div class="dashl">
-    <!-- Sidebar -->
     <div class="dsi">
-      <!-- Logo -->
-      <div style="padding:1.1rem 1.25rem .75rem;border-bottom:1px solid rgba(255,255,255,.08);margin-bottom:.5rem">
-        <div style="font-family:var(--fd);font-size:1.1rem;color:#fff;letter-spacing:.01em">Painel <span style="color:var(--tl)">KAZA</span></div>
-      </div>
-
-      <!-- Nav items -->
-      ${tabs.map(([k,ic,v,cnt])=>`
-        <div class="dni ${S.dtab===k?'act':''}" onclick="S.dtab='${k}';render()">
-          <i class="ti ${ic}" aria-hidden="true"></i>
-          <span>${v}</span>
-          ${cnt>0?`<span style="margin-left:auto;background:${S.dtab===k?'rgba(255,255,255,.25)':'rgba(196,98,45,.85)'};color:#fff;font-size:.6rem;font-weight:700;padding:1px 6px;border-radius:99px;min-width:18px;text-align:center">${cnt}</span>`:''}
-        </div>`).join('')}
-
-      <div class="dni" onclick="go('create')" style="margin-top:.375rem">
-        <i class="ti ti-plus" aria-hidden="true"></i>Novo anúncio
-      </div>
-
-      <!-- Notificações -->
-      <div class="dni ${notifCount>0?'notif-pulse':''}" onclick="S.dtab='leads';render()" style="position:relative;margin-top:.375rem">
-        <i class="ti ti-bell" aria-hidden="true"></i>
-        Notificações
-        ${notifCount>0?`<span style="position:absolute;top:8px;right:10px;width:18px;height:18px;border-radius:50%;background:#C4622D;color:#fff;font-size:.58rem;font-weight:700;display:flex;align-items:center;justify-content:center">${notifCount}</span>`:''}
-      </div>
-
-      <!-- Espaçador -->
-      <div style="flex:1"></div>
-
-      <!-- Usuário logado + Sair -->
-      <div style="border-top:1px solid rgba(255,255,255,.08);padding-top:.75rem;margin-top:.75rem">
-        <div style="display:flex;align-items:center;gap:9px;padding:.5rem 1rem;margin-bottom:.25rem">
-          <div style="width:34px;height:34px;border-radius:50%;background:rgba(196,98,45,.3);border:2px solid rgba(232,132,90,.4);display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:700;color:#E8845A;flex-shrink:0">${initials}</div>
-          <div style="min-width:0">
-            <div style="font-size:.82rem;font-weight:500;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${firstName}</div>
-            <div style="font-size:.65rem;color:rgba(255,255,255,.4);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${u.email||''}</div>
-          </div>
-        </div>
-        <div class="dni" onclick="doLogout()" style="color:rgba(255,255,255,.5)">
-          <i class="ti ti-logout" aria-hidden="true"></i>Sair da conta
-        </div>
-      </div>
+      <div style="padding:1.25rem 1.4rem;font-family:var(--fd);font-size:1rem;color:#fff;border-bottom:1px solid rgba(255,255,255,.1);margin-bottom:.5rem">Painel KAZA</div>
+      ${tabs.map(([k,ic,v])=>`<div class="dni ${S.dtab===k?'act':''}" onclick="S.dtab='${k}';render()"><i class="ti ${ic}" aria-hidden="true"></i>${v}</div>`).join('')}
+      <div class="dni" onclick="go('create')" style="margin-top:.5rem"><i class="ti ti-plus" aria-hidden="true"></i>Novo anúncio</div>
+      <div class="dni" onclick="S.auth=false;go('home')" style="margin-top:1rem;border-top:1px solid rgba(255,255,255,.1);padding-top:1rem"><i class="ti ti-logout" aria-hidden="true"></i>Sair</div>
     </div>
-
-    <!-- Conteúdo principal -->
     <div class="dc">
-
       ${S.dtab==='listings'?`
-        <!-- Header -->
-        <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:1.5rem;flex-wrap:wrap;gap:.75rem">
-          <div>
-            <div style="font-family:var(--fd);font-size:1.5rem;color:var(--ch)">Meus anúncios</div>
-            <div style="font-size:.82rem;color:var(--cz);margin-top:2px">${myListings.length} imóvel(is) cadastrado(s)</div>
-          </div>
-          <button class="btn btn-p" onclick="go('create')">
-            <i class="ti ti-plus" aria-hidden="true"></i>Novo anúncio
-          </button>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem">
+          <div style="font-family:var(--fd);font-size:1.5rem">Meus anúncios</div>
+          <button class="btn btn-p" onclick="go('create')"><i class="ti ti-plus" aria-hidden="true"></i>Novo anúncio</button>
         </div>
-
-        <!-- Stats -->
-        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:1.5rem">
-          ${[
-            ['ti-home-check',stats.listings||myListings.filter(l=>l.status==='active').length||0,'Ativos','#1E3A2F','rgba(30,58,47,.08)'],
-            ['ti-eye',stats.views||myListings.reduce((a,l)=>a+(l.views||0),0)||0,'Visualizações','#0369a1','rgba(3,105,161,.08)'],
-            ['ti-message',stats.leads||myLeads.length||0,'Leads','#C4622D','rgba(196,98,45,.08)'],
-            ['ti-star',stats.featured||myListings.filter(l=>l.is_featured).length||0,'Em destaque','#b45309','rgba(180,83,9,.08)'],
-          ].map(([ic,n,l,color,bg])=>`
-            <div style="background:#fff;border-radius:12px;padding:14px 16px;border:1px solid rgba(0,0,0,.06);position:relative;overflow:hidden">
-              <div style="width:36px;height:36px;border-radius:9px;background:${bg};display:flex;align-items:center;justify-content:center;margin-bottom:10px">
-                <i class="ti ${ic}" style="font-size:18px;color:${color}" aria-hidden="true"></i>
-              </div>
-              <div style="font-size:1.6rem;font-weight:700;color:var(--ch);line-height:1">${n}</div>
-              <div style="font-size:.68rem;color:var(--cz);text-transform:uppercase;letter-spacing:.07em;margin-top:4px">${l}</div>
-            </div>`).join('')}
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;margin-bottom:1.5rem">
+          ${[['4','Ativos'],['847','Visualizações'],['3','Leads'],['1','Destaque']].map(([n,l])=>
+            `<div style="background:#fff;border-radius:10px;padding:14px;border:1px solid rgba(0,0,0,.06)"><div style="font-size:1.5rem;font-weight:700;color:var(--ch)">${n}</div><div style="font-size:.7rem;color:var(--cz);text-transform:uppercase;letter-spacing:.06em;margin-top:3px">${l}</div></div>`).join('')}
         </div>
-
-        <!-- Tabela -->
-        ${myListings.length===0?`
-          <div style="background:#fff;border-radius:12px;padding:3rem;text-align:center;border:1px solid rgba(0,0,0,.06)">
-            <i class="ti ti-home-off" style="font-size:2.5rem;color:#EDE4D4;display:block;margin-bottom:.75rem" aria-hidden="true"></i>
-            <div style="font-family:var(--fd);font-size:1.1rem;margin-bottom:.5rem">Nenhum anúncio ainda</div>
-            <div style="font-size:.85rem;color:var(--cz);margin-bottom:1.25rem">Cadastre seu primeiro imóvel e comece a receber leads!</div>
-            <button class="btn btn-p" onclick="go('create')"><i class="ti ti-plus" aria-hidden="true"></i>Cadastrar imóvel</button>
-          </div>
-        `:`
-        <div style="background:#fff;border-radius:12px;border:1px solid rgba(0,0,0,.06);overflow:hidden">
-          <table class="tbl">
-            <thead><tr>
-              <th style="width:35%">Imóvel</th>
-              <th>Tipo</th>
-              <th>Preço</th>
-              <th>Status</th>
-              <th style="text-align:center">Visitas</th>
-              <th></th>
-            </tr></thead>
-            <tbody>${myListings.map(l=>`<tr>
-              <td>
-                <div style="font-weight:500;font-size:.88rem">${l.title}</div>
-                <div style="font-size:.72rem;color:var(--cz);margin-top:1px">${l.city||''}</div>
-              </td>
-              <td>${btag(l.type)}</td>
-              <td style="color:var(--t);font-weight:700;font-size:.88rem">${fmt(l.price,l.purpose==='rent')}</td>
-              <td><span class="badge ${l.status==='active'?'b-atv':l.status==='pending'?'b-pnd':'b-pau'}">
-                ${l.status==='active'?'Ativo':l.status==='pending'?'Pendente':'Pausado'}
-              </span></td>
-              <td style="text-align:center;color:var(--cz);font-size:.88rem">${l.views||0}</td>
-              <td>
-                <div style="display:flex;gap:4px;justify-content:flex-end">
-                  <button class="btn btn-o" style="padding:4px 8px;font-size:.72rem" onclick="go('detail','${l.id}')" title="Ver anúncio">
-                    <i class="ti ti-eye" aria-hidden="true"></i>
-                  </button>
-                </div>
-              </td>
-            </tr>`).join('')}</tbody>
-          </table>
-        </div>`}
-
-      `:S.dtab==='leads'?`
-        <!-- Leads -->
-        <div style="margin-bottom:1.5rem">
-          <div style="font-family:var(--fd);font-size:1.5rem;color:var(--ch)">Leads recebidos</div>
-          <div style="font-size:.82rem;color:var(--cz);margin-top:2px">${myLeads.length} contato(s) de clientes interessados</div>
-        </div>
-
-        ${myLeads.length===0?`
-          <div style="background:#fff;border-radius:12px;padding:3rem;text-align:center;border:1px solid rgba(0,0,0,.06)">
-            <i class="ti ti-message-off" style="font-size:2.5rem;color:#EDE4D4;display:block;margin-bottom:.75rem" aria-hidden="true"></i>
-            <div style="font-family:var(--fd);font-size:1.1rem;margin-bottom:.5rem">Nenhum lead ainda</div>
-            <div style="font-size:.85rem;color:var(--cz)">Quando clientes entrarem em contato, aparecerão aqui.</div>
-          </div>
-        `:`
-          ${myLeads.map(x=>{
-            const prop = x.listing || {};
-            const propPrice = prop.price?(prop.purpose==='rent'?'R$ '+prop.price.toLocaleString('pt-BR')+'/mês':prop.price>=1e6?'R$ '+(prop.price/1e6).toFixed(1).replace('.',',')+' mi':'R$ '+(prop.price/1e3).toFixed(0)+'mil'):'';
-            const ago = x.created_at ? (() => { const d=Math.floor((Date.now()-new Date(x.created_at))/6e4); return d<60?'Há '+d+'min':d<1440?'Há '+Math.floor(d/60)+'h':'Há '+Math.floor(d/1440)+'d'; })() : 'Recente';
-            return `
-              <div style="background:#fff;border-radius:14px;padding:1.25rem 1.5rem;margin-bottom:.875rem;border:1px solid rgba(0,0,0,.07);box-shadow:0 1px 6px rgba(30,58,47,.05)">
-                <div style="display:flex;align-items:flex-start;gap:1rem;flex-wrap:wrap">
-                  <!-- Avatar -->
-                  <div style="width:44px;height:44px;border-radius:50%;background:var(--v);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:1.1rem;flex-shrink:0">${(x.name||'?')[0]}</div>
-
-                  <!-- Info do lead -->
-                  <div style="flex:1;min-width:180px">
-                    <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:4px">
-                      <span style="font-weight:600;font-size:.95rem">${x.name||'Visitante'}</span>
-                      <span style="font-size:.72rem;color:var(--cz)">${ago}</span>
-                    </div>
-
-                    <!-- Imóvel de referência -->
-                    <div style="display:flex;align-items:center;gap:5px;background:var(--a);border-radius:7px;padding:4px 9px;margin-bottom:7px;display:inline-flex">
-                      <i class="ti ti-home" style="font-size:11px;color:var(--t)" aria-hidden="true"></i>
-                      <span style="font-size:.74rem;color:var(--ch);font-weight:500">${prop.title||x.listing_title||'Imóvel'}</span>
-                      ${propPrice?`<span style="font-size:.7rem;color:var(--t);font-weight:600">· ${propPrice}</span>`:''}
-                    </div>
-
-                    <!-- Mensagem do lead -->
-                    <div style="background:#F5EFE6;border-left:3px solid var(--t);border-radius:0 8px 8px 0;padding:.6rem .9rem;font-size:.86rem;color:#444;font-style:italic;margin-bottom:.875rem">
-                      "${x.message||x.msg||'Entrou em contato'}"
-                    </div>
-
-                    <!-- Contatos -->
-                    <div style="display:flex;gap:6px;flex-wrap:wrap">
-                      ${(x.phone||x.whatsapp)?`
-                        <a class="btn btn-w" style="font-size:.8rem;padding:.45rem 1rem;background:#25D366;border-color:#25D366"
-                          href="${waLink(x)}" target="_blank" rel="noopener">
-                          <i class="ti ti-brand-whatsapp" aria-hidden="true"></i>Responder no WhatsApp
-                        </a>`:''
-                      }
-                      ${x.email?`
-                        <a class="btn btn-o" style="font-size:.8rem;padding:.45rem 1rem"
-                          href="mailto:${x.email}?subject=Imóvel: ${encodeURIComponent(prop.title||'')}&body=Olá, ${encodeURIComponent(x.name||'')}!" target="_blank">
-                          <i class="ti ti-mail" aria-hidden="true"></i>E-mail
-                        </a>`:''}
-                    </div>
-                  </div>
-                </div>
-              </div>`;
-          }).join('')}`}
-
-      `:`
-        <!-- Perfil -->
-        <div style="margin-bottom:1.5rem">
-          <div style="font-family:var(--fd);font-size:1.5rem;color:var(--ch)">Meu perfil</div>
-          <div style="font-size:.82rem;color:var(--cz);margin-top:2px">Mantenha seus dados sempre atualizados</div>
-        </div>
-        <div style="background:#fff;border-radius:14px;padding:1.75rem;max-width:520px;border:1px solid rgba(0,0,0,.07);box-shadow:0 2px 8px rgba(30,58,47,.06)">
-          <div style="display:flex;align-items:center;gap:14px;margin-bottom:1.5rem;padding-bottom:1.25rem;border-bottom:1px solid #f0ebe4">
-            <div style="width:52px;height:52px;border-radius:50%;background:#1E3A2F;display:flex;align-items:center;justify-content:center;color:#E8845A;font-family:var(--fd);font-size:1.3rem;font-weight:700">${initials}</div>
-            <div>
-              <div style="font-weight:600;font-size:1rem">${u.name||''}</div>
-              <div style="font-size:.78rem;color:var(--cz);margin-top:1px">${u.email||''}</div>
-              ${u.is_verified?`<span style="font-size:.68rem;background:#d1fae5;color:#065f46;padding:1px 7px;border-radius:99px;font-weight:600">✓ Verificado</span>`:''}
+        <table class="tbl">
+          <thead><tr><th style="width:36%">Imóvel</th><th style="width:16%">Tipo</th><th style="width:18%">Preço</th><th style="width:12%">Status</th><th style="width:10%">Visitas</th><th style="width:8%"></th></tr></thead>
+          <tbody>${myL.map(l=>`<tr>
+            <td style="font-weight:500">${l.title}</td>
+            <td>${btag(l.type)}</td>
+            <td style="color:var(--t);font-weight:700">${fmt(l.price,l.purpose==='rent')}</td>
+            <td><span class="badge b-atv"><i class="ti ti-check" aria-hidden="true"></i>Ativo</span></td>
+            <td style="color:var(--cz)">${l.views}</td>
+            <td><button class="btn btn-o" style="font-size:.73rem;padding:4px 10px" onclick="go('detail',${l.id})"><i class="ti ti-eye" aria-hidden="true"></i></button></td>
+          </tr>`).join('')}</tbody>
+        </table>`:
+      S.dtab==='leads'?`
+        <div style="font-family:var(--fd);font-size:1.5rem;margin-bottom:1.5rem">Leads recebidos</div>
+        ${[{n:'Roberto Silva',p:'77991111111',m:'Gostaria de agendar uma visita.',l:'Casa 3/4 no Morada',d:'Hoje, 14h'},
+           {n:'Fernanda Costa',p:'77992222222',m:'Qual a situação da documentação?',l:'Fazenda 500ha',d:'Ontem, 9h'},
+           {n:'Pedro Alves',p:'77993333333',m:'Aceita proposta?',l:'Lote 360m²',d:'Há 2 dias'}].map(x=>`
+          <div style="background:#fff;border-radius:12px;padding:1.1rem 1.25rem;margin-bottom:.875rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap;box-shadow:0 1px 4px rgba(30,58,47,.06)">
+            <div style="width:38px;height:38px;border-radius:50%;background:var(--v);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;flex-shrink:0">${x.n[0]}</div>
+            <div style="flex:1;min-width:140px">
+              <div style="font-weight:500;font-size:.9rem">${x.n}</div>
+              <div style="font-size:.77rem;color:var(--cz)">${x.l} · ${x.d}</div>
+              <div style="font-size:.85rem;margin-top:3px;color:#444">"${x.m}"</div>
             </div>
+            <a class="btn btn-w" style="font-size:.8rem;padding:.45rem .9rem" href="https://wa.me/55${x.p}" target="_blank"><i class="ti ti-brand-whatsapp" aria-hidden="true"></i>WhatsApp</a>
+          </div>`).join('')}`:
+      `<div style="font-family:var(--fd);font-size:1.5rem;margin-bottom:1.5rem">Meu perfil</div>
+        <div style="background:#fff;border-radius:12px;padding:1.5rem;max-width:480px">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
+            <div class="fg"><label class="fl">Nome</label><input class="fi" value="Maria Souza"></div>
+            <div class="fg"><label class="fl">Telefone</label><input class="fi" value="(77) 9 9123-4567"></div>
+            <div class="fg" style="grid-column:span 2"><label class="fl">E-mail</label><input class="fi" value="maria@kazaimoveis.com.br"></div>
+            <div class="fg"><label class="fl">CRECI</label><input class="fi" value="CRECI-BA 12345"></div>
+            <div class="fg"><label class="fl">Imobiliária</label><input class="fi" value="KAZA Imóveis"></div>
           </div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:.875rem">
-            <div class="fg"><label class="fl">Nome completo</label><input class="fi" id="pf-name" value="${u.name||''}"></div>
-            <div class="fg"><label class="fl">Telefone (WhatsApp)</label><input class="fi" id="pf-phone" value="${u.phone||''}"></div>
-            <div class="fg" style="grid-column:span 2"><label class="fl">E-mail</label><input class="fi" value="${u.email||''}" readonly style="opacity:.65" title="E-mail não pode ser alterado"></div>
-            ${u.type==='agency'?`
-              <div class="fg"><label class="fl">Imobiliária</label><input class="fi" id="pf-agency" value="${u.agency_name||''}"></div>
-              <div class="fg"><label class="fl">CRECI</label><input class="fi" id="pf-creci" value="${u.creci||''}"></div>
-            `:''}
-          </div>
-          <button class="btn btn-p" style="margin-top:1.25rem;width:100%" onclick="saveProfile()">
-            <i class="ti ti-check" aria-hidden="true"></i>Salvar alterações
-          </button>
-        </div>
-      `}
-
+          <button class="btn btn-p" style="margin-top:1.1rem" onclick="alert('Perfil salvo! ✓')"><i class="ti ti-check" aria-hidden="true"></i>Salvar alterações</button>
+        </div>`}
     </div>
   </div>`;
 }
-
-async function saveProfile() {
-  const body = {
-    name:        document.getElementById('pf-name')?.value?.trim(),
-    phone:       document.getElementById('pf-phone')?.value?.trim()||undefined,
-    agency_name: document.getElementById('pf-agency')?.value?.trim()||undefined,
-    creci:       document.getElementById('pf-creci')?.value?.trim()||undefined,
-  };
-  try {
-    const data = await apiFetch('/me/profile', 'PUT', body);
-    if (data?.user) { S.user = {...S.user, ...data.user}; localStorage.setItem('kaza_user', JSON.stringify(S.user)); }
-    showToast('✓ Perfil atualizado!');
-    render();
-  } catch(err) { showToast('Erro ao salvar. Tente novamente.', 'err'); }
-}
-
 
 function createPg(){
   const steps=['Tipo','Detalhes','Localização','Fotos','Revisão'];
@@ -1048,47 +1301,24 @@ function loginPg(){
         <button onclick="S.lm='reg';render()" style="flex:1;padding:8px;border-radius:7px;border:none;font-family:var(--fb);font-size:.82rem;cursor:pointer;transition:all .15s;${S.lm==='reg'?'background:#fff;font-weight:500;color:var(--ch)':'background:transparent;color:var(--cz)'}">Criar conta</button>
       </div>
       ${S.lm==='login'?`
-        <div class="fg"><label class="fl">E-mail</label><input class="fi" type="email" placeholder="seu@email.com" id="login-email"></div>
-        <div class="fg"><label class="fl">Senha</label><input class="fi" type="password" placeholder="••••••••" id="login-pass" onkeydown="if(event.key==='Enter')doLogin()"></div>
-        <button class="btn btn-d" style="width:100%;padding:.875rem;font-size:.9rem" onclick="doLogin()">Entrar na KAZA</button>
+        <div class="fg"><label class="fl">E-mail</label><input class="fi" type="email" placeholder="seu@email.com"></div>
+        <div class="fg"><label class="fl">Senha</label><input class="fi" type="password" placeholder="••••••••"></div>
+        <button class="btn btn-d" style="width:100%;padding:.875rem;font-size:.9rem" onclick="S.auth=true;go('dashboard')">Entrar na KAZA</button>
         <div style="text-align:center;margin-top:1rem;font-size:.78rem;color:var(--cz)">Esqueceu a senha? <span style="color:var(--t);cursor:pointer">Recuperar</span></div>`:
       `<div style="display:flex;gap:7px;margin-bottom:14px">
           <button onclick="S.rt='person';render()" style="flex:1;padding:8px;border-radius:8px;border:1.5px solid ${S.rt!=='agency'?'var(--t)':'#eee'};background:${S.rt!=='agency'?'rgba(196,98,45,.06)':'transparent'};cursor:pointer;font-family:var(--fb);font-size:.78rem;color:${S.rt!=='agency'?'var(--t)':'var(--cz)'}">Pessoa física</button>
           <button onclick="S.rt='agency';render()" style="flex:1;padding:8px;border-radius:8px;border:1.5px solid ${S.rt==='agency'?'var(--t)':'#eee'};background:${S.rt==='agency'?'rgba(196,98,45,.06)':'transparent'};cursor:pointer;font-family:var(--fb);font-size:.78rem;color:${S.rt==='agency'?'var(--t)':'var(--cz)'}">Imobiliária/Corretor</button>
         </div>
-        <div class="fg"><label class="fl">Nome completo</label><input class="fi" placeholder="Seu nome" id="reg-name"></div>
+        <div class="fg"><label class="fl">Nome completo</label><input class="fi" placeholder="Seu nome"></div>
         ${S.rt==='agency'?`<div class="fg"><label class="fl">Imobiliária</label><input class="fi" placeholder="Ex: KAZA Imóveis"></div>
         <div class="fg"><label class="fl">CRECI</label><input class="fi" placeholder="CRECI-BA 00000"></div>`:''}
-        <div class="fg"><label class="fl">E-mail</label><input class="fi" type="email" placeholder="seu@email.com" id="reg-email"></div>
-        <div class="fg"><label class="fl">Telefone (WhatsApp)</label><input class="fi" type="tel" placeholder="(77) 9 9999-9999" id="reg-phone"></div>
-        <div class="fg"><label class="fl">Senha</label><input class="fi" type="password" placeholder="Mínimo 8 caracteres" id="reg-pass"></div>
-        <button class="btn btn-p" style="width:100%;padding:.875rem;font-size:.9rem" onclick="doRegister()"><i class="ti ti-user-plus" aria-hidden="true"></i>Criar conta grátis</button>`}
+        <div class="fg"><label class="fl">E-mail</label><input class="fi" type="email" placeholder="seu@email.com"></div>
+        <div class="fg"><label class="fl">Telefone (WhatsApp)</label><input class="fi" type="tel" placeholder="(77) 9 9999-9999"></div>
+        <div class="fg"><label class="fl">Senha</label><input class="fi" type="password" placeholder="Mínimo 8 caracteres"></div>
+        <button class="btn btn-p" style="width:100%;padding:.875rem;font-size:.9rem" onclick="S.auth=true;go('dashboard')"><i class="ti ti-user-plus" aria-hidden="true"></i>Criar conta grátis</button>`}
     </div>
   </div>`;
 }
-
-// ── Toast global ─────────────────────────────────────
-function showToast(msg, type) {
-  let t = document.getElementById('kz-toast');
-  if (!t) {
-    t = document.createElement('div');
-    t.id = 'kz-toast';
-    t.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:#1A1A1A;color:#fff;padding:.75rem 1.4rem;border-radius:10px;font-family:var(--fb);font-size:.88rem;font-weight:500;box-shadow:0 8px 24px rgba(0,0,0,.25);z-index:9999;opacity:0;transition:all .3s;pointer-events:none;white-space:nowrap;max-width:90vw;text-align:center';
-    document.body.appendChild(t);
-  }
-  t.style.background = type === 'err' ? '#c62828' : '#1A1A1A';
-  t.textContent = msg;
-  t.style.opacity = '1';
-  t.style.transform = 'translateX(-50%) translateY(0)';
-  clearTimeout(t._h);
-  t._h = setTimeout(() => {
-    t.style.opacity = '0';
-    t.style.transform = 'translateX(-50%) translateY(20px)';
-  }, 2800);
-}
-
-
-const API_BASE = 'https://web-production-66119.up.railway.app/api';
 
 const DEMAND={residential_rent:24,residential_sale:18,commercial_rent:11,commercial_sale:7,rural_sale:9,lot_sale:7};
 const INDICE={
@@ -1373,409 +1603,407 @@ function indicePg(){
   </div>`;
 }
 
-const STORIES=[{id:'s1',lid:'1',name:'Fazenda 500ha',seen:false,img:'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=200&q=70'},{id:'s2',lid:'2',name:'Casa c/Piscina',seen:false,img:'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=200&q=70'},{id:'s3',lid:'4',name:'Apto Centro',seen:true,img:'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=200&q=70'},{id:'s4',lid:'3',name:'Fazenda 200ha',seen:false,img:'https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=200&q=70'},{id:'s5',lid:'5',name:'Sala Comercial',seen:true,img:'https://images.unsplash.com/photo-1497366216548-37526070297c?w=200&q=70'}];
-function openStory(sid){
-  const s=STORIES.find(x=>x.id===sid);if(!s)return;
-  s.seen=true;
-  const r=document.querySelector('[data-story="'+sid+'"] .story-ring');
-  if(r)r.classList.add('seen');
-  const bg=document.createElement('div');
-  bg.className='story-modal-bg';
-  bg.onclick=()=>bg.remove();
-  const videoSrc = s.nativeVideoUrl || s.localVideoUrl || null;
-  const media = videoSrc
-    ? `<div style="background:#000;max-height:460px;overflow:hidden">
-        <video src="${videoSrc}" controls autoplay muted playsinline
-          style="width:100%;max-height:460px;display:block;object-fit:contain"
-          onended="this.currentTime=0"></video>
-       </div>`
-    : s.videoEmbed
-    ? `<div style="position:relative;aspect-ratio:9/16;max-height:450px;background:#000"><iframe src="${s.videoEmbed}" allowfullscreen style="width:100%;height:100%;border:none"></iframe></div>`
-    : `<img src="${s.img}" alt="${s.name}" style="width:100%;display:block;max-height:450px;object-fit:cover">`;
-  bg.innerHTML=`<div class="story-modal" onclick="event.stopPropagation()">
-    <button class="story-close" onclick="this.closest('.story-modal-bg').remove()"><i class="ti ti-x"></i></button>
-    ${media}
-    <div class="story-modal-info">
-      <div class="story-modal-av">${s.name[0]}</div>
-      <div>
-        <div class="story-modal-title">${s.name}</div>
-        ${s.isOwn?'<div style="font-size:.65rem;color:rgba(255,255,255,.4);margin-top:1px">Seu story</div>':''}
-      </div>
-      <button class="story-modal-btn" onclick="document.querySelector('.story-modal-bg').remove();go('detail','${s.lid}')">
-        <i class="ti ti-arrow-right"></i>Ver imóvel
-      </button>
-    </div>
-  </div>`;
-  document.body.appendChild(bg);
-}
 
+function comprarPg(){setF('purpose','sale');setF('type','all');S.page='listings';return listPg();}
+function alugarPg(){setF('purpose','rent');setF('type','all');S.page='listings';return listPg();}
+function ruraisPg(){setF('type','rural');setF('purpose','all');S.page='listings';return listPg();}
 
-// ── KAZA Stories — Criar Story ──────────────────────
-let CS = { step: 1, videoUrl: '', videoEmbed: '', listingId: null, listings: [] };
-
-async function openCreateStory() {
-  CS = { step: 1, videoUrl: '', videoEmbed: '', listingId: null, listings: [] };
-
-  // Buscar imóveis do usuário logado
-  try {
-    const data = await apiFetch('/me/listings');
-    CS.listings = (data?.listings || []).filter(l => l.status === 'active');
-  } catch(e) { CS.listings = []; }
-
-  renderCreateStory();
-}
-
-function renderCreateStory() {
-  // Remover modal anterior
-  document.getElementById('cs-modal-bg')?.remove();
-
-  const fmtPrice = (n, rent) => {
-    if (!n) return '—';
-    if (rent) return 'R$ ' + n.toLocaleString('pt-BR') + '/mês';
-    if (n >= 1e6) return 'R$ ' + (n/1e6).toFixed(1).replace('.', ',') + 'mi';
-    return 'R$ ' + (n/1e3).toFixed(0) + 'mil';
-  };
-
-  const bg = document.createElement('div');
-  bg.id = 'cs-modal-bg';
-  bg.className = 'cs-modal-bg';
-  bg.onclick = (e) => { if(e.target===bg) bg.remove(); };
-
-  bg.innerHTML = `
-    <div class="cs-modal">
-      <div class="cs-header">
-        <div class="cs-header-icon"><i class="ti ti-video-plus" aria-hidden="true"></i></div>
-        <div>
-          <div class="cs-header-title">Criar Story</div>
-          <div class="cs-header-sub">Mostre seu imóvel para quem está buscando</div>
-        </div>
-        <button class="cs-close" onclick="document.getElementById('cs-modal-bg').remove()">
-          <i class="ti ti-x" aria-hidden="true"></i>
-        </button>
-      </div>
-
-      <div class="cs-body">
-        <!-- Indicador de passos -->
-        <div class="cs-steps-indicator">
-          <div class="cs-dot ${CS.step>=1?'on':''}"></div>
-          <div class="cs-dot ${CS.step>=2?'on':''}"></div>
-          <div class="cs-dot ${CS.step>=3?'on':''}"></div>
-        </div>
-
-        <!-- PASSO 1: Upload de vídeo -->
-        <div class="cs-step ${CS.step===1?'active':''}">
-          ${CS.localVideoUrl ? `
-            <!-- Preview do vídeo selecionado -->
-            <div style="border-radius:12px;overflow:hidden;background:#000;margin-bottom:10px;position:relative">
-              <video id="cs-video-el" src="${CS.localVideoUrl}" controls style="width:100%;max-height:260px;display:block" playsinline></video>
-              <button onclick="csClearVideo()" style="position:absolute;top:8px;right:8px;width:28px;height:28px;border-radius:50%;background:rgba(0,0,0,.6);border:none;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:13px">✕</button>
-            </div>
-            <div style="background:#e8f5e9;border-radius:9px;padding:.75rem;display:flex;gap:8px;align-items:center;font-size:.82rem;color:#2e7d32">
-              <i class="ti ti-check" style="font-size:16px" aria-hidden="true"></i>
-              <span><strong>${CS.videoFile?.name||'Vídeo selecionado'}</strong> — pronto para publicar!</span>
-            </div>
-          ` : `
-            <!-- Área de upload -->
-            <div id="cs-drop-area" style="border:2px dashed #EDE4D4;border-radius:14px;padding:2rem 1rem;text-align:center;cursor:pointer;transition:all .2s;background:#fafaf8"
-              onclick="document.getElementById('cs-file-input').click()"
-              ondragover="event.preventDefault();this.style.borderColor='#C4622D';this.style.background='rgba(196,98,45,.04)'"
-              ondragleave="this.style.borderColor='#EDE4D4';this.style.background='#fafaf8'"
-              ondrop="event.preventDefault();this.style.borderColor='#EDE4D4';this.style.background='#fafaf8';csHandleFileDrop(event.dataTransfer.files)">
-              <div style="width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#1E3A2F,#2a4d3f);display:flex;align-items:center;justify-content:center;margin:0 auto 12px">
-                <i class="ti ti-video-plus" style="font-size:26px;color:#E8845A" aria-hidden="true"></i>
-              </div>
-              <div style="font-size:.95rem;font-weight:600;color:#111;margin-bottom:4px">Clique ou arraste o vídeo aqui</div>
-              <div style="font-size:.78rem;color:#8A7F77;margin-bottom:1rem">MP4, MOV ou WebM · Máximo 1 minuto · até 100MB</div>
-              <div style="display:inline-flex;align-items:center;gap:6px;background:#1E3A2F;color:#fff;padding:.5rem 1.25rem;border-radius:99px;font-size:.82rem;font-weight:500">
-                <i class="ti ti-upload" aria-hidden="true"></i>Escolher vídeo
-              </div>
-            </div>
-            <input type="file" id="cs-file-input" accept="video/*" style="display:none" onchange="csHandleFileSelect(this.files)">
-          `}
-          <div class="cs-tip" style="margin-top:10px">
-            <i class="ti ti-bulb" aria-hidden="true"></i>
-            <span>Grave pelo celular mesmo! Mostre a fachada, os cômodos principais e o diferencial do imóvel. <strong>Vídeos de 30–60 segundos</strong> são os que mais convertem.</span>
-          </div>
-        </div>
-
-        <!-- PASSO 2: Imóvel -->
-        <div class="cs-step ${CS.step===2?'active':''}">
-          <div class="cs-label"><i class="ti ti-home" aria-hidden="true"></i>Qual imóvel esse vídeo mostra?</div>
-          ${CS.listings.length === 0
-            ? `<div style="text-align:center;padding:1.5rem;background:#F5EFE6;border-radius:10px">
-                <i class="ti ti-home-off" style="font-size:2rem;color:#EDE4D4;display:block;margin-bottom:.5rem" aria-hidden="true"></i>
-                <div style="font-size:.84rem;font-weight:500;color:#111;margin-bottom:4px">Nenhum imóvel ativo</div>
-                <div style="font-size:.78rem;color:#8A7F77">Você precisa ter um anúncio ativo para criar um Story.</div>
-              </div>`
-            : `<div class="cs-property-grid">
-                ${CS.listings.slice(0,8).map(l => {
-                  const photo = (l.listing_photos||[])[0];
-                  const img = photo?.url || 'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=200&q=70';
-                  const typeLabel = {residential:'Residencial',rural:'Rural',lot:'Lote',commercial:'Comercial'};
-                  const price = fmtPrice(l.price, l.purpose==='rent');
-                  return `<div class="cs-prop ${CS.listingId===l.id?'sel':''}" onclick="csSelectListing('${l.id}')">
-                    <img class="cs-prop-img" src="${img}" alt="${l.title}" onerror="this.style.background='#EDE4D4'">
-                    <div style="flex:1;min-width:0">
-                      <div class="cs-prop-name">${l.title}</div>
-                      <div class="cs-prop-meta">${l.city||''} · ${price}</div>
-                    </div>
-                    <div class="cs-prop-check">
-                      ${CS.listingId===l.id?'<i class="ti ti-check" style="font-size:11px" aria-hidden="true"></i>':''}
-                    </div>
-                  </div>`;
-                }).join('')}
-              </div>`}
-        </div>
-
-        <!-- PASSO 3: Confirmar -->
-        <div class="cs-step ${CS.step===3?'active':''}">
-          ${CS.step===3 ? `
-          <div style="background:#F5EFE6;border-radius:12px;padding:1.1rem;display:flex;gap:12px;align-items:flex-start;margin-bottom:1rem">
-            <div style="width:36px;height:36px;border-radius:50%;background:#1E3A2F;display:flex;align-items:center;justify-content:center;flex-shrink:0">
-              <i class="ti ti-check" style="color:#4ade80;font-size:16px" aria-hidden="true"></i>
-            </div>
-            <div>
-              <div style="font-size:.88rem;font-weight:600;color:#111;margin-bottom:2px">Tudo pronto!</div>
-              <div style="font-size:.78rem;color:#8A7F77;line-height:1.5">Seu story vai aparecer na tira de stories da home e destacar seu imóvel para quem está buscando.</div>
-            </div>
-          </div>
-          <div style="background:#fff;border:1.5px solid #EDE4D4;border-radius:12px;padding:1rem">
-            <div style="font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#8A7F77;margin-bottom:.625rem">Resumo do story</div>
-            <div style="display:flex;align-items:center;gap:8px;margin-bottom:.5rem">
-              <i class="ti ti-link" style="color:#C4622D;font-size:14px" aria-hidden="true"></i>
-              <span style="font-size:.82rem;color:#111;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${CS.videoUrl.substring(0,50)}${CS.videoUrl.length>50?'...':''}</span>
-            </div>
-            ${CS.listingId ? `<div style="display:flex;align-items:center;gap:8px">
-              <i class="ti ti-home" style="color:#1E3A2F;font-size:14px" aria-hidden="true"></i>
-              <span style="font-size:.82rem;color:#111">${CS.listings.find(l=>l.id===CS.listingId)?.title||''}</span>
-            </div>` : ''}
-          </div>` : ''}
-        </div>
-
-      </div>
-
-      <div class="cs-footer">
-        ${CS.step > 1
-          ? `<button class="cs-btn cs-btn-o" onclick="csStep(${CS.step-1})"><i class="ti ti-arrow-left" aria-hidden="true"></i>Voltar</button>`
-          : `<button class="cs-btn cs-btn-o" onclick="document.getElementById('cs-modal-bg').remove()">Cancelar</button>`}
-        ${CS.step < 3
-          ? `<button class="cs-btn cs-btn-p" onclick="csNext()">
-              Próximo <i class="ti ti-arrow-right" aria-hidden="true"></i>
-            </button>`
-          : `<button class="cs-btn cs-btn-t" onclick="csPublish()">
-              <i class="ti ti-rocket" aria-hidden="true"></i>Publicar story!
-            </button>`}
-      </div>
-    </div>`;
-
-  document.body.appendChild(bg);
-}
-
-function csStep(n) { CS.step = n; renderCreateStory(); }
-
-function csHandleFileSelect(files) {
-  if (!files || !files[0]) return;
-  csLoadFile(files[0]);
-}
-
-function csHandleFileDrop(files) {
-  if (!files || !files[0]) return;
-  if (!files[0].type.startsWith('video/')) return showToast('Selecione um arquivo de vídeo');
-  csLoadFile(files[0]);
-}
-
-function csLoadFile(file) {
-  if (!file.type.startsWith('video/')) return showToast('Selecione um arquivo de vídeo (MP4, MOV ou WebM)');
-  if (file.size > 100 * 1024 * 1024) return showToast('Vídeo muito grande. Máximo 100MB.');
-  CS.videoFile = file;
-  CS.localVideoUrl = URL.createObjectURL(file);
-  renderCreateStory();
-  // Verificar duração após render
-  setTimeout(() => {
-    const v = document.getElementById('cs-video-el');
-    if (v) v.onloadedmetadata = () => {
-      if (v.duration > 65) {
-        showToast('Vídeo com mais de 1 minuto. O Cloudinary vai cortar automaticamente nos 60 segundos.');
-      }
-    };
-  }, 200);
-}
-
-function csClearVideo() {
-  if (CS.localVideoUrl) URL.revokeObjectURL(CS.localVideoUrl);
-  CS.videoFile = null;
-  CS.localVideoUrl = null;
-  renderCreateStory();
-}
-
-function csNext() {
-  if (CS.step === 1) {
-    if (!CS.videoFile) return showToast('Selecione um vídeo para continuar');
+function favoritosPg(){
+  var ids=Object.keys(S.saved||{});
+  var fl=L.filter(function(l){return ids.indexOf(String(l.id))>-1;});
+  if(fl.length===0){
+    return'<div class="sec sec-a" style="min-height:calc(100vh - 64px)">'
+      +'<div class="cnt" style="text-align:center;padding:4rem 1rem">'
+      +'<i class="ti ti-heart-off" style="font-size:3.5rem;color:#EDE4D4;display:block;margin-bottom:1rem"></i>'
+      +'<div style="font-family:var(--fd);font-size:1.3rem;margin-bottom:.5rem">Nenhum favorito ainda</div>'
+      +'<div style="color:var(--cz);margin-bottom:1.5rem">Clique no ♡ em qualquer imóvel para salvar aqui.</div>'
+      +'<button class="btn btn-p" onclick="go(\'listings\')">Explorar imóveis</button>'
+      +'</div></div>';
   }
-  if (CS.step === 2 && !CS.listingId && CS.listings.length > 0) {
-    return showToast('Selecione o imóvel que o vídeo mostra');
-  }
-  csStep(CS.step + 1);
+  return'<div class="sec sec-a" style="min-height:calc(100vh - 64px)"><div class="cnt">'
+    +'<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:2rem;flex-wrap:wrap;gap:1rem">'
+    +'<div><div class="eyebrow">Salvos</div><div class="sh">Meus Favoritos</div></div>'
+    +'<button class="btn btn-o" onclick="S.saved={};localStorage.removeItem(\'kaza_favs\');render()">Limpar tudo</button>'
+    +'</div><div class="g3">'+fl.map(cardH).join('')+'</div></div></div>';
 }
 
-function csSelectListing(id) {
-  CS.listingId = id;
-  renderCreateStory();
-}
-
-async function csPublish() {
-  if (!CS.videoFile) return showToast('Nenhum vídeo selecionado');
-  const listing = CS.listings.find(l => l.id === CS.listingId);
-
-  // Mostrar loading
-  const btn = document.querySelector('.cs-btn-t');
-  if (btn) { btn.disabled = true; btn.innerHTML = '<i class="ti ti-loader" style="animation:spin 1s linear infinite"></i>Enviando vídeo...'; }
-
-  try {
-    // Upload para o backend/Cloudinary
-    const formData = new FormData();
-    formData.append('video', CS.videoFile);
-    if (CS.listingId) formData.append('listing_id', CS.listingId);
-
-    const token = localStorage.getItem('kaza_token');
-    const res = await fetch(API_BASE + '/stories', {
-      method: 'POST',
-      headers: token ? { 'Authorization': 'Bearer ' + token } : {},
-      body: formData,
-    });
-
-    let videoUrl, thumbUrl;
-    if (res.ok) {
-      const data = await res.json();
-      videoUrl = data.video_url;
-      thumbUrl = data.thumb_url || listing?.listing_photos?.[0]?.url;
-    } else {
-      // Fallback: usar URL local temporária (só para esta sessão)
-      videoUrl = CS.localVideoUrl;
-      thumbUrl = listing?.listing_photos?.[0]?.url ||
-        'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=200&q=70';
-    }
-
-    const newStory = {
-      id: 's' + Date.now(),
-      lid: CS.listingId || '',
-      name: listing?.title?.substring(0, 18) || 'Meu vídeo',
-      seen: false,
-      img: thumbUrl || 'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=200&q=70',
-      nativeVideoUrl: videoUrl,
-      localVideoUrl: CS.localVideoUrl,
-      isOwn: true,
-    };
-    STORIES.unshift(newStory);
-
-    document.getElementById('cs-modal-bg').remove();
-    showToast('🎉 Story publicado com sucesso!');
-    render();
-
-  } catch(err) {
-    // Fallback sem backend
-    const newStory = {
-      id: 's' + Date.now(),
-      lid: CS.listingId || '',
-      name: listing?.title?.substring(0, 18) || 'Meu vídeo',
-      seen: false,
-      img: listing?.listing_photos?.[0]?.url || 'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=200&q=70',
-      localVideoUrl: CS.localVideoUrl,
-      isOwn: true,
-    };
-    STORIES.unshift(newStory);
-    document.getElementById('cs-modal-bg').remove();
-    showToast('Story adicionado! (vídeo local nesta sessão)');
-    render();
-  }
-}
-
-// ── Auth functions ────────────────────────────────────
-async function doLogin() {
-  const email = document.getElementById('login-email')?.value?.trim();
-  const pass  = document.getElementById('login-pass')?.value;
-  if (!email || !pass) return showToast('Preencha e-mail e senha');
-  const btn = document.querySelector('#app button');
-  try {
-    const data = await apiFetch('/auth/login', 'POST', {email, password: pass});
-    if (!data) return showToast('E-mail ou senha incorretos');
-    S.token = data.token; S.user = data.user; S.auth = true;
-    localStorage.setItem('kaza_token', S.token);
-    localStorage.setItem('kaza_user', JSON.stringify(S.user));
-    go('dashboard');
-  } catch(err) { showToast('E-mail ou senha incorretos'); }
-}
-
-async function doRegister() {
-  const name  = document.getElementById('reg-name')?.value?.trim();
-  const email = document.getElementById('reg-email')?.value?.trim();
-  const phone = document.getElementById('reg-phone')?.value?.trim();
-  const pass  = document.getElementById('reg-pass')?.value;
-  if (!name || !email || !phone || !pass)
-    return showToast('Preencha todos os campos obrigatórios');
-  if (pass.length < 8) return showToast('Senha deve ter no mínimo 8 caracteres');
-  try {
-    const data = await apiFetch('/auth/register', 'POST', {
-      name, email, phone, password: pass,
-      type: S.rt || 'person',
-      agency_name: document.getElementById('reg-agency')?.value || undefined,
-      creci: document.getElementById('reg-creci')?.value || undefined,
-    });
-    if (!data) return showToast('Erro ao criar conta. Tente novamente.');
-    S.token = data.token; S.user = data.user; S.auth = true;
-    localStorage.setItem('kaza_token', S.token);
-    localStorage.setItem('kaza_user', JSON.stringify(S.user));
-    showToast('Conta criada com sucesso!');
-    go('dashboard');
-  } catch(err) { showToast(err.message || 'Erro ao criar conta'); }
-}
-
-async function doLogout() {
-  S.token = null; S.user = null; S.auth = false; S.cache = {};
-  localStorage.removeItem('kaza_token');
-  localStorage.removeItem('kaza_user');
-  // Restaurar sessão salva
-try {
-  const savedToken = localStorage.getItem('kaza_token');
-  const savedUser  = localStorage.getItem('kaza_user');
-  if (savedToken && savedUser) {
-    S.token = savedToken;
-    S.user  = JSON.parse(savedUser);
-    S.auth  = true;
-  }
-} catch(e) {}
-
-go('home');
-}
-
-// Helper apiFetch com suporte a POST
-async function apiFetch(path, method='GET', body) {
-  try {
-    const headers = {'Content-Type':'application/json'};
-    const token = S.token || localStorage.getItem('kaza_token');
-    if (token) headers['Authorization'] = 'Bearer ' + token;
-    const res = await fetch(API_BASE + path, {
-      method,
-      headers,
-      body: body ? JSON.stringify(body) : undefined,
-    });
-    const data = await res.json();
-    if (!res.ok) throw new Error(data.error || 'Erro na requisição');
-    return data;
-  } catch(e) { throw e; }
+function anunciarPg(){
+  return'<div class="hero" style="min-height:70vh;display:flex;flex-direction:column;justify-content:center">'
+    +'<h1>Anuncie seus imóveis<br>e receba leads no WhatsApp</h1>'
+    +'<p>100% gratuito · Painel completo · KAZA Radar incluso</p>'
+    +'<div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">'
+    +'<button class="btn btn-p btn-lg" onclick="go(\'login\')"><i class="ti ti-user-plus"></i>Criar conta grátis</button>'
+    +'<button class="btn btn-o btn-lg" style="color:#fff;border-color:#fff" onclick="go(\'listings\')">Ver imóveis</button>'
+    +'</div></div>';
 }
 
 
-const PG={home:homePg,listings:listPg,detail:detailPg,dashboard:dashPg,create:createPg,login:loginPg,radar:radarPg,quero:queroPg,posso:possoPg,indice:indicePg};
-function go(p,id){S.page=p;if(id)S.lid=id;if(p==='create'){S.cstep=1;S.ctype=null;}if(p==='home')S.sent=false;render();document.getElementById('app').scrollTop=0;}
-function setF(k,v){S.f[k]=v}
-function sendC(){const n=document.getElementById('cname')?.value,p=document.getElementById('cphone')?.value;if(!n||!p){alert('Preencha nome e WhatsApp.');return;}S.sent=true;render();}
-function chPhoto(src,el){document.getElementById('mphoto').src=src;document.querySelectorAll('.thumb').forEach(t=>t.classList.remove('act'));el.classList.add('act');}
+const PG={
+  home:homePg, listings:listPg, detail:detailPg, dashboard:dashPg,
+  create:createPg, login:loginPg, radar:radarPg, quero:queroPg,
+  posso:possoPg, indice:indicePg, favoritos:favoritosPg,
+  anunciar:anunciarPg, comprar:comprarPg, alugar:alugarPg, rurais:ruraisPg
+};
+
+function go(p,id){
+  S.page=p;
+  if(id!==undefined)S.lid=id;
+  if(p==='create'){S.cstep=1;S.ctype=null;S.cswap=false;}
+  if(p==='home')S.sent=false;
+  if(p==='dashboard'){S.myListings=null;S._loadingDash=false;}
+  render();
+  window.scrollTo(0,0);
+}
+function setF(k,v){S.f[k]=v;}
+function sendC(){
+  var n=document.getElementById('cname')&&document.getElementById('cname').value;
+  var p=document.getElementById('cphone')&&document.getElementById('cphone').value;
+  if(!n||!p){showToast('Preencha nome e WhatsApp.');return;}
+  S.sent=true;render();
+}
+function chPhoto(src,el){
+  document.getElementById('mphoto').src=src;
+  document.querySelectorAll('.thumb').forEach(function(t){t.classList.remove('act');});
+  el.classList.add('act');
+}
 function render(){document.getElementById('app').innerHTML=nav()+(PG[S.page]||homePg)();}
-// apiFetch definido acima (suporta GET e POST)
-async function loadAndRender(){const d=await apiFetch('/listings?limit=6&is_featured=true');if(d&&d.listings&&d.listings.length>0){const norm=l=>({id:l.id,type:l.type,purpose:l.purpose,featured:l.is_featured,title:l.title,desc:l.description,city:l.city,neigh:l.neighborhood||l.city,price:l.price,area:l.area_m2,area_ha:l.area_ha,beds:l.bedrooms,baths:l.bathrooms,park:l.parking,views:l.views||0,swap:l.accepts_swap||false,video_url:l.video_url||null,img:(l.listing_photos&&l.listing_photos[0]&&l.listing_photos[0].url)||'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=800&q=70',imgs:(l.listing_photos||[]).map(p=>p.url),adv:{name:(l.users&&l.users.name)||'Anunciante',agency:(l.users&&l.users.agency_name)||'KAZA Imóveis',ok:(l.users&&l.users.is_verified)||false,phone:((l.users&&l.users.phone)||'').replace(/\D/g,'')}});window._feat=d.listings.map(norm);window._all=d.listings.map(norm);}render();}
+
+// ── Phone mask ───────────────────────────────────────
+function fmtPhone(el) {
+  var v = el.value.replace(/\D/g,'').substring(0,11);
+  if (v.length > 10) v = '(' + v.slice(0,2) + ') ' + v.slice(2,7) + '-' + v.slice(7);
+  else if (v.length > 6) v = '(' + v.slice(0,2) + ') ' + v.slice(2,6) + '-' + v.slice(6);
+  else if (v.length > 2) v = '(' + v.slice(0,2) + ') ' + v.slice(2);
+  else if (v.length > 0) v = '(' + v;
+  el.value = v;
+}
+
+// ── Simple autocomplete for search ───────────────────
+var _acSugs = ['Barreiras', 'Luís Eduardo Magalhães', 'São Desidério', 'Jaborandi',
+               'Formosa do Rio Preto', 'Residencial', 'Rural', 'Comercial', 'Lote'];
+function acSearch(el) {
+  var q = el.value.trim().toLowerCase();
+  var drop = document.getElementById('ac-drop');
+  if (!drop) {
+    drop = document.createElement('div');
+    drop.id = 'ac-drop';
+    drop.className = 'ac-drop';
+    el.parentNode.style.position = 'relative';
+    el.parentNode.appendChild(drop);
+  }
+  if (q.length < 2) { drop.innerHTML = ''; drop.style.display = 'none'; return; }
+  var matches = _acSugs.filter(function(s){ return s.toLowerCase().indexOf(q) > -1; }).slice(0,5);
+  if (matches.length === 0) { drop.style.display = 'none'; return; }
+  var hl = function(s){ var i=s.toLowerCase().indexOf(q); return i<0?s:s.slice(0,i)+'<span class="ac-hl">'+s.slice(i,i+q.length)+'</span>'+s.slice(i+q.length); };
+  drop.innerHTML = matches.map(function(m){ return '<div class="ac-item" onclick="acSelect(this,&quot;'+m+'&quot;)"><i class="ti ti-map-pin"></i>'+hl(m)+'</div>'; }).join('');
+  drop.style.display = 'block';
+}
+function acSelect(el, val) { if (typeof val === "string") val = val.replace(/&quot;/g,""); 
+  var input = el.closest('.ac-wrap') && el.closest('.ac-wrap').querySelector('input') || document.querySelector('.sbar input');
+  if (input) { input.value = val; input.dispatchEvent(new Event('input')); }
+  el.parentNode.style.display = 'none';
+  setF('search', val);
+  go('listings');
+}
+document.addEventListener('click', function(e){ var d=document.getElementById('ac-drop'); if(d&&!d.contains(e.target))d.style.display='none'; });
+
 
 loadAndRender();
 </script>
+
+<!-- ═══ KAZA IA ═══════════════════════════════════ -->
+<button id="kz-ia-btn" onclick="toggleIA()" title="Falar com KAZA IA" aria-label="Abrir KAZA IA">
+  <div class="ia-av">K</div>
+  <span>KAZA IA</span>
+  <span class="ia-dot"></span>
+</button>
+
+<div id="kz-ia-panel">
+  <div class="ia-header">
+    <div class="ia-hav">K</div>
+    <div>
+      <div class="ia-hname">KAZA IA</div>
+      <div class="ia-hstatus"><span></span>Busca inteligente</div>
+    </div>
+    <div class="ia-hpow">Powered by<br><b>Claude AI</b></div>
+    <button class="ia-close" onclick="toggleIA()" aria-label="Fechar chat">
+      <i class="ti ti-x" style="font-size:14px"></i>
+    </button>
+  </div>
+  <div class="ia-msgs" id="kz-ia-msgs">
+    <div class="ia-welcome" id="kz-ia-welcome">
+      <div class="ia-wlogo">K</div>
+      <div class="ia-wtitle">Olá! Sou a KAZA IA</div>
+      <div class="ia-wsub">Me fala o que você procura — do seu jeito, sem formulário. Eu encontro o imóvel certo.</div>
+      <div class="ia-sugs">
+        <button class="ia-sug" onclick="iaSend(this.textContent)">Quero alugar um apartamento de 2 quartos no Centro</button>
+        <button class="ia-sug" onclick="iaSend(this.textContent)">Procuro fazenda para criar gado com mais de 100ha</button>
+        <button class="ia-sug" onclick="iaSend(this.textContent)">Quero comprar casa com piscina até R$ 700mil</button>
+        <button class="ia-sug" onclick="iaSend(this.textContent)">Tem lote para construir em Barreiras?</button>
+      </div>
+    </div>
+  </div>
+  <div class="ia-input-wrap">
+    <textarea id="kz-ia-inp" rows="1" placeholder="Descreva o imóvel que você procura..."
+      onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();iaSend()}"
+      oninput="this.style.height='auto';this.style.height=Math.min(this.scrollHeight,70)+'px';document.getElementById('kz-ia-send').disabled=!this.value.trim()"></textarea>
+    <button id="kz-ia-send" onclick="iaSend()" disabled aria-label="Enviar mensagem">
+      <i class="ti ti-send" style="font-size:15px;color:#fff"></i>
+    </button>
+  </div>
+</div>
+
+<script>
+// ═══ KAZA IA ═══════════════════════════════════════
+var IA={
+  open:false, loading:false, msgs:[],
+  system:'Você é a KAZA IA, assistente de busca de imóveis do portal KAZA Imóveis. Entenda o que o cliente busca em linguagem natural e use search_listings. Se não encontrar, use create_radar_alert. Seja amigável e conciso. Português brasileiro informal.',
+  tools:[
+    {name:'search_listings',description:'Busca imóveis com os critérios do cliente',input_schema:{type:'object',properties:{type:{type:'string',enum:['residential','rural','lot','commercial']},purpose:{type:'string',enum:['sale','rent']},city:{type:'string'},min_beds:{type:'number'},max_price:{type:'number'},min_area_ha:{type:'number'},search:{type:'string'}}}},
+    {name:'create_radar_alert',description:'Registra alerta no Radar. Cliente será notificado quando aparecer imóvel compatível.',input_schema:{type:'object',properties:{type:{type:'string'},purpose:{type:'string'},city:{type:'string'},description:{type:'string'},max_price:{type:'number'}},required:['type','purpose']}}
+  ]
+};
+
+function iaOpenListing(el){var lid=el.dataset&&el.dataset.lid;if(lid){go('detail',lid);toggleIA();}}
+function toggleIA(){
+  IA.open=!IA.open;
+  var panel=document.getElementById('kz-ia-panel');
+  if(IA.open){panel.classList.add('open');document.getElementById('kz-ia-inp').focus();}
+  else panel.classList.remove('open');
+}
+
+function iaSearch(p){
+  var r=L.slice();
+  if(p.type)r=r.filter(function(l){return l.type===p.type;});
+  if(p.purpose)r=r.filter(function(l){return l.purpose===p.purpose;});
+  if(p.city)r=r.filter(function(l){return (l.city||'').toLowerCase().indexOf(p.city.toLowerCase())>-1;});
+  if(p.min_beds)r=r.filter(function(l){return (l.beds||0)>=p.min_beds;});
+  if(p.max_price)r=r.filter(function(l){return (l.price||0)<=p.max_price;});
+  if(p.min_area_ha)r=r.filter(function(l){return (l.area_ha||0)>=p.min_area_ha;});
+  if(p.search)r=r.filter(function(l){return (l.title||'').toLowerCase().indexOf(p.search.toLowerCase())>-1;});
+  return{total:r.length,results:r.slice(0,3).map(function(l){return{id:l.id,title:l.title,price:l.price,type:l.type,purpose:l.purpose,beds:l.beds,area:l.area,area_ha:l.area_ha,city:l.city,neigh:l.neigh,img:l.img};})};
+}
+
+async function iaCallAPI(messages){
+  var res=await fetch('https://api.anthropic.com/v1/messages',{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,system:IA.system,tools:IA.tools,messages:messages})
+  });
+  return res.json();
+}
+
+async function iaProcess(data,msgs,sr){
+  if(data.stop_reason!=='tool_use'){
+    var txt=data.content.filter(function(c){return c.type==='text';}).map(function(c){return c.text;}).join('');
+    return{txt:txt,sr:sr,msgs:msgs};
+  }
+  var trs=[];var uSr=Object.assign({},sr);
+  for(var i=0;i<data.content.length;i++){
+    var b=data.content[i];
+    if(b.type!=='tool_use')continue;
+    var res;
+    if(b.name==='search_listings'){res=iaSearch(b.input);uSr=res;}
+    else if(b.name==='create_radar_alert'){res={success:true,id:'R-'+Math.random().toString(36).substr(2,6).toUpperCase(),params:b.input};uSr=Object.assign({},uSr,{radar:res,rp:b.input});}
+    trs.push({type:'tool_result',tool_use_id:b.id,content:JSON.stringify(res)});
+  }
+  var nm=msgs.concat([{role:'assistant',content:data.content},{role:'user',content:trs}]);
+  return iaProcess(await iaCallAPI(nm),nm,uSr);
+}
+
+async function iaSend(text){
+  var inp=document.getElementById('kz-ia-inp');
+  var msg=(text||inp&&inp.value||'').trim();
+  if(!msg||IA.loading)return;
+  if(inp){inp.value='';inp.style.height='auto';}
+  document.getElementById('kz-ia-send').disabled=true;
+  var welcome=document.getElementById('kz-ia-welcome');
+  if(welcome)welcome.style.display='none';
+  iaAddMsg('usr',msg);
+  IA.msgs.push({role:'user',content:msg});
+  IA.loading=true;
+  var tid='ia-t'+Date.now();
+  iaAddTyping(tid);
+  try{
+    var data=await iaCallAPI(IA.msgs);
+    var res=await iaProcess(data,IA.msgs,{});
+    IA.msgs=[].concat(res.msgs).concat([{role:'assistant',content:res.txt}]);
+    document.getElementById(tid)&&document.getElementById(tid).remove();
+    iaAddMsg('bot',res.txt,res.sr&&res.sr.results,res.sr&&res.sr.total,res.sr&&res.sr.radar);
+  }catch(e){
+    document.getElementById(tid)&&document.getElementById(tid).remove();
+    iaAddMsg('bot','Tive um problema ao buscar. Tente novamente!');
+  }finally{IA.loading=false;}
+}
+
+function iaAddMsg(from,text,listings,total,radar){
+  var msgs=document.getElementById('kz-ia-msgs');
+  var fmtP=function(n,rent){if(!n)return'—';if(rent)return'R$ '+n.toLocaleString('pt-BR')+'/mês';if(n>=1e6)return'R$ '+(n/1e6).toFixed(1).replace('.',',')+' mi';return'R$ '+(n/1e3).toFixed(0)+'mil';};
+  var div=document.createElement('div');
+  div.className='ia-row '+from;
+  var html='';
+  if(from==='bot')html+='<div class="ia-byline"><div class="ia-byav">K</div><span style="font-size:.68rem;font-weight:500;color:#1E3A2F">KAZA IA</span></div>';
+  html+='<div class="ia-bubble '+from+'">'+text.split('\n').join('<br>')+'</div>';
+  if(listings&&listings.length>0){
+    html+='<div style="margin-top:8px"><div style="font-size:.68rem;color:#8A7F77;margin-bottom:5px">'+(total>3?'Mostrando 3 de '+total+' encontrados:':total+' imóvel(is):')+' </div>';
+    html+='<div style="display:flex;gap:8px;overflow-x:auto;padding-bottom:3px;scrollbar-width:none">';
+    for(var i=0;i<listings.length;i++){var l=listings[i];
+      html+='<div style="background:#fff;border-radius:9px;overflow:hidden;border:1px solid rgba(0,0,0,.08);width:160px;flex-shrink:0;cursor:pointer" data-lid="'+l.id+'" onclick="iaOpenListing(this)">'
+        +'<img src="'+(l.img||'')+'" style="width:100%;height:90px;object-fit:cover;display:block;background:#c8d5cf" loading="lazy" alt="'+l.title+'">'
+        +'<div style="padding:6px 8px"><div style="font-size:.75rem;font-weight:700;color:#C4622D">'+fmtP(l.price,l.purpose==='rent')+'</div>'
+        +'<div style="font-size:.67rem;font-weight:500;color:#111;line-height:1.3;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical">'+l.title+'</div>'
+        +'<div style="font-size:.62rem;color:#8A7F77;margin-top:2px">'+(''+l.neigh+' · '+l.city).substring(0,30)+'</div></div></div>';
+    }
+    html+='</div></div>';
+  }
+  if(radar){
+    var rid='rad'+Date.now();
+    html+='<div style="margin-top:8px;background:#F5EFE6;border:1px solid rgba(196,98,45,.25);border-radius:10px;padding:10px 11px">'
+      +'<div style="display:flex;align-items:center;gap:6px;margin-bottom:5px"><span style="font-size:14px">📡</span><span style="font-size:.78rem;font-weight:600;color:#1E3A2F">Radar ativado</span></div>'
+      +'<div style="font-size:.72rem;color:#5a4e46;line-height:1.55;margin-bottom:8px">Deixe seu contato para ser avisado no WhatsApp quando aparecer um imóvel compatível.</div>'
+      +'<div style="display:flex;gap:6px;margin-bottom:6px">'
+      +'<input id="'+rid+'-n" placeholder="Seu nome" style="flex:1;padding:6px 8px;border:1.5px solid rgba(196,98,45,.3);border-radius:6px;font-size:.72rem;font-family:inherit;outline:none">'
+      +'<input id="'+rid+'-p" placeholder="WhatsApp" style="flex:1;padding:6px 8px;border:1.5px solid rgba(196,98,45,.3);border-radius:6px;font-size:.72rem;font-family:inherit;outline:none">'
+      +'</div>'
+      +'<button data-rid="'+rid+'" onclick="iaRadarConfirm(this.dataset.rid,this.closest(\'div\'))" style="width:100%;background:#C4622D;color:#fff;border:none;border-radius:7px;padding:7px;font-size:.75rem;font-weight:500;cursor:pointer;font-family:inherit">📡 Ativar meu alerta</button>'
+      +'</div>';
+  }
+  div.innerHTML=html;
+  msgs.appendChild(div);
+  div.scrollIntoView({behavior:'smooth',block:'end'});
+}
+
+function iaRadarConfirm(id,box){
+  var name=document.getElementById(id+'-n')&&document.getElementById(id+'-n').value.trim();
+  var phone=document.getElementById(id+'-p')&&document.getElementById(id+'-p').value.trim();
+  if(!name||!phone){showToast('Preencha nome e WhatsApp para ativar o alerta.');return;}
+  if(box)box.innerHTML='<div style="text-align:center;padding:10px"><div style="font-size:20px;margin-bottom:6px">🎯</div><div style="font-size:.8rem;font-weight:600;color:#1E3A2F;margin-bottom:3px">Radar ativo, '+name+'!</div><div style="font-size:.72rem;color:#5a4e46">Vamos te avisar no WhatsApp '+phone+'.</div></div>';
+}
+
+function iaAddTyping(id){
+  var msgs=document.getElementById('kz-ia-msgs');
+  var div=document.createElement('div');
+  div.id=id;div.className='ia-typing';
+  div.innerHTML='<div class="ia-byav" style="width:22px;height:22px;font-size:10px">K</div><div class="ia-typing-bub"><div class="ia-dot-anim" style="animation-delay:0s"></div><div class="ia-dot-anim" style="animation-delay:.15s"></div><div class="ia-dot-anim" style="animation-delay:.3s"></div></div>';
+  msgs.appendChild(div);
+  div.scrollIntoView({behavior:'smooth',block:'end'});
+}
+
+// === SHARE FEATURE ===
+function openShare(lid) {
+  var l = L.find(function(x) { return String(x.id) === String(lid); }) || L[0];
+  // Build shareable URL (hash-based for single-page app)
+  var base = window.location.origin + window.location.pathname;
+  var url = base + '?imovel=' + l.id;
+  var priceStr = fmt(l.price, l.purpose === 'rent');
+  var waMsg = encodeURIComponent(
+    '🏡 *' + l.title + '*\n'
+    + '💰 ' + priceStr + '\n'
+    + '📍 ' + l.neigh + ', ' + l.city + ' — BA\n\n'
+    + 'Ver no KAZA Imóveis: ' + url
+  );
+  var tgText = encodeURIComponent('🏡 ' + l.title + ' — ' + priceStr + ' · ' + l.neigh + ', ' + l.city + ' BA');
+  var encUrl = encodeURIComponent(url);
+  var emailSub = encodeURIComponent('Imóvel para você: ' + l.title);
+  var emailBody = encodeURIComponent(
+    'Olá!\n\nEncontrei este imóvel no KAZA Imóveis:\n\n'
+    + l.title + '\n'
+    + priceStr + '\n'
+    + l.neigh + ', ' + l.city + ' — BA\n\n'
+    + 'Veja mais em: ' + url
+  );
+
+  // Remove stale overlay if any
+  var prev = document.querySelector('.share-overlay');
+  if (prev) prev.remove();
+
+  var overlay = document.createElement('div');
+  overlay.className = 'share-overlay';
+  overlay.onclick = function(e) { if (e.target === overlay) overlay.remove(); };
+
+  overlay.innerHTML = '<div class="share-sheet" onclick="event.stopPropagation()">'
+    + '<div class="share-handle"></div>'
+    + '<div class="share-sheet-title">Compartilhar imóvel</div>'
+    + '<div class="share-sheet-sub">' + l.title + ' &middot; ' + l.neigh + ', ' + l.city + '</div>'
+    + '<div class="share-grid">'
+
+    // WhatsApp
+    + '<button class="share-item" onclick="window.open(\'https://wa.me/?text=' + waMsg + '\',\'_blank\');document.querySelector(\'.share-overlay\').remove()">'
+    + '<div class="share-ico" style="background:#dcfce7"><i class="ti ti-brand-whatsapp" style="color:#16a34a"></i></div>'
+    + '<span class="share-item-lbl">WhatsApp</span></button>'
+
+    // Telegram
+    + '<button class="share-item" onclick="window.open(\'https://t.me/share/url?url=' + encUrl + '&text=' + tgText + '\',\'_blank\');document.querySelector(\'.share-overlay\').remove()">'
+    + '<div class="share-ico" style="background:#dbeafe"><i class="ti ti-brand-telegram" style="color:#2563eb"></i></div>'
+    + '<span class="share-item-lbl">Telegram</span></button>'
+
+    // E-mail
+    + '<button class="share-item" onclick="window.location.href=\'mailto:?subject=' + emailSub + '&body=' + emailBody + '\';document.querySelector(\'.share-overlay\').remove()">'
+    + '<div class="share-ico" style="background:#fef3c7"><i class="ti ti-mail" style="color:#d97706"></i></div>'
+    + '<span class="share-item-lbl">E-mail</span></button>'
+
+    // Instagram (copy + instrução)
+    + '<button class="share-item" onclick="shareInstagram(\'' + encodeURIComponent(url) + '\')">'
+    + '<div class="share-ico" style="background:linear-gradient(135deg,#fce7f3 0%,#ede9fe 100%)"><i class="ti ti-brand-instagram" style="color:#db2777"></i></div>'
+    + '<span class="share-item-lbl">Instagram</span></button>'
+
+    + '</div>'
+
+    // Copy link row
+    + '<div class="share-copy-row">'
+    + '<div class="share-copy-txt">' + url + '</div>'
+    + '<button class="share-copy-action" id="kz-share-copy-btn" onclick="doShareCopy(\'' + encodeURIComponent(url) + '\',\'kz-share-copy-btn\')">'
+    + '<i class="ti ti-copy"></i>Copiar link</button>'
+    + '</div>'
+
+    // Dismiss
+    + '<button class="share-dismiss" onclick="document.querySelector(\'.share-overlay\').remove()">Fechar</button>'
+    + '</div>';
+
+  document.body.appendChild(overlay);
+}
+
+function shareInstagram(encUrl) {
+  doShareCopy(encUrl, null);
+  var prev = document.querySelector('.share-overlay');
+  if (prev) prev.remove();
+  showToast('📸 Link copiado! Cole no bio ou story do Instagram.');
+}
+
+function doShareCopy(encUrl, btnId) {
+  var url = decodeURIComponent(encUrl);
+  var btn = btnId ? document.getElementById(btnId) : null;
+  var onDone = function() {
+    if (btn) {
+      var orig = btn.innerHTML;
+      btn.innerHTML = '<i class="ti ti-check"></i>Copiado!';
+      btn.style.background = '#16a34a';
+      setTimeout(function() {
+        if (btn) { btn.innerHTML = orig; btn.style.background = ''; }
+      }, 2400);
+    } else {
+      showToast('Link copiado!');
+    }
+  };
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(url).then(onDone).catch(function() {
+      _fallbackCopy(url); onDone();
+    });
+  } else {
+    _fallbackCopy(url); onDone();
+  }
+}
+
+function _fallbackCopy(text) {
+  var ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.cssText = 'position:fixed;top:-9999px;left:-9999px;opacity:0;pointer-events:none';
+  document.body.appendChild(ta);
+  ta.select();
+  try { document.execCommand('copy'); } catch(e) {}
+  document.body.removeChild(ta);
+}
+</script>
 </body>
 </html>
+
