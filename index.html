@@ -838,6 +838,27 @@ function loginPg(){
   </div>`;
 }
 
+// ── Toast global ─────────────────────────────────────
+function showToast(msg, type) {
+  let t = document.getElementById('kz-toast');
+  if (!t) {
+    t = document.createElement('div');
+    t.id = 'kz-toast';
+    t.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:#1A1A1A;color:#fff;padding:.75rem 1.4rem;border-radius:10px;font-family:var(--fb);font-size:.88rem;font-weight:500;box-shadow:0 8px 24px rgba(0,0,0,.25);z-index:9999;opacity:0;transition:all .3s;pointer-events:none;white-space:nowrap;max-width:90vw;text-align:center';
+    document.body.appendChild(t);
+  }
+  t.style.background = type === 'err' ? '#c62828' : '#1A1A1A';
+  t.textContent = msg;
+  t.style.opacity = '1';
+  t.style.transform = 'translateX(-50%) translateY(0)';
+  clearTimeout(t._h);
+  t._h = setTimeout(() => {
+    t.style.opacity = '0';
+    t.style.transform = 'translateX(-50%) translateY(20px)';
+  }, 2800);
+}
+
+
 const API_BASE = 'https://web-production-66119.up.railway.app/api';
 
 const DEMAND={residential_rent:24,residential_sale:18,commercial_rent:11,commercial_sale:7,rural_sale:9,lot_sale:7};
