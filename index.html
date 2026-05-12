@@ -1543,7 +1543,7 @@ function setF(k,v){S.f[k]=v}
 function sendC(){const n=document.getElementById('cname')?.value,p=document.getElementById('cphone')?.value;if(!n||!p){alert('Preencha nome e WhatsApp.');return;}S.sent=true;render();}
 function chPhoto(src,el){document.getElementById('mphoto').src=src;document.querySelectorAll('.thumb').forEach(t=>t.classList.remove('act'));el.classList.add('act');}
 function render(){document.getElementById('app').innerHTML=nav()+(PG[S.page]||homePg)();}
-async function apiFetch(path){try{const h={};const t=localStorage.getItem('kaza_token');if(t)h['Authorization']='Bearer '+t;const r=await fetch(API_BASE+path,{headers:h});if(!r.ok)return null;return await r.json();}catch(e){return null;}}
+// apiFetch definido acima (suporta GET e POST)
 async function loadAndRender(){const d=await apiFetch('/listings?limit=6&is_featured=true');if(d&&d.listings&&d.listings.length>0){const norm=l=>({id:l.id,type:l.type,purpose:l.purpose,featured:l.is_featured,title:l.title,desc:l.description,city:l.city,neigh:l.neighborhood||l.city,price:l.price,area:l.area_m2,area_ha:l.area_ha,beds:l.bedrooms,baths:l.bathrooms,park:l.parking,views:l.views||0,swap:l.accepts_swap||false,video_url:l.video_url||null,img:(l.listing_photos&&l.listing_photos[0]&&l.listing_photos[0].url)||'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=800&q=70',imgs:(l.listing_photos||[]).map(p=>p.url),adv:{name:(l.users&&l.users.name)||'Anunciante',agency:(l.users&&l.users.agency_name)||'KAZA Imóveis',ok:(l.users&&l.users.is_verified)||false,phone:((l.users&&l.users.phone)||'').replace(/\D/g,'')}});window._feat=d.listings.map(norm);window._all=d.listings.map(norm);}render();}
 
 loadAndRender();
