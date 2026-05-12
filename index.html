@@ -819,20 +819,20 @@ function loginPg(){
         <button onclick="S.lm='reg';render()" style="flex:1;padding:8px;border-radius:7px;border:none;font-family:var(--fb);font-size:.82rem;cursor:pointer;transition:all .15s;${S.lm==='reg'?'background:#fff;font-weight:500;color:var(--ch)':'background:transparent;color:var(--cz)'}">Criar conta</button>
       </div>
       ${S.lm==='login'?`
-        <div class="fg"><label class="fl">E-mail</label><input class="fi" type="email" placeholder="seu@email.com"></div>
-        <div class="fg"><label class="fl">Senha</label><input class="fi" type="password" placeholder="••••••••"></div>
+        <div class="fg"><label class="fl">E-mail</label><input class="fi" type="email" placeholder="seu@email.com" id="login-email"></div>
+        <div class="fg"><label class="fl">Senha</label><input class="fi" type="password" placeholder="••••••••" id="login-pass" onkeydown="if(event.key==='Enter')doLogin()"></div>
         <button class="btn btn-d" style="width:100%;padding:.875rem;font-size:.9rem" onclick="doLogin()">Entrar na KAZA</button>
         <div style="text-align:center;margin-top:1rem;font-size:.78rem;color:var(--cz)">Esqueceu a senha? <span style="color:var(--t);cursor:pointer">Recuperar</span></div>`:
       `<div style="display:flex;gap:7px;margin-bottom:14px">
           <button onclick="S.rt='person';render()" style="flex:1;padding:8px;border-radius:8px;border:1.5px solid ${S.rt!=='agency'?'var(--t)':'#eee'};background:${S.rt!=='agency'?'rgba(196,98,45,.06)':'transparent'};cursor:pointer;font-family:var(--fb);font-size:.78rem;color:${S.rt!=='agency'?'var(--t)':'var(--cz)'}">Pessoa física</button>
           <button onclick="S.rt='agency';render()" style="flex:1;padding:8px;border-radius:8px;border:1.5px solid ${S.rt==='agency'?'var(--t)':'#eee'};background:${S.rt==='agency'?'rgba(196,98,45,.06)':'transparent'};cursor:pointer;font-family:var(--fb);font-size:.78rem;color:${S.rt==='agency'?'var(--t)':'var(--cz)'}">Imobiliária/Corretor</button>
         </div>
-        <div class="fg"><label class="fl">Nome completo</label><input class="fi" placeholder="Seu nome"></div>
+        <div class="fg"><label class="fl">Nome completo</label><input class="fi" placeholder="Seu nome" id="reg-name"></div>
         ${S.rt==='agency'?`<div class="fg"><label class="fl">Imobiliária</label><input class="fi" placeholder="Ex: KAZA Imóveis"></div>
         <div class="fg"><label class="fl">CRECI</label><input class="fi" placeholder="CRECI-BA 00000"></div>`:''}
-        <div class="fg"><label class="fl">E-mail</label><input class="fi" type="email" placeholder="seu@email.com"></div>
-        <div class="fg"><label class="fl">Telefone (WhatsApp)</label><input class="fi" type="tel" placeholder="(77) 9 9999-9999"></div>
-        <div class="fg"><label class="fl">Senha</label><input class="fi" type="password" placeholder="Mínimo 8 caracteres"></div>
+        <div class="fg"><label class="fl">E-mail</label><input class="fi" type="email" placeholder="seu@email.com" id="reg-email"></div>
+        <div class="fg"><label class="fl">Telefone (WhatsApp)</label><input class="fi" type="tel" placeholder="(77) 9 9999-9999" id="reg-phone"></div>
+        <div class="fg"><label class="fl">Senha</label><input class="fi" type="password" placeholder="Mínimo 8 caracteres" id="reg-pass"></div>
         <button class="btn btn-p" style="width:100%;padding:.875rem;font-size:.9rem" onclick="doRegister()"><i class="ti ti-user-plus" aria-hidden="true"></i>Criar conta grátis</button>`}
     </div>
   </div>`;
