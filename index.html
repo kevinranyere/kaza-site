@@ -717,8 +717,7 @@ function dashPg(){
       '_"'+lead.message+'"_',
       '',
       'Como posso te ajudar? Estou disponível agora! 😊',
-    ].filter(Boolean).join('
-');
+    ].filter(Boolean).join('\n');
     const phone = (lead.phone||'').replace(/\D/g,'');
     return 'https://wa.me/55'+phone+'?text='+encodeURIComponent(msg);
   };
