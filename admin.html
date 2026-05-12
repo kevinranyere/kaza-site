@@ -575,8 +575,8 @@ const PAGES = {
   async listings() {
     const filter = S.filter.listings || 'all';
     const path   = filter === 'pending' ? '/admin/listings/pending'
-                 : filter === 'all'     ? '/listings?limit=50&order=-created_at'
-                 : `/listings?status=${filter}&limit=50`;
+                 : filter === 'all'     ? '/admin/listings?limit=100'
+                 : `/admin/listings?status=${filter}&limit=100`;
 
     const data = await api('GET', path);
     const list = data.listings || [];
@@ -976,15 +976,61 @@ function listingRow(l) {
     <td style="color:var(--cz)">${(l.views||0).toLocaleString()}</td>
     <td>
       <div style="display:flex;gap:5px;justify-content:flex-end;flex-wrap:wrap">
-        ${l.status === 'pending' ? `
-          <button class="btn btn-p btn-sm" onclick="approveListing('${l.id}')"><i class="ti ti-check" aria-hidden="true"></i>Aprovar</button>
-          <button class="btn btn-danger btn-sm" onclick="openRejectModal('${l.id}')"><i class="ti ti-x" aria-hidden="true"></i>Rejeitar</button>` :
-        `<button class="btn btn-g btn-sm btn-icon" title="Editar" onclick="openEditListing('${l.id}')"><i class="ti ti-pencil" aria-hidden="true"></i></button>
-         <button class="btn btn-g btn-sm btn-icon" title="Destacar" onclick="openFeatureModal('${l.id}')"><i class="ti ti-star" aria-hidden="true"></i></button>
-         <button class="btn btn-danger btn-sm btn-icon" title="Excluir" onclick="deleteListing('${l.id}')"><i class="ti ti-trash" aria-hidden="true"></i></button>`}
+        <div style="display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end">
+          ${l.status === 'pending' ? `
+            <button class="btn btn-p btn-sm" onclick="approveListing('${l.id}')">
+              <i class="ti ti-check" aria-hidden="true"></i>Aprovar
+            </button>
+            <button class="btn btn-danger btn-sm" onclick="openRejectModal('${l.id}')">
+              <i class="ti ti-x" aria-hidden="true"></i>Rejeitar
+            </button>` : `
+            <button class="btn btn-g btn-sm btn-icon" title="Editar" onclick="openEditListing('${l.id}')">
+              <i class="ti ti-pencil" aria-hidden="true"></i>
+            </button>
+            <button class="btn btn-o btn-sm btn-icon" title="${l.status==='active'?'Pausar':'Ativar'}"
+              onclick="toggleListingStatus('${l.id}','${l.status}')">
+              <i class="ti ti-${l.status==='active'?'pause':'player-play'}" aria-hidden="true"></i>
+            </button>
+            <button class="btn btn-g btn-sm btn-icon" title="Destacar" onclick="openFeatureModal('${l.id}')">
+              <i class="ti ti-star" aria-hidden="true"></i>
+            </button>
+            <button class="btn btn-danger btn-sm btn-icon" title="Excluir" onclick="deleteListing('${l.id}')">
+              <i class="ti ti-trash" aria-hidden="true"></i>
+            </button>`}
+        </div>
       </div>
     </td>
   </tr>`;
+}
+
+
+async function toggleListingStatus(id, currentStatus) {
+  const newStatus = currentStatus === 'active' ? 'paused' : 'active';
+  try {
+    await api('PATCH', `/admin/listings/${id}`, { status: newStatus });
+    toast(newStatus === 'active' ? '✓ Imóvel ativado!' : '⏸ Imóvel pausado!');
+    PAGES.listings();
+  } catch(err) { toast(err.message, 'err'); }
+}
+
+
+// ── Notificações ─────────────────────────────────────
+async function loadNotifications() {
+  try {
+    const data = await api('GET', '/admin/listings/pending');
+    const count = data.total || data.listings?.length || 0;
+    const badge = document.getElementById('sb-pending-count');
+    const bell  = document.getElementById('notif-bell-count');
+    if (badge) badge.textContent = count;
+    if (bell) {
+      bell.textContent = count;
+      bell.style.display = count > 0 ? 'flex' : 'none';
+    }
+    if (count > 0) {
+      const btn = document.getElementById('sb-pending-btn');
+      if (btn) btn.classList.add('warn');
+    }
+  } catch(e) {}
 }
 
 async function approveListing(id) {
@@ -1541,7 +1587,6 @@ async function saveEditUser(id) {
     is_admin:    document.getElementById('eu-admin')?.value === 'true',
   };
   try {
-    // Usar a rota de admin para atualizar usuário
     await api('PATCH', `/admin/users/${id}`, body);
     closeModal();
     toast('✓ Usuário atualizado!');
@@ -1809,6 +1854,8 @@ if (!S.token || !S.user) {
     showLogin();
   } else {
     loadPage('dashboard');
+  loadNotifications();
+  setInterval(loadNotifications, 60000); // atualiza a cada 1 min
   }
 }
 </script>
