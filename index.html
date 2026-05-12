@@ -679,64 +679,294 @@ function detailPg(){
 }
 
 function dashPg(){
-  const myL=L.slice(0,4);
-  const tabs=[['listings','ti-home','Anúncios'],['leads','ti-message','Leads'],['profile','ti-user','Perfil']];
+  const u = S.user || {};
+  const firstName = (u.name||'Usuário').split(' ')[0];
+  const initials  = (u.name||'U').split(' ').map(w=>w[0]).join('').substring(0,2).toUpperCase();
+  const notifCount = S.myLeads ? S.myLeads.filter(l=>!l.read).length : 0;
+
+  // Stats reais ou fallback
+  const stats = S.dashStats || { listings:0, views:0, leads:0, featured:0 };
+
+  // Anúncios do usuário
+  const myListings = S.myListings || [];
+
+  // Leads do usuário
+  const myLeads = S.myLeads || [];
+
+  // Função WhatsApp com mensagem rica
+  const waLink = (lead) => {
+    const prop = lead.listing || {};
+    const price = prop.price
+      ? (prop.purpose==='rent'
+          ? 'R$ '+prop.price.toLocaleString('pt-BR')+'/mês'
+          : prop.price>=1e6
+            ? 'R$ '+(prop.price/1e6).toFixed(1).replace('.',',')+' mi'
+            : 'R$ '+(prop.price/1e3).toFixed(0)+'mil')
+      : '';
+    const msg = [
+      'Olá, '+lead.name+'! 👋',
+      '',
+      'Recebi seu contato pela *KAZA Imóveis* e quero te atender rapidinho! 🏠',
+      '',
+      '📋 *Você entrou em contato sobre:*',
+      '🏠 *'+(prop.title||lead.listing_title||'Imóvel')+'*',
+      (prop.city ? '📍 '+(prop.neighborhood ? prop.neighborhood+' · ' : '')+prop.city : ''),
+      (price ? '💰 '+price : ''),
+      '',
+      '💬 *Sua mensagem:*',
+      '_"'+lead.message+'"_',
+      '',
+      'Como posso te ajudar? Estou disponível agora! 😊',
+    ].filter(Boolean).join('
+');
+    const phone = (lead.phone||'').replace(/\D/g,'');
+    return 'https://wa.me/55'+phone+'?text='+encodeURIComponent(msg);
+  };
+
+  // Carregar dados se ainda não carregou
+  if (!S.myListings && !S._loadingDash) {
+    S._loadingDash = true;
+    Promise.all([
+      apiFetch('/me/listings').then(d=>{ S.myListings=d?.listings||[]; S.dashStats={listings:(d?.listings||[]).filter(x=>x.status==='active').length, views:(d?.listings||[]).reduce((a,x)=>a+(x.views||0),0), leads:(d?.listings||[]).reduce((a,x)=>a+(x.contact_count||0),0), featured:(d?.listings||[]).filter(x=>x.is_featured).length}; }).catch(()=>{ S.myListings=[]; }),
+      apiFetch('/me/leads').then(d=>{ S.myLeads=d?.leads||[]; }).catch(()=>{ S.myLeads=[]; }),
+    ]).then(()=>{ S._loadingDash=false; render(); });
+  }
+
+  const tabs=[
+    ['listings','ti-home','Anúncios', stats.listings],
+    ['leads','ti-message','Leads', myLeads.length],
+    ['profile','ti-user','Perfil', 0],
+  ];
+
   return`<div class="dashl">
+    <!-- Sidebar -->
     <div class="dsi">
-      <div style="padding:1.25rem 1.4rem;font-family:var(--fd);font-size:1rem;color:#fff;border-bottom:1px solid rgba(255,255,255,.1);margin-bottom:.5rem">Painel KAZA</div>
-      ${tabs.map(([k,ic,v])=>`<div class="dni ${S.dtab===k?'act':''}" onclick="S.dtab='${k}';render()"><i class="ti ${ic}" aria-hidden="true"></i>${v}</div>`).join('')}
-      <div class="dni" onclick="go('create')" style="margin-top:.5rem"><i class="ti ti-plus" aria-hidden="true"></i>Novo anúncio</div>
-      <div class="dni" onclick="S.auth=false;go('home')" style="margin-top:1rem;border-top:1px solid rgba(255,255,255,.1);padding-top:1rem"><i class="ti ti-logout" aria-hidden="true"></i>Sair</div>
-    </div>
-    <div class="dc">
-      ${S.dtab==='listings'?`
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem">
-          <div style="font-family:var(--fd);font-size:1.5rem">Meus anúncios</div>
-          <button class="btn btn-p" onclick="go('create')"><i class="ti ti-plus" aria-hidden="true"></i>Novo anúncio</button>
-        </div>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;margin-bottom:1.5rem">
-          ${[['4','Ativos'],['847','Visualizações'],['3','Leads'],['1','Destaque']].map(([n,l])=>
-            `<div style="background:#fff;border-radius:10px;padding:14px;border:1px solid rgba(0,0,0,.06)"><div style="font-size:1.5rem;font-weight:700;color:var(--ch)">${n}</div><div style="font-size:.7rem;color:var(--cz);text-transform:uppercase;letter-spacing:.06em;margin-top:3px">${l}</div></div>`).join('')}
-        </div>
-        <table class="tbl">
-          <thead><tr><th style="width:36%">Imóvel</th><th style="width:16%">Tipo</th><th style="width:18%">Preço</th><th style="width:12%">Status</th><th style="width:10%">Visitas</th><th style="width:8%"></th></tr></thead>
-          <tbody>${myL.map(l=>`<tr>
-            <td style="font-weight:500">${l.title}</td>
-            <td>${btag(l.type)}</td>
-            <td style="color:var(--t);font-weight:700">${fmt(l.price,l.purpose==='rent')}</td>
-            <td><span class="badge b-atv"><i class="ti ti-check" aria-hidden="true"></i>Ativo</span></td>
-            <td style="color:var(--cz)">${l.views}</td>
-            <td><button class="btn btn-o" style="font-size:.73rem;padding:4px 10px" onclick="go('detail',${l.id})"><i class="ti ti-eye" aria-hidden="true"></i></button></td>
-          </tr>`).join('')}</tbody>
-        </table>`:
-      S.dtab==='leads'?`
-        <div style="font-family:var(--fd);font-size:1.5rem;margin-bottom:1.5rem">Leads recebidos</div>
-        ${[{n:'Roberto Silva',p:'77991111111',m:'Gostaria de agendar uma visita.',l:'Casa 3/4 no Morada',d:'Hoje, 14h'},
-           {n:'Fernanda Costa',p:'77992222222',m:'Qual a situação da documentação?',l:'Fazenda 500ha',d:'Ontem, 9h'},
-           {n:'Pedro Alves',p:'77993333333',m:'Aceita proposta?',l:'Lote 360m²',d:'Há 2 dias'}].map(x=>`
-          <div style="background:#fff;border-radius:12px;padding:1.1rem 1.25rem;margin-bottom:.875rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap;box-shadow:0 1px 4px rgba(30,58,47,.06)">
-            <div style="width:38px;height:38px;border-radius:50%;background:var(--v);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;flex-shrink:0">${x.n[0]}</div>
-            <div style="flex:1;min-width:140px">
-              <div style="font-weight:500;font-size:.9rem">${x.n}</div>
-              <div style="font-size:.77rem;color:var(--cz)">${x.l} · ${x.d}</div>
-              <div style="font-size:.85rem;margin-top:3px;color:#444">"${x.m}"</div>
-            </div>
-            <a class="btn btn-w" style="font-size:.8rem;padding:.45rem .9rem" href="https://wa.me/55${x.p}" target="_blank"><i class="ti ti-brand-whatsapp" aria-hidden="true"></i>WhatsApp</a>
-          </div>`).join('')}`:
-      `<div style="font-family:var(--fd);font-size:1.5rem;margin-bottom:1.5rem">Meu perfil</div>
-        <div style="background:#fff;border-radius:12px;padding:1.5rem;max-width:480px">
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
-            <div class="fg"><label class="fl">Nome</label><input class="fi" value="Maria Souza"></div>
-            <div class="fg"><label class="fl">Telefone</label><input class="fi" value="(77) 9 9123-4567"></div>
-            <div class="fg" style="grid-column:span 2"><label class="fl">E-mail</label><input class="fi" value="maria@kazaimoveis.com.br"></div>
-            <div class="fg"><label class="fl">CRECI</label><input class="fi" value="CRECI-BA 12345"></div>
-            <div class="fg"><label class="fl">Imobiliária</label><input class="fi" value="KAZA Imóveis"></div>
+      <!-- Logo -->
+      <div style="padding:1.1rem 1.25rem .75rem;border-bottom:1px solid rgba(255,255,255,.08);margin-bottom:.5rem">
+        <div style="font-family:var(--fd);font-size:1.1rem;color:#fff;letter-spacing:.01em">Painel <span style="color:var(--tl)">KAZA</span></div>
+      </div>
+
+      <!-- Nav items -->
+      ${tabs.map(([k,ic,v,cnt])=>`
+        <div class="dni ${S.dtab===k?'act':''}" onclick="S.dtab='${k}';render()">
+          <i class="ti ${ic}" aria-hidden="true"></i>
+          <span>${v}</span>
+          ${cnt>0?`<span style="margin-left:auto;background:${S.dtab===k?'rgba(255,255,255,.25)':'rgba(196,98,45,.85)'};color:#fff;font-size:.6rem;font-weight:700;padding:1px 6px;border-radius:99px;min-width:18px;text-align:center">${cnt}</span>`:''}
+        </div>`).join('')}
+
+      <div class="dni" onclick="go('create')" style="margin-top:.375rem">
+        <i class="ti ti-plus" aria-hidden="true"></i>Novo anúncio
+      </div>
+
+      <!-- Notificações -->
+      <div class="dni ${notifCount>0?'notif-pulse':''}" onclick="S.dtab='leads';render()" style="position:relative;margin-top:.375rem">
+        <i class="ti ti-bell" aria-hidden="true"></i>
+        Notificações
+        ${notifCount>0?`<span style="position:absolute;top:8px;right:10px;width:18px;height:18px;border-radius:50%;background:#C4622D;color:#fff;font-size:.58rem;font-weight:700;display:flex;align-items:center;justify-content:center">${notifCount}</span>`:''}
+      </div>
+
+      <!-- Espaçador -->
+      <div style="flex:1"></div>
+
+      <!-- Usuário logado + Sair -->
+      <div style="border-top:1px solid rgba(255,255,255,.08);padding-top:.75rem;margin-top:.75rem">
+        <div style="display:flex;align-items:center;gap:9px;padding:.5rem 1rem;margin-bottom:.25rem">
+          <div style="width:34px;height:34px;border-radius:50%;background:rgba(196,98,45,.3);border:2px solid rgba(232,132,90,.4);display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:700;color:#E8845A;flex-shrink:0">${initials}</div>
+          <div style="min-width:0">
+            <div style="font-size:.82rem;font-weight:500;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${firstName}</div>
+            <div style="font-size:.65rem;color:rgba(255,255,255,.4);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${u.email||''}</div>
           </div>
-          <button class="btn btn-p" style="margin-top:1.1rem" onclick="alert('Perfil salvo! ✓')"><i class="ti ti-check" aria-hidden="true"></i>Salvar alterações</button>
+        </div>
+        <div class="dni" onclick="doLogout()" style="color:rgba(255,255,255,.5)">
+          <i class="ti ti-logout" aria-hidden="true"></i>Sair da conta
+        </div>
+      </div>
+    </div>
+
+    <!-- Conteúdo principal -->
+    <div class="dc">
+
+      ${S.dtab==='listings'?`
+        <!-- Header -->
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:1.5rem;flex-wrap:wrap;gap:.75rem">
+          <div>
+            <div style="font-family:var(--fd);font-size:1.5rem;color:var(--ch)">Meus anúncios</div>
+            <div style="font-size:.82rem;color:var(--cz);margin-top:2px">${myListings.length} imóvel(is) cadastrado(s)</div>
+          </div>
+          <button class="btn btn-p" onclick="go('create')">
+            <i class="ti ti-plus" aria-hidden="true"></i>Novo anúncio
+          </button>
+        </div>
+
+        <!-- Stats -->
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:1.5rem">
+          ${[
+            ['ti-home-check',stats.listings||myListings.filter(l=>l.status==='active').length||0,'Ativos','#1E3A2F','rgba(30,58,47,.08)'],
+            ['ti-eye',stats.views||myListings.reduce((a,l)=>a+(l.views||0),0)||0,'Visualizações','#0369a1','rgba(3,105,161,.08)'],
+            ['ti-message',stats.leads||myLeads.length||0,'Leads','#C4622D','rgba(196,98,45,.08)'],
+            ['ti-star',stats.featured||myListings.filter(l=>l.is_featured).length||0,'Em destaque','#b45309','rgba(180,83,9,.08)'],
+          ].map(([ic,n,l,color,bg])=>`
+            <div style="background:#fff;border-radius:12px;padding:14px 16px;border:1px solid rgba(0,0,0,.06);position:relative;overflow:hidden">
+              <div style="width:36px;height:36px;border-radius:9px;background:${bg};display:flex;align-items:center;justify-content:center;margin-bottom:10px">
+                <i class="ti ${ic}" style="font-size:18px;color:${color}" aria-hidden="true"></i>
+              </div>
+              <div style="font-size:1.6rem;font-weight:700;color:var(--ch);line-height:1">${n}</div>
+              <div style="font-size:.68rem;color:var(--cz);text-transform:uppercase;letter-spacing:.07em;margin-top:4px">${l}</div>
+            </div>`).join('')}
+        </div>
+
+        <!-- Tabela -->
+        ${myListings.length===0?`
+          <div style="background:#fff;border-radius:12px;padding:3rem;text-align:center;border:1px solid rgba(0,0,0,.06)">
+            <i class="ti ti-home-off" style="font-size:2.5rem;color:#EDE4D4;display:block;margin-bottom:.75rem" aria-hidden="true"></i>
+            <div style="font-family:var(--fd);font-size:1.1rem;margin-bottom:.5rem">Nenhum anúncio ainda</div>
+            <div style="font-size:.85rem;color:var(--cz);margin-bottom:1.25rem">Cadastre seu primeiro imóvel e comece a receber leads!</div>
+            <button class="btn btn-p" onclick="go('create')"><i class="ti ti-plus" aria-hidden="true"></i>Cadastrar imóvel</button>
+          </div>
+        `:`
+        <div style="background:#fff;border-radius:12px;border:1px solid rgba(0,0,0,.06);overflow:hidden">
+          <table class="tbl">
+            <thead><tr>
+              <th style="width:35%">Imóvel</th>
+              <th>Tipo</th>
+              <th>Preço</th>
+              <th>Status</th>
+              <th style="text-align:center">Visitas</th>
+              <th></th>
+            </tr></thead>
+            <tbody>${myListings.map(l=>`<tr>
+              <td>
+                <div style="font-weight:500;font-size:.88rem">${l.title}</div>
+                <div style="font-size:.72rem;color:var(--cz);margin-top:1px">${l.city||''}</div>
+              </td>
+              <td>${btag(l.type)}</td>
+              <td style="color:var(--t);font-weight:700;font-size:.88rem">${fmt(l.price,l.purpose==='rent')}</td>
+              <td><span class="badge ${l.status==='active'?'b-atv':l.status==='pending'?'b-pnd':'b-pau'}">
+                ${l.status==='active'?'Ativo':l.status==='pending'?'Pendente':'Pausado'}
+              </span></td>
+              <td style="text-align:center;color:var(--cz);font-size:.88rem">${l.views||0}</td>
+              <td>
+                <div style="display:flex;gap:4px;justify-content:flex-end">
+                  <button class="btn btn-o" style="padding:4px 8px;font-size:.72rem" onclick="go('detail','${l.id}')" title="Ver anúncio">
+                    <i class="ti ti-eye" aria-hidden="true"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>`).join('')}</tbody>
+          </table>
         </div>`}
+
+      `:S.dtab==='leads'?`
+        <!-- Leads -->
+        <div style="margin-bottom:1.5rem">
+          <div style="font-family:var(--fd);font-size:1.5rem;color:var(--ch)">Leads recebidos</div>
+          <div style="font-size:.82rem;color:var(--cz);margin-top:2px">${myLeads.length} contato(s) de clientes interessados</div>
+        </div>
+
+        ${myLeads.length===0?`
+          <div style="background:#fff;border-radius:12px;padding:3rem;text-align:center;border:1px solid rgba(0,0,0,.06)">
+            <i class="ti ti-message-off" style="font-size:2.5rem;color:#EDE4D4;display:block;margin-bottom:.75rem" aria-hidden="true"></i>
+            <div style="font-family:var(--fd);font-size:1.1rem;margin-bottom:.5rem">Nenhum lead ainda</div>
+            <div style="font-size:.85rem;color:var(--cz)">Quando clientes entrarem em contato, aparecerão aqui.</div>
+          </div>
+        `:`
+          ${myLeads.map(x=>{
+            const prop = x.listing || {};
+            const propPrice = prop.price?(prop.purpose==='rent'?'R$ '+prop.price.toLocaleString('pt-BR')+'/mês':prop.price>=1e6?'R$ '+(prop.price/1e6).toFixed(1).replace('.',',')+' mi':'R$ '+(prop.price/1e3).toFixed(0)+'mil'):'';
+            const ago = x.created_at ? (() => { const d=Math.floor((Date.now()-new Date(x.created_at))/6e4); return d<60?'Há '+d+'min':d<1440?'Há '+Math.floor(d/60)+'h':'Há '+Math.floor(d/1440)+'d'; })() : 'Recente';
+            return `
+              <div style="background:#fff;border-radius:14px;padding:1.25rem 1.5rem;margin-bottom:.875rem;border:1px solid rgba(0,0,0,.07);box-shadow:0 1px 6px rgba(30,58,47,.05)">
+                <div style="display:flex;align-items:flex-start;gap:1rem;flex-wrap:wrap">
+                  <!-- Avatar -->
+                  <div style="width:44px;height:44px;border-radius:50%;background:var(--v);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:1.1rem;flex-shrink:0">${(x.name||'?')[0]}</div>
+
+                  <!-- Info do lead -->
+                  <div style="flex:1;min-width:180px">
+                    <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:4px">
+                      <span style="font-weight:600;font-size:.95rem">${x.name||'Visitante'}</span>
+                      <span style="font-size:.72rem;color:var(--cz)">${ago}</span>
+                    </div>
+
+                    <!-- Imóvel de referência -->
+                    <div style="display:flex;align-items:center;gap:5px;background:var(--a);border-radius:7px;padding:4px 9px;margin-bottom:7px;display:inline-flex">
+                      <i class="ti ti-home" style="font-size:11px;color:var(--t)" aria-hidden="true"></i>
+                      <span style="font-size:.74rem;color:var(--ch);font-weight:500">${prop.title||x.listing_title||'Imóvel'}</span>
+                      ${propPrice?`<span style="font-size:.7rem;color:var(--t);font-weight:600">· ${propPrice}</span>`:''}
+                    </div>
+
+                    <!-- Mensagem do lead -->
+                    <div style="background:#F5EFE6;border-left:3px solid var(--t);border-radius:0 8px 8px 0;padding:.6rem .9rem;font-size:.86rem;color:#444;font-style:italic;margin-bottom:.875rem">
+                      "${x.message||x.msg||'Entrou em contato'}"
+                    </div>
+
+                    <!-- Contatos -->
+                    <div style="display:flex;gap:6px;flex-wrap:wrap">
+                      ${(x.phone||x.whatsapp)?`
+                        <a class="btn btn-w" style="font-size:.8rem;padding:.45rem 1rem;background:#25D366;border-color:#25D366"
+                          href="${waLink(x)}" target="_blank" rel="noopener">
+                          <i class="ti ti-brand-whatsapp" aria-hidden="true"></i>Responder no WhatsApp
+                        </a>`:''
+                      }
+                      ${x.email?`
+                        <a class="btn btn-o" style="font-size:.8rem;padding:.45rem 1rem"
+                          href="mailto:${x.email}?subject=Imóvel: ${encodeURIComponent(prop.title||'')}&body=Olá, ${encodeURIComponent(x.name||'')}!" target="_blank">
+                          <i class="ti ti-mail" aria-hidden="true"></i>E-mail
+                        </a>`:''}
+                    </div>
+                  </div>
+                </div>
+              </div>`;
+          }).join('')}`}
+
+      `:`
+        <!-- Perfil -->
+        <div style="margin-bottom:1.5rem">
+          <div style="font-family:var(--fd);font-size:1.5rem;color:var(--ch)">Meu perfil</div>
+          <div style="font-size:.82rem;color:var(--cz);margin-top:2px">Mantenha seus dados sempre atualizados</div>
+        </div>
+        <div style="background:#fff;border-radius:14px;padding:1.75rem;max-width:520px;border:1px solid rgba(0,0,0,.07);box-shadow:0 2px 8px rgba(30,58,47,.06)">
+          <div style="display:flex;align-items:center;gap:14px;margin-bottom:1.5rem;padding-bottom:1.25rem;border-bottom:1px solid #f0ebe4">
+            <div style="width:52px;height:52px;border-radius:50%;background:#1E3A2F;display:flex;align-items:center;justify-content:center;color:#E8845A;font-family:var(--fd);font-size:1.3rem;font-weight:700">${initials}</div>
+            <div>
+              <div style="font-weight:600;font-size:1rem">${u.name||''}</div>
+              <div style="font-size:.78rem;color:var(--cz);margin-top:1px">${u.email||''}</div>
+              ${u.is_verified?`<span style="font-size:.68rem;background:#d1fae5;color:#065f46;padding:1px 7px;border-radius:99px;font-weight:600">✓ Verificado</span>`:''}
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:.875rem">
+            <div class="fg"><label class="fl">Nome completo</label><input class="fi" id="pf-name" value="${u.name||''}"></div>
+            <div class="fg"><label class="fl">Telefone (WhatsApp)</label><input class="fi" id="pf-phone" value="${u.phone||''}"></div>
+            <div class="fg" style="grid-column:span 2"><label class="fl">E-mail</label><input class="fi" value="${u.email||''}" readonly style="opacity:.65" title="E-mail não pode ser alterado"></div>
+            ${u.type==='agency'?`
+              <div class="fg"><label class="fl">Imobiliária</label><input class="fi" id="pf-agency" value="${u.agency_name||''}"></div>
+              <div class="fg"><label class="fl">CRECI</label><input class="fi" id="pf-creci" value="${u.creci||''}"></div>
+            `:''}
+          </div>
+          <button class="btn btn-p" style="margin-top:1.25rem;width:100%" onclick="saveProfile()">
+            <i class="ti ti-check" aria-hidden="true"></i>Salvar alterações
+          </button>
+        </div>
+      `}
+
     </div>
   </div>`;
 }
+
+async function saveProfile() {
+  const body = {
+    name:        document.getElementById('pf-name')?.value?.trim(),
+    phone:       document.getElementById('pf-phone')?.value?.trim()||undefined,
+    agency_name: document.getElementById('pf-agency')?.value?.trim()||undefined,
+    creci:       document.getElementById('pf-creci')?.value?.trim()||undefined,
+  };
+  try {
+    const data = await apiFetch('/me/profile', 'PUT', body);
+    if (data?.user) { S.user = {...S.user, ...data.user}; localStorage.setItem('kaza_user', JSON.stringify(S.user)); }
+    showToast('✓ Perfil atualizado!');
+    render();
+  } catch(err) { showToast('Erro ao salvar. Tente novamente.', 'err'); }
+}
+
 
 function createPg(){
   const steps=['Tipo','Detalhes','Localização','Fotos','Revisão'];
