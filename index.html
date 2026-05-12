@@ -821,7 +821,7 @@ function loginPg(){
       ${S.lm==='login'?`
         <div class="fg"><label class="fl">E-mail</label><input class="fi" type="email" placeholder="seu@email.com"></div>
         <div class="fg"><label class="fl">Senha</label><input class="fi" type="password" placeholder="••••••••"></div>
-        <button class="btn btn-d" style="width:100%;padding:.875rem;font-size:.9rem" onclick="S.auth=true;go('dashboard')">Entrar na KAZA</button>
+        <button class="btn btn-d" style="width:100%;padding:.875rem;font-size:.9rem" onclick="doLogin()">Entrar na KAZA</button>
         <div style="text-align:center;margin-top:1rem;font-size:.78rem;color:var(--cz)">Esqueceu a senha? <span style="color:var(--t);cursor:pointer">Recuperar</span></div>`:
       `<div style="display:flex;gap:7px;margin-bottom:14px">
           <button onclick="S.rt='person';render()" style="flex:1;padding:8px;border-radius:8px;border:1.5px solid ${S.rt!=='agency'?'var(--t)':'#eee'};background:${S.rt!=='agency'?'rgba(196,98,45,.06)':'transparent'};cursor:pointer;font-family:var(--fb);font-size:.78rem;color:${S.rt!=='agency'?'var(--t)':'var(--cz)'}">Pessoa física</button>
@@ -833,7 +833,7 @@ function loginPg(){
         <div class="fg"><label class="fl">E-mail</label><input class="fi" type="email" placeholder="seu@email.com"></div>
         <div class="fg"><label class="fl">Telefone (WhatsApp)</label><input class="fi" type="tel" placeholder="(77) 9 9999-9999"></div>
         <div class="fg"><label class="fl">Senha</label><input class="fi" type="password" placeholder="Mínimo 8 caracteres"></div>
-        <button class="btn btn-p" style="width:100%;padding:.875rem;font-size:.9rem" onclick="S.auth=true;go('dashboard')"><i class="ti ti-user-plus" aria-hidden="true"></i>Criar conta grátis</button>`}
+        <button class="btn btn-p" style="width:100%;padding:.875rem;font-size:.9rem" onclick="doRegister()"><i class="ti ti-user-plus" aria-hidden="true"></i>Criar conta grátis</button>`}
     </div>
   </div>`;
 }
@@ -1439,6 +1439,82 @@ async function csPublish() {
     render();
   }
 }
+
+// ── Auth functions ────────────────────────────────────
+async function doLogin() {
+  const email = document.getElementById('login-email')?.value?.trim();
+  const pass  = document.getElementById('login-pass')?.value;
+  if (!email || !pass) return showToast('Preencha e-mail e senha');
+  const btn = document.querySelector('#app button');
+  try {
+    const data = await apiFetch('/auth/login', 'POST', {email, password: pass});
+    if (!data) return showToast('E-mail ou senha incorretos');
+    S.token = data.token; S.user = data.user; S.auth = true;
+    localStorage.setItem('kaza_token', S.token);
+    localStorage.setItem('kaza_user', JSON.stringify(S.user));
+    go('dashboard');
+  } catch(err) { showToast('E-mail ou senha incorretos'); }
+}
+
+async function doRegister() {
+  const name  = document.getElementById('reg-name')?.value?.trim();
+  const email = document.getElementById('reg-email')?.value?.trim();
+  const phone = document.getElementById('reg-phone')?.value?.trim();
+  const pass  = document.getElementById('reg-pass')?.value;
+  if (!name || !email || !phone || !pass)
+    return showToast('Preencha todos os campos obrigatórios');
+  if (pass.length < 8) return showToast('Senha deve ter no mínimo 8 caracteres');
+  try {
+    const data = await apiFetch('/auth/register', 'POST', {
+      name, email, phone, password: pass,
+      type: S.rt || 'person',
+      agency_name: document.getElementById('reg-agency')?.value || undefined,
+      creci: document.getElementById('reg-creci')?.value || undefined,
+    });
+    if (!data) return showToast('Erro ao criar conta. Tente novamente.');
+    S.token = data.token; S.user = data.user; S.auth = true;
+    localStorage.setItem('kaza_token', S.token);
+    localStorage.setItem('kaza_user', JSON.stringify(S.user));
+    showToast('Conta criada com sucesso!');
+    go('dashboard');
+  } catch(err) { showToast(err.message || 'Erro ao criar conta'); }
+}
+
+async function doLogout() {
+  S.token = null; S.user = null; S.auth = false; S.cache = {};
+  localStorage.removeItem('kaza_token');
+  localStorage.removeItem('kaza_user');
+  // Restaurar sessão salva
+try {
+  const savedToken = localStorage.getItem('kaza_token');
+  const savedUser  = localStorage.getItem('kaza_user');
+  if (savedToken && savedUser) {
+    S.token = savedToken;
+    S.user  = JSON.parse(savedUser);
+    S.auth  = true;
+  }
+} catch(e) {}
+
+go('home');
+}
+
+// Helper apiFetch com suporte a POST
+async function apiFetch(path, method='GET', body) {
+  try {
+    const headers = {'Content-Type':'application/json'};
+    const token = S.token || localStorage.getItem('kaza_token');
+    if (token) headers['Authorization'] = 'Bearer ' + token;
+    const res = await fetch(API_BASE + path, {
+      method,
+      headers,
+      body: body ? JSON.stringify(body) : undefined,
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Erro na requisição');
+    return data;
+  } catch(e) { throw e; }
+}
+
 
 const PG={home:homePg,listings:listPg,detail:detailPg,dashboard:dashPg,create:createPg,login:loginPg,radar:radarPg,quero:queroPg,posso:possoPg,indice:indicePg};
 function go(p,id){S.page=p;if(id)S.lid=id;if(p==='create'){S.cstep=1;S.ctype=null;}if(p==='home')S.sent=false;render();document.getElementById('app').scrollTop=0;}
