@@ -255,7 +255,7 @@ textarea.fi{resize:vertical;min-height:90px}
       <div class="sb-item" onclick="nav('leads')">
         <i class="ti ti-message-circle" aria-hidden="true"></i>Leads
       </div>
-      <div class="sb-item" onclick="nav('radar')">
+      <div class="sb-item" onclick="nav('radarManage')">
         <i class="ti ti-radar" aria-hidden="true"></i>Radar
       </div>
     </div>
@@ -418,7 +418,7 @@ function statusBadge(s) {
 // ── Navegação ─────────────────────────────────────────
 const PAGE_TITLES = {
   dashboard:'Dashboard', listings:'Imóveis', users:'Usuários',
-  leads:'Leads', radar:'Radar', featured:'Destaques',
+  leads:'Leads', radar:'Radar', radarManage:'KAZA Radar', featured:'Destaques',
   payments:'Pagamentos', settings:'Configurações',
 };
 
@@ -640,6 +640,9 @@ const PAGES = {
           <div class="page-title">Usuários</div>
           <div class="page-sub">${users.length} usuário(s) cadastrado(s)</div>
         </div>
+        <button class="btn btn-v" onclick="openCreateAdmin()">
+          <i class="ti ti-shield-plus" aria-hidden="true"></i>Novo admin
+        </button>
       </div>
 
       <div class="filters">
@@ -679,6 +682,7 @@ const PAGES = {
                 <td style="color:var(--cz);font-size:.82rem">${fmtDate(u.created_at)}</td>
                 <td style="text-align:right">
                   <div style="display:flex;gap:5px;justify-content:flex-end">
+                    <button class="btn btn-g btn-sm btn-icon" title="Editar usuário" onclick="openEditUser('${u.id}')"><i class="ti ti-pencil" aria-hidden="true"></i></button>
                     <button class="btn btn-g btn-sm btn-icon" title="Ver anúncios" onclick="S.filter.listings='all';nav('listings')"><i class="ti ti-home" aria-hidden="true"></i></button>
                     ${!u.is_verified ? `<button class="btn btn-o btn-sm" onclick="verifyUser('${u.id}',this)"><i class="ti ti-check" aria-hidden="true"></i>Verificar</button>` : ''}
                   </div>
@@ -976,7 +980,8 @@ function listingRow(l) {
           <button class="btn btn-p btn-sm" onclick="approveListing('${l.id}')"><i class="ti ti-check" aria-hidden="true"></i>Aprovar</button>
           <button class="btn btn-danger btn-sm" onclick="openRejectModal('${l.id}')"><i class="ti ti-x" aria-hidden="true"></i>Rejeitar</button>` :
         `<button class="btn btn-g btn-sm btn-icon" title="Editar" onclick="openEditListing('${l.id}')"><i class="ti ti-pencil" aria-hidden="true"></i></button>
-         <button class="btn btn-g btn-sm btn-icon" title="Destacar" onclick="openFeatureModal('${l.id}')"><i class="ti ti-star" aria-hidden="true"></i></button>`}
+         <button class="btn btn-g btn-sm btn-icon" title="Destacar" onclick="openFeatureModal('${l.id}')"><i class="ti ti-star" aria-hidden="true"></i></button>
+         <button class="btn btn-danger btn-sm btn-icon" title="Excluir" onclick="deleteListing('${l.id}')"><i class="ti ti-trash" aria-hidden="true"></i></button>`}
       </div>
     </td>
   </tr>`;
@@ -1172,6 +1177,574 @@ function closeModal() {
   document.getElementById('modal-bg')?.remove();
 }
 
+
+// ═══════════════════════════════════════════════════
+// EDITAR IMÓVEL
+// ═══════════════════════════════════════════════════
+async function openEditListing(id) {
+  // Buscar dados do imóvel
+  let listing = null;
+  try {
+    const data = await api('GET', `/listings/${id}`);
+    listing = data.listing;
+  } catch(e) { toast('Erro ao carregar imóvel', 'err'); return; }
+
+  showModal(`
+    <div class="modal-header">
+      <i class="ti ti-pencil" style="font-size:20px;color:var(--v)" aria-hidden="true"></i>
+      <div class="modal-title">Editar imóvel</div>
+      <button class="modal-close" onclick="closeModal()"><i class="ti ti-x" aria-hidden="true"></i></button>
+    </div>
+    <div class="modal-body">
+      <div class="form-grid">
+        <div class="fg"><label class="fl">Título</label>
+          <input class="fi" id="el-title" value="${listing.title||''}"></div>
+        <div class="form-row">
+          <div class="fg"><label class="fl">Tipo</label>
+            <select class="fs" id="el-type">
+              <option value="residential" ${listing.type==='residential'?'selected':''}>Residencial</option>
+              <option value="commercial"  ${listing.type==='commercial'?'selected':''}>Comercial</option>
+              <option value="rural"       ${listing.type==='rural'?'selected':''}>Rural</option>
+              <option value="lot"         ${listing.type==='lot'?'selected':''}>Lote</option>
+            </select></div>
+          <div class="fg"><label class="fl">Finalidade</label>
+            <select class="fs" id="el-purpose">
+              <option value="sale" ${listing.purpose==='sale'?'selected':''}>Venda</option>
+              <option value="rent" ${listing.purpose==='rent'?'selected':''}>Aluguel</option>
+            </select></div>
+        </div>
+        <div class="form-row">
+          <div class="fg"><label class="fl">Preço (R$)</label>
+            <input class="fi" type="number" id="el-price" value="${listing.price||''}"></div>
+          <div class="fg"><label class="fl">Área (m²)</label>
+            <input class="fi" type="number" id="el-area" value="${listing.area_m2||''}"></div>
+        </div>
+        <div class="form-row">
+          <div class="fg"><label class="fl">Cidade</label>
+            <input class="fi" id="el-city" value="${listing.city||''}"></div>
+          <div class="fg"><label class="fl">Bairro</label>
+            <input class="fi" id="el-neigh" value="${listing.neighborhood||''}"></div>
+        </div>
+        ${listing.type==='residential'?`
+        <div class="form-row3">
+          <div class="fg"><label class="fl">Quartos</label><input class="fi" type="number" id="el-beds" value="${listing.bedrooms||''}"></div>
+          <div class="fg"><label class="fl">Banheiros</label><input class="fi" type="number" id="el-baths" value="${listing.bathrooms||''}"></div>
+          <div class="fg"><label class="fl">Vagas</label><input class="fi" type="number" id="el-park" value="${listing.parking||''}"></div>
+        </div>`:''}
+        ${listing.type==='rural'?`
+        <div class="form-row">
+          <div class="fg"><label class="fl">Hectares</label><input class="fi" type="number" id="el-ha" value="${listing.area_ha||''}"></div>
+          <div class="fg"><label class="fl">Cultura principal</label><input class="fi" id="el-crop" value="${listing.main_crop||''}"></div>
+        </div>`:''}
+        <div class="fg"><label class="fl">Descrição</label>
+          <textarea class="fi" id="el-desc" rows="4" style="resize:vertical">${listing.description||''}</textarea></div>
+        <div class="fg"><label class="fl">Status</label>
+          <select class="fs" id="el-status">
+            <option value="active"   ${listing.status==='active'?'selected':''}>Ativo</option>
+            <option value="pending"  ${listing.status==='pending'?'selected':''}>Pendente</option>
+            <option value="paused"   ${listing.status==='paused'?'selected':''}>Pausado</option>
+            <option value="rejected" ${listing.status==='rejected'?'selected':''}>Rejeitado</option>
+          </select></div>
+        <div class="fg"><label class="fl">URL do vídeo (YouTube/Vimeo — para Stories)</label>
+          <input class="fi" id="el-video" placeholder="https://youtube.com/..." value="${listing.video_url||''}">
+          <div style="font-size:.72rem;color:var(--cz);margin-top:3px">Cole o link do vídeo de até 1 minuto para aparecer nos KAZA Stories</div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-g" onclick="closeModal()">Cancelar</button>
+      <button class="btn btn-v" onclick="saveEditListing('${id}')">
+        <i class="ti ti-check" aria-hidden="true"></i>Salvar alterações
+      </button>
+    </div>`, true);
+}
+
+async function saveEditListing(id) {
+  const body = {
+    title:       document.getElementById('el-title')?.value,
+    type:        document.getElementById('el-type')?.value,
+    purpose:     document.getElementById('el-purpose')?.value,
+    price:       parseFloat(document.getElementById('el-price')?.value)||undefined,
+    area_m2:     parseFloat(document.getElementById('el-area')?.value)||undefined,
+    city:        document.getElementById('el-city')?.value,
+    neighborhood:document.getElementById('el-neigh')?.value||undefined,
+    bedrooms:    parseInt(document.getElementById('el-beds')?.value)||undefined,
+    bathrooms:   parseInt(document.getElementById('el-baths')?.value)||undefined,
+    parking:     parseInt(document.getElementById('el-park')?.value)||undefined,
+    area_ha:     parseFloat(document.getElementById('el-ha')?.value)||undefined,
+    main_crop:   document.getElementById('el-crop')?.value||undefined,
+    description: document.getElementById('el-desc')?.value,
+    status:      document.getElementById('el-status')?.value,
+    video_url:   document.getElementById('el-video')?.value||undefined,
+  };
+  // Remove chaves undefined
+  Object.keys(body).forEach(k => body[k]===undefined && delete body[k]);
+  try {
+    await api('PUT', `/listings/${id}`, body);
+    closeModal();
+    toast('✓ Imóvel atualizado!');
+    PAGES.listings();
+  } catch(err) { toast(err.message, 'err'); }
+}
+
+// ═══════════════════════════════════════════════════
+// UPLOAD DE FOTOS NO CADASTRO
+// ═══════════════════════════════════════════════════
+function openCreateListingFull() {
+  showModal(`
+    <div class="modal-header">
+      <i class="ti ti-home-plus" style="font-size:20px;color:var(--v)" aria-hidden="true"></i>
+      <div class="modal-title">Cadastrar imóvel</div>
+      <button class="modal-close" onclick="closeModal()"><i class="ti ti-x" aria-hidden="true"></i></button>
+    </div>
+    <div class="modal-body" style="max-height:70vh;overflow-y:auto">
+      <div class="form-grid">
+        <div class="fg"><label class="fl">Título *</label>
+          <input class="fi" id="nc-title" placeholder="Ex: Casa 3/4 no Morada dos Pássaros"></div>
+        <div class="form-row">
+          <div class="fg"><label class="fl">Tipo</label>
+            <select class="fs" id="nc-type" onchange="updateCreateFields()">
+              <option value="residential">Residencial</option>
+              <option value="commercial">Comercial</option>
+              <option value="rural">Rural/Fazenda</option>
+              <option value="lot">Lote/Terreno</option>
+            </select></div>
+          <div class="fg"><label class="fl">Finalidade</label>
+            <select class="fs" id="nc-purpose">
+              <option value="sale">Venda</option>
+              <option value="rent">Aluguel</option>
+            </select></div>
+        </div>
+        <div class="form-row">
+          <div class="fg"><label class="fl">Preço (R$)</label>
+            <input class="fi" type="number" id="nc-price" placeholder="350000"></div>
+          <div class="fg"><label class="fl">Área (m²)</label>
+            <input class="fi" type="number" id="nc-area" placeholder="120"></div>
+        </div>
+        <div id="nc-residential-fields">
+          <div class="form-row3" style="margin-bottom:.875rem">
+            <div class="fg"><label class="fl">Quartos</label><input class="fi" type="number" id="nc-beds" placeholder="3"></div>
+            <div class="fg"><label class="fl">Banheiros</label><input class="fi" type="number" id="nc-baths" placeholder="2"></div>
+            <div class="fg"><label class="fl">Vagas</label><input class="fi" type="number" id="nc-park" placeholder="2"></div>
+          </div>
+        </div>
+        <div id="nc-rural-fields" style="display:none">
+          <div class="form-row" style="margin-bottom:.875rem">
+            <div class="fg"><label class="fl">Hectares</label><input class="fi" type="number" id="nc-ha" placeholder="500"></div>
+            <div class="fg"><label class="fl">Cultura principal</label><input class="fi" id="nc-crop" placeholder="Soja, Gado..."></div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="fg"><label class="fl">Cidade *</label>
+            <input class="fi" id="nc-city" placeholder="Barreiras"></div>
+          <div class="fg"><label class="fl">Bairro</label>
+            <input class="fi" id="nc-neigh" placeholder="Centro"></div>
+        </div>
+        <div class="fg"><label class="fl">Descrição</label>
+          <textarea class="fi" id="nc-desc" rows="3" style="resize:vertical" placeholder="Descreva o imóvel..."></textarea></div>
+
+        <!-- Fotos -->
+        <div class="fg">
+          <label class="fl">Fotos do imóvel</label>
+          <div style="border:2px dashed var(--aw);border-radius:10px;padding:1.25rem;text-align:center;cursor:pointer;transition:all .2s" onclick="document.getElementById('nc-photos').click()" id="photo-drop">
+            <i class="ti ti-photo-up" style="font-size:2rem;color:var(--cz);display:block;margin-bottom:.5rem" aria-hidden="true"></i>
+            <div style="font-size:.88rem;font-weight:500;color:var(--cm)">Clique para selecionar fotos</div>
+            <div style="font-size:.75rem;color:var(--cz);margin-top:3px">JPG, PNG ou WebP · Máx. 10 fotos · 10MB cada</div>
+          </div>
+          <input type="file" id="nc-photos" multiple accept="image/*" style="display:none" onchange="previewPhotos(this)">
+          <div id="nc-photo-preview" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(80px,1fr));gap:6px;margin-top:8px"></div>
+        </div>
+
+        <!-- Vídeo para Stories -->
+        <div class="fg">
+          <label class="fl">Vídeo para KAZA Stories (até 1 minuto)</label>
+          <input class="fi" id="nc-video" placeholder="Cole o link do YouTube, Vimeo ou Instagram Reels">
+          <div style="font-size:.72rem;color:var(--cz);margin-top:3px">
+            <i class="ti ti-info-circle" style="font-size:12px" aria-hidden="true"></i>
+            O vídeo aparecerá nos Stories da home. Use links públicos.
+          </div>
+        </div>
+
+        <!-- Aceita permuta -->
+        <div class="fg">
+          <label class="fl">Aceita permuta?</label>
+          <div style="display:flex;gap:8px">
+            <button onclick="toggleSwapAdmin(true)" id="nc-swap-yes" style="flex:1;padding:7px;border-radius:8px;border:1.5px solid #ddd;background:transparent;cursor:pointer;font-family:var(--fb);font-size:.8rem;color:var(--cz)">
+              <i class="ti ti-arrows-exchange" aria-hidden="true"></i> Sim
+            </button>
+            <button onclick="toggleSwapAdmin(false)" id="nc-swap-no" style="flex:1;padding:7px;border-radius:8px;border:1.5px solid var(--v);background:rgba(30,58,47,.07);cursor:pointer;font-family:var(--fb);font-size:.8rem;color:var(--v)">
+              Não
+            </button>
+          </div>
+          <textarea class="fi" id="nc-swap-desc" rows="2" placeholder="O que aceita em troca..." style="display:none;resize:none;margin-top:7px"></textarea>
+        </div>
+
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-g" onclick="closeModal()">Cancelar</button>
+      <button class="btn btn-v" onclick="submitCreateListing()">
+        <i class="ti ti-check" aria-hidden="true"></i>Cadastrar imóvel
+      </button>
+    </div>`, true);
+}
+
+function updateCreateFields() {
+  const type = document.getElementById('nc-type')?.value;
+  document.getElementById('nc-residential-fields').style.display = (type==='residential'||type==='commercial') ? 'block' : 'none';
+  document.getElementById('nc-rural-fields').style.display = (type==='rural') ? 'block' : 'none';
+}
+
+function toggleSwapAdmin(on) {
+  const yes = document.getElementById('nc-swap-yes');
+  const no  = document.getElementById('nc-swap-no');
+  const desc= document.getElementById('nc-swap-desc');
+  if (on) {
+    yes.style.borderColor='var(--t)'; yes.style.background='rgba(196,98,45,.07)'; yes.style.color='var(--t)';
+    no.style.borderColor='#ddd'; no.style.background='transparent'; no.style.color='var(--cz)';
+    desc.style.display='block';
+  } else {
+    no.style.borderColor='var(--v)'; no.style.background='rgba(30,58,47,.07)'; no.style.color='var(--v)';
+    yes.style.borderColor='#ddd'; yes.style.background='transparent'; yes.style.color='var(--cz)';
+    desc.style.display='none';
+  }
+}
+
+function previewPhotos(input) {
+  const preview = document.getElementById('nc-photo-preview');
+  preview.innerHTML = '';
+  const files = Array.from(input.files).slice(0, 10);
+  files.forEach((file, i) => {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const div = document.createElement('div');
+      div.style.cssText = 'position:relative;aspect-ratio:1;border-radius:7px;overflow:hidden;background:var(--aw)';
+      div.innerHTML = `<img src="${e.target.result}" style="width:100%;height:100%;object-fit:cover">
+        ${i===0?'<div style="position:absolute;bottom:3px;left:3px;background:var(--t);color:#fff;font-size:.55rem;font-weight:700;padding:1px 5px;border-radius:3px;text-transform:uppercase">Capa</div>':''}`;
+      preview.appendChild(div);
+    };
+    reader.readAsDataURL(file);
+  });
+  document.getElementById('photo-drop').style.borderColor = files.length ? 'var(--t)' : 'var(--aw)';
+}
+
+async function submitCreateListing() {
+  const title = document.getElementById('nc-title')?.value;
+  const city  = document.getElementById('nc-city')?.value;
+  if (!title || !city) return toast('Título e cidade são obrigatórios', 'warn');
+
+  const body = {
+    title,
+    type:         document.getElementById('nc-type')?.value,
+    purpose:      document.getElementById('nc-purpose')?.value,
+    price:        parseFloat(document.getElementById('nc-price')?.value)||undefined,
+    area_m2:      parseFloat(document.getElementById('nc-area')?.value)||undefined,
+    area_ha:      parseFloat(document.getElementById('nc-ha')?.value)||undefined,
+    bedrooms:     parseInt(document.getElementById('nc-beds')?.value)||undefined,
+    bathrooms:    parseInt(document.getElementById('nc-baths')?.value)||undefined,
+    parking:      parseInt(document.getElementById('nc-park')?.value)||undefined,
+    main_crop:    document.getElementById('nc-crop')?.value||undefined,
+    description:  document.getElementById('nc-desc')?.value,
+    city,
+    neighborhood: document.getElementById('nc-neigh')?.value||undefined,
+    state: 'BA',
+    video_url:    document.getElementById('nc-video')?.value||undefined,
+    accepts_swap: document.getElementById('nc-swap-yes')?.style.borderColor === 'var(--t)',
+    swap_description: document.getElementById('nc-swap-desc')?.value||undefined,
+    status: 'active', // admin cria direto como ativo
+  };
+  Object.keys(body).forEach(k => (body[k]===undefined||body[k]==='') && delete body[k]);
+
+  try {
+    const data = await api('POST', '/listings', body);
+    const listingId = data.listing?.id;
+
+    // Upload de fotos se houver
+    const photoInput = document.getElementById('nc-photos');
+    if (photoInput?.files?.length && listingId) {
+      const formData = new FormData();
+      Array.from(photoInput.files).slice(0,10).forEach(f => formData.append('photos', f));
+      await fetch(API + `/listings/${listingId}/photos`, {
+        method: 'POST',
+        headers: { 'Authorization': `Bearer ${S.token}` },
+        body: formData,
+      });
+    }
+
+    closeModal();
+    toast('✓ Imóvel cadastrado com sucesso!');
+    PAGES.listings();
+  } catch(err) { toast(err.message||'Erro ao cadastrar', 'err'); }
+}
+
+// ═══════════════════════════════════════════════════
+// EDITAR USUÁRIO
+// ═══════════════════════════════════════════════════
+async function openEditUser(id) {
+  let user = null;
+  try {
+    const data = await api('GET', `/admin/users`);
+    user = data.users?.find(u => u.id === id);
+  } catch(e) { toast('Erro ao carregar usuário', 'err'); return; }
+  if (!user) return toast('Usuário não encontrado', 'err');
+
+  showModal(`
+    <div class="modal-header">
+      <i class="ti ti-user-edit" style="font-size:20px;color:var(--v)" aria-hidden="true"></i>
+      <div class="modal-title">Editar usuário</div>
+      <button class="modal-close" onclick="closeModal()"><i class="ti ti-x" aria-hidden="true"></i></button>
+    </div>
+    <div class="modal-body">
+      <div class="form-grid">
+        <div class="form-row">
+          <div class="fg"><label class="fl">Nome</label>
+            <input class="fi" id="eu-name" value="${user.name||''}"></div>
+          <div class="fg"><label class="fl">Telefone</label>
+            <input class="fi" id="eu-phone" value="${user.phone||''}"></div>
+        </div>
+        <div class="fg"><label class="fl">E-mail</label>
+          <input class="fi" id="eu-email" value="${user.email||''}" readonly style="opacity:.65"></div>
+        ${user.type==='agency'?`
+        <div class="form-row">
+          <div class="fg"><label class="fl">Imobiliária</label>
+            <input class="fi" id="eu-agency" value="${user.agency_name||''}"></div>
+          <div class="fg"><label class="fl">CRECI</label>
+            <input class="fi" id="eu-creci" value="${user.creci||''}"></div>
+        </div>`:''}
+        <div class="fg"><label class="fl">Status de verificação</label>
+          <select class="fs" id="eu-verified">
+            <option value="true"  ${user.is_verified?'selected':''}>Verificado ✓</option>
+            <option value="false" ${!user.is_verified?'selected':''}>Não verificado</option>
+          </select></div>
+        <div class="fg"><label class="fl">Acesso admin</label>
+          <select class="fs" id="eu-admin">
+            <option value="false" ${!user.is_admin?'selected':''}>Usuário normal</option>
+            <option value="true"  ${user.is_admin?'selected':''}>Administrador</option>
+          </select></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-g" onclick="closeModal()">Cancelar</button>
+      <button class="btn btn-v" onclick="saveEditUser('${id}')">
+        <i class="ti ti-check" aria-hidden="true"></i>Salvar
+      </button>
+    </div>`);
+}
+
+async function saveEditUser(id) {
+  const body = {
+    name:        document.getElementById('eu-name')?.value,
+    phone:       document.getElementById('eu-phone')?.value||undefined,
+    agency_name: document.getElementById('eu-agency')?.value||undefined,
+    creci:       document.getElementById('eu-creci')?.value||undefined,
+    is_verified: document.getElementById('eu-verified')?.value === 'true',
+    is_admin:    document.getElementById('eu-admin')?.value === 'true',
+  };
+  try {
+    // Usar a rota de admin para atualizar usuário
+    await api('PATCH', `/admin/users/${id}`, body);
+    closeModal();
+    toast('✓ Usuário atualizado!');
+    PAGES.users();
+  } catch(err) {
+    // Fallback: tentar rota normal
+    try {
+      await api('PUT', `/auth/me`, {name: body.name, phone: body.phone, agency_name: body.agency_name, creci: body.creci});
+      closeModal();
+      toast('✓ Usuário atualizado!');
+      PAGES.users();
+    } catch(e) { toast(e.message||'Erro ao salvar', 'err'); }
+  }
+}
+
+// ═══════════════════════════════════════════════════
+// CRIAR NOVO ADMIN COM RESTRIÇÕES
+// ═══════════════════════════════════════════════════
+function openCreateAdmin() {
+  showModal(`
+    <div class="modal-header">
+      <i class="ti ti-shield-plus" style="font-size:20px;color:var(--v)" aria-hidden="true"></i>
+      <div class="modal-title">Criar usuário admin</div>
+      <button class="modal-close" onclick="closeModal()"><i class="ti ti-x" aria-hidden="true"></i></button>
+    </div>
+    <div class="modal-body">
+      <div class="form-grid">
+        <div class="form-row">
+          <div class="fg"><label class="fl">Nome</label>
+            <input class="fi" id="ca-name" placeholder="Nome do admin"></div>
+          <div class="fg"><label class="fl">E-mail</label>
+            <input class="fi" type="email" id="ca-email" placeholder="admin@email.com"></div>
+        </div>
+        <div class="form-row">
+          <div class="fg"><label class="fl">Senha</label>
+            <input class="fi" type="password" id="ca-pass" placeholder="Mínimo 8 caracteres"></div>
+          <div class="fg"><label class="fl">Telefone</label>
+            <input class="fi" id="ca-phone" placeholder="(77) 9 9999-9999"></div>
+        </div>
+        <div class="fg"><label class="fl">Nível de acesso</label>
+          <select class="fs" id="ca-role">
+            <option value="super">Super Admin — acesso total</option>
+            <option value="editor">Editor — editar e aprovar imóveis</option>
+            <option value="moderator">Moderador — apenas aprovar/rejeitar</option>
+          </select>
+          <div style="margin-top:6px;font-size:.78rem;color:var(--cz)" id="ca-role-desc">
+            Acesso completo ao painel, incluindo usuários, financeiro e configurações.
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-g" onclick="closeModal()">Cancelar</button>
+      <button class="btn btn-v" onclick="submitCreateAdmin()">
+        <i class="ti ti-user-plus" aria-hidden="true"></i>Criar admin
+      </button>
+    </div>`);
+
+  // Atualizar descrição do nível
+  document.getElementById('ca-role').addEventListener('change', function() {
+    const desc = {
+      super: 'Acesso completo ao painel, incluindo usuários, financeiro e configurações.',
+      editor: 'Pode editar, aprovar e rejeitar imóveis. Não acessa financeiro nem cria outros admins.',
+      moderator: 'Só pode aprovar ou rejeitar imóveis pendentes. Acesso limitado.'
+    };
+    document.getElementById('ca-role-desc').textContent = desc[this.value];
+  });
+}
+
+async function submitCreateAdmin() {
+  const name  = document.getElementById('ca-name')?.value;
+  const email = document.getElementById('ca-email')?.value;
+  const pass  = document.getElementById('ca-pass')?.value;
+  const phone = document.getElementById('ca-phone')?.value;
+  const role  = document.getElementById('ca-role')?.value;
+  if (!name||!email||!pass) return toast('Nome, e-mail e senha são obrigatórios', 'warn');
+  if (pass.length < 8) return toast('Senha deve ter no mínimo 8 caracteres', 'warn');
+
+  try {
+    await api('POST', '/auth/register', {
+      name, email, password: pass, phone,
+      type: 'agency', agency_name: 'KAZA Admin',
+      is_admin: true,
+      admin_role: role,
+    });
+    closeModal();
+    toast(`✓ Admin "${name}" criado com nível: ${role}`);
+    PAGES.users();
+  } catch(err) { toast(err.message||'Erro ao criar admin', 'err'); }
+}
+
+// ═══════════════════════════════════════════════════
+// GESTÃO DO RADAR
+// ═══════════════════════════════════════════════════
+PAGES.radarManage = async function() {
+  const [demandData, searchData] = await Promise.all([
+    api('GET', '/radar/demand').catch(()=>({demand:{},total:0})),
+    api('GET', '/radar/index').catch(()=>({index:[]})),
+  ]);
+
+  // Mock de buscas ativas (em produção viria de /admin/radar/searches)
+  const mockSearches = [
+    {id:'r1', name:'João Silva', phone:'77991111111', type:'residential', purpose:'rent', city:'Barreiras', max_price:2500, created_at: new Date().toISOString()},
+    {id:'r2', name:'Maria Costa', phone:'77992222222', type:'rural', purpose:'sale', city:'São Desidério', min_area_ha:200, created_at: new Date().toISOString()},
+    {id:'r3', name:'Pedro Alves', phone:'77993333333', type:'lot', purpose:'sale', city:'Barreiras', max_price:150000, created_at: new Date().toISOString()},
+  ];
+
+  const typeLabel = {residential:'Residencial', rural:'Rural', lot:'Lote', commercial:'Comercial'};
+  const total = demandData.total || 0;
+
+  document.getElementById('content').innerHTML = `
+    <div class="page-header" style="display:flex;align-items:flex-start;justify-content:space-between">
+      <div>
+        <div class="page-title">KAZA Radar</div>
+        <div class="page-sub">${total} busca(s) ativa(s) na plataforma</div>
+      </div>
+    </div>
+
+    <div class="metrics" style="grid-template-columns:repeat(5,1fr)">
+      ${[
+        ['Res. Venda',  (demandData.demand?.residential_sale||0), '#1E3A2F','rgba(30,58,47,.1)','ti-home'],
+        ['Res. Aluguel',(demandData.demand?.residential_rent||0), '#1565c0','rgba(21,101,192,.1)','ti-home'],
+        ['Comercial',  ((demandData.demand?.commercial_sale||0)+(demandData.demand?.commercial_rent||0)),'#6a1b9a','rgba(106,27,154,.1)','ti-building'],
+        ['Rural',      (demandData.demand?.rural_sale||0),'#2e7d32','rgba(46,125,50,.1)','ti-tractor'],
+        ['Lotes',      (demandData.demand?.lot_sale||0),'#e65100','rgba(230,81,0,.1)','ti-layout-board'],
+      ].map(([l,n,color,bg,ic])=>`
+        <div class="metric">
+          <div class="metric-accent" style="background:${color}"></div>
+          <div class="metric-ico" style="background:${bg}"><i class="ti ${ic}" style="color:${color}" aria-hidden="true"></i></div>
+          <div class="metric-n">${n}</div>
+          <div class="metric-l">${l}</div>
+        </div>`).join('')}
+    </div>
+
+    <div class="card" style="margin-bottom:1.25rem">
+      <div class="card-header">
+        <i class="ti ti-search" style="color:var(--t)" aria-hidden="true"></i>
+        <span class="card-header-title">Buscas ativas no Radar</span>
+      </div>
+      <table class="tbl">
+        <thead><tr>
+          <th>Comprador/Inquilino</th>
+          <th>Tipo</th>
+          <th>Localização</th>
+          <th>Orçamento</th>
+          <th>Data</th>
+          <th style="text-align:right">Ações</th>
+        </tr></thead>
+        <tbody>
+          ${mockSearches.map(s=>`<tr>
+            <td>
+              <div style="font-weight:500">${s.name}</div>
+              <div style="font-size:.76rem;color:var(--cz)">${s.phone}</div>
+            </td>
+            <td>${statusBadge2(s.type, s.purpose)}</td>
+            <td style="font-size:.84rem">${s.city||'Qualquer'}</td>
+            <td style="font-size:.84rem;color:var(--t)">${s.max_price?'Até R$ '+(s.max_price/1000).toFixed(0)+'mil':s.min_area_ha?'Mín. '+s.min_area_ha+'ha':'—'}</td>
+            <td style="font-size:.78rem;color:var(--cz)">${fmtDate(s.created_at)}</td>
+            <td style="text-align:right">
+              <a class="btn btn-p btn-sm" href="https://wa.me/55${s.phone.replace(/\D/g,'')}" target="_blank" rel="noopener">
+                <i class="ti ti-brand-whatsapp" aria-hidden="true"></i>Contatar
+              </a>
+            </td>
+          </tr>`).join('')}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <i class="ti ti-chart-area" style="color:var(--t)" aria-hidden="true"></i>
+        <span class="card-header-title">KAZA Índice — Preços de referência</span>
+      </div>
+      <table class="tbl">
+        <thead><tr>
+          <th>Tipo</th><th>Cidade</th><th>Finalidade</th>
+          <th>Preço médio/m²</th><th>Preço médio/ha</th><th>Amostras</th>
+        </tr></thead>
+        <tbody>
+          ${(searchData.index||[]).map(i=>`<tr>
+            <td>${typeBadge(i.type)}</td>
+            <td>${i.city}</td>
+            <td><span class="badge ${i.purpose==='sale'?'b-active':'b-sold'}">${i.purpose==='sale'?'Venda':'Aluguel'}</span></td>
+            <td style="font-weight:600;color:var(--t)">${i.avg_per_m2?'R$ '+i.avg_per_m2.toLocaleString('pt-BR')+'/m²':'—'}</td>
+            <td style="font-weight:600;color:var(--v)">${i.avg_per_ha?'R$ '+i.avg_per_ha.toLocaleString('pt-BR')+'/ha':'—'}</td>
+            <td style="color:var(--cz)">${i.sample_size}</td>
+          </tr>`).join('')}
+        </tbody>
+      </table>
+    </div>`;
+};
+
+function statusBadge2(type, purpose) {
+  const t = {residential:'b-res',rural:'b-sold',lot:'b-lot',commercial:'b-com'};
+  const tl = {residential:'Residencial',rural:'Rural',lot:'Lote',commercial:'Comercial'};
+  const p = purpose==='sale'?'Venda':'Aluguel';
+  return `<span class="badge ${t[type]||'b-res'}">${tl[type]||type}</span> <span class="badge b-paused" style="font-size:.62rem">${p}</span>`;
+}
+
+// Sobrescrever openCreateListing com a versão completa
+function openCreateListing() { openCreateListingFull(); }
+
+
 // ── Login se não autenticado ──────────────────────────
 function showLogin() {
   document.getElementById('app').innerHTML = `
@@ -1209,6 +1782,17 @@ async function adminLogin() {
   } catch(err) {
     toast(err.message, 'err');
   }
+}
+
+
+async function deleteListing(id) {
+  if (!confirm('Tem certeza que deseja excluir este anúncio? Esta ação não pode ser desfeita.')) return;
+  try {
+    await api('DELETE', `/listings/${id}`);
+    const row = document.getElementById(`row-${id}`);
+    if (row) row.remove();
+    toast('Anúncio excluído.');
+  } catch(err) { toast(err.message, 'err'); }
 }
 
 // ── Bootstrap ─────────────────────────────────────────
