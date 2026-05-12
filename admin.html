@@ -600,7 +600,7 @@ const PAGES = {
       <div class="filters">
         ${filters.map(([v,l])=>`
           <span class="filter-pill ${filter===v?'on':''}" onclick="S.filter.listings='${v}';PAGES.listings()">
-            ${l}${v==='pending'?` <span style="background:rgba(255,255,255,.3);padding:1px 5px;border-radius:99px;font-size:.65rem" id="flt-pending-n">${data.total||0}</span>`:''}
+            ${l}${v==='pending'?` <span style="background:rgba(255,255,255,.3);padding:1px 5px;border-radius:99px;font-size:.65rem" id="flt-pending-n">${S.pendingCount||0}</span>`:''}
           </span>`).join('')}
       </div>
 
@@ -989,7 +989,7 @@ function listingRow(l) {
             </button>
             <button class="btn btn-o btn-sm btn-icon" title="${l.status==='active'?'Pausar':'Ativar'}"
               onclick="toggleListingStatus('${l.id}','${l.status}')">
-              <i class="ti ti-${l.status==='active'?'pause':'player-play'}" aria-hidden="true"></i>
+              <i class="ti ti-${l.status==='active'?'player-pause':'player-play'}" aria-hidden="true"></i>
             </button>
             <button class="btn btn-g btn-sm btn-icon" title="Destacar" onclick="openFeatureModal('${l.id}')">
               <i class="ti ti-star" aria-hidden="true"></i>
@@ -1019,6 +1019,7 @@ async function loadNotifications() {
   try {
     const data = await api('GET', '/admin/listings/pending');
     const count = data.total || data.listings?.length || 0;
+    S.pendingCount = count;
     const badge = document.getElementById('sb-pending-count');
     const bell  = document.getElementById('notif-bell-count');
     if (badge) badge.textContent = count;
