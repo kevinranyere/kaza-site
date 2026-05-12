@@ -119,6 +119,51 @@ nav{background:var(--v);padding:0 2rem;display:flex;align-items:center;height:64
 .feat-box i{font-size:18px;color:var(--v);display:block;margin-bottom:4px}
 
 
+
+/* ── Create Story Modal ── */
+.cs-modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:400;display:flex;align-items:center;justify-content:center;padding:1rem;backdrop-filter:blur(6px);animation:fadeIn .25s ease}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.cs-modal{background:#fff;border-radius:20px;width:100%;max-width:480px;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.25)}
+.cs-header{background:linear-gradient(135deg,#1E3A2F,#2a4d3f);padding:1.5rem;display:flex;align-items:center;gap:12px}
+.cs-header-icon{width:44px;height:44px;border-radius:12px;background:rgba(196,98,45,.3);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.cs-header-icon i{font-size:22px;color:#E8845A}
+.cs-header-title{font-family:'Playfair Display',serif;font-size:1.2rem;color:#fff}
+.cs-header-sub{font-size:.75rem;color:rgba(255,255,255,.55);margin-top:2px}
+.cs-close{margin-left:auto;width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.1);border:none;color:rgba(255,255,255,.7);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px}
+.cs-close:hover{background:rgba(255,255,255,.2);color:#fff}
+.cs-body{padding:1.5rem}
+.cs-step{display:none}.cs-step.active{display:block}
+.cs-label{font-size:.75rem;font-weight:600;color:#2d2d2d;letter-spacing:.02em;margin-bottom:6px;display:flex;align-items:center;gap:5px}
+.cs-label i{font-size:14px;color:#C4622D}
+.cs-input{width:100%;padding:.75rem 1rem;border:1.5px solid #EDE4D4;border-radius:10px;font-family:var(--fb,sans-serif);font-size:.88rem;color:#111;outline:none;transition:border-color .2s;background:#fff}
+.cs-input:focus{border-color:#1E3A2F;box-shadow:0 0 0 3px rgba(30,58,47,.08)}
+.cs-input::placeholder{color:#b3a89f}
+.cs-video-preview{margin-top:10px;border-radius:12px;overflow:hidden;background:#000;aspect-ratio:16/9;display:none;align-items:center;justify-content:center;position:relative}
+.cs-video-preview iframe{width:100%;height:100%;border:none}
+.cs-video-preview.show{display:flex}
+.cs-tip{background:#F5EFE6;border-radius:9px;padding:.75rem 1rem;font-size:.78rem;color:#8A7F77;display:flex;gap:8px;align-items:flex-start;line-height:1.55;margin-top:8px}
+.cs-tip i{flex-shrink:0;font-size:14px;color:#C4622D;margin-top:1px}
+.cs-property-grid{display:flex;flex-direction:column;gap:.5rem;max-height:220px;overflow-y:auto;margin-top:4px}
+.cs-prop{border:1.5px solid #EDE4D4;border-radius:10px;padding:.75rem;display:flex;align-items:center;gap:10px;cursor:pointer;transition:all .15s}
+.cs-prop:hover{border-color:#C4622D;background:rgba(196,98,45,.04)}
+.cs-prop.sel{border-color:#1E3A2F;background:rgba(30,58,47,.06)}
+.cs-prop-img{width:48px;height:38px;border-radius:6px;object-fit:cover;background:#EDE4D4;flex-shrink:0}
+.cs-prop-name{font-size:.84rem;font-weight:500;color:#111;line-height:1.3}
+.cs-prop-meta{font-size:.72rem;color:#8A7F77;margin-top:1px}
+.cs-prop-check{margin-left:auto;width:20px;height:20px;border-radius:50%;border:2px solid #EDE4D4;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.cs-prop.sel .cs-prop-check{background:#1E3A2F;border-color:#1E3A2F;color:#fff}
+.cs-steps-indicator{display:flex;gap:6px;justify-content:center;margin-bottom:1.25rem}
+.cs-dot{width:6px;height:6px;border-radius:50%;background:#EDE4D4;transition:all .25s}
+.cs-dot.on{background:#1E3A2F;width:20px;border-radius:99px}
+.cs-footer{padding:1rem 1.5rem;border-top:1px solid #F5EFE6;display:flex;justify-content:space-between;align-items:center}
+.cs-btn{display:inline-flex;align-items:center;gap:6px;padding:.625rem 1.25rem;border-radius:9px;font-family:var(--fb,sans-serif);font-size:.84rem;font-weight:500;cursor:pointer;border:none;transition:all .18s}
+.cs-btn-p{background:#1E3A2F;color:#fff}.cs-btn-p:hover{background:#2a4d3f}
+.cs-btn-t{background:#C4622D;color:#fff}.cs-btn-t:hover{background:#E8845A}
+.cs-btn-o{background:#fff;color:#8A7F77;border:1.5px solid #EDE4D4}.cs-btn-o:hover{border-color:#1E3A2F;color:#1E3A2F}
+.cs-success{text-align:center;padding:1.5rem 1rem}
+.cs-success-ring{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,#1E3A2F,#2a4d3f);display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;box-shadow:0 8px 24px rgba(30,58,47,.3)}
+.cs-success-ring i{font-size:30px;color:#4ade80}
+
 .stories-wrap{padding:16px 28px 0;max-width:1240px;margin:0 auto}
 .stories-label{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--cz);margin-bottom:10px;display:flex;align-items:center;gap:6px}
 .stories-row{display:flex;gap:14px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none}
@@ -385,7 +430,24 @@ function homePg(){
     </div>
   </div>
 
-  <div class="stories-wrap"><div class="stories-label"><i class="ti ti-video" aria-hidden="true"></i>KAZA Stories</div><div class="stories-row">${STORIES.map(s=>`<div class="story-item" data-story="${s.id}" onclick="openStory('${s.id}')"><div class="story-ring ${s.seen?'seen':''}"><div class="story-inner"><img src="${s.img}" loading="lazy" alt="${s.name}"></div></div><span class="story-name">${s.name}</span></div>`).join('')}</div></div>
+  <div class="stories-wrap">
+    <div class="stories-label"><i class="ti ti-video" aria-hidden="true"></i>KAZA Stories</div>
+    <div class="stories-row">
+      ${S.auth ? `
+      <div class="story-item" onclick="openCreateStory()" title="Adicionar story">
+        <div style="width:60px;height:60px;border-radius:50%;padding:2.5px;background:linear-gradient(135deg,#C4622D,#E8845A)">
+          <div style="width:100%;height:100%;border-radius:50%;background:#fff;border:2.5px solid #fff;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden">
+            <div style="position:absolute;inset:0;background:linear-gradient(135deg,#F5EFE6,#EDE4D4)"></div>
+            <div style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:1px">
+              <i class="ti ti-plus" style="font-size:20px;color:#1E3A2F;font-weight:700" aria-hidden="true"></i>
+            </div>
+          </div>
+        </div>
+        <span class="story-name" style="color:#1E3A2F;font-weight:600">Seu story</span>
+      </div>` : ''}
+      ${STORIES.map(s=>`<div class="story-item" data-story="${s.id}" onclick="openStory('${s.id}')"><div class="story-ring ${s.seen?'seen':''}"><div class="story-inner"><img src="${s.img}" loading="lazy" alt="${s.name}"></div></div><span class="story-name">${s.name}</span></div>`).join('')}
+    </div>
+  </div>
   <div class="sec sec-a">
     <div class="cnt">
       <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:1.75rem">
@@ -1062,7 +1124,321 @@ function indicePg(){
 }
 
 const STORIES=[{id:'s1',lid:'1',name:'Fazenda 500ha',seen:false,img:'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=200&q=70'},{id:'s2',lid:'2',name:'Casa c/Piscina',seen:false,img:'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=200&q=70'},{id:'s3',lid:'4',name:'Apto Centro',seen:true,img:'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=200&q=70'},{id:'s4',lid:'3',name:'Fazenda 200ha',seen:false,img:'https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=200&q=70'},{id:'s5',lid:'5',name:'Sala Comercial',seen:true,img:'https://images.unsplash.com/photo-1497366216548-37526070297c?w=200&q=70'}];
-function openStory(sid){const s=STORIES.find(x=>x.id===sid);if(!s)return;s.seen=true;const r=document.querySelector('[data-story="'+sid+'"] .story-ring');if(r)r.classList.add('seen');const bg=document.createElement('div');bg.className='story-modal-bg';bg.onclick=()=>bg.remove();bg.innerHTML='<div class="story-modal" onclick="event.stopPropagation()"><button class="story-close" onclick="this.closest(\'.story-modal-bg\').remove()"><i class="ti ti-x"></i></button><img src="'+s.img+'" alt="'+s.name+'"><div class="story-modal-info"><div class="story-modal-av">'+s.name[0]+'</div><div><div class="story-modal-title">'+s.name+'</div></div><button class="story-modal-btn" onclick="document.querySelector(\'.story-modal-bg\').remove();go(\'detail\',\''+s.lid+'\')"><i class="ti ti-arrow-right"></i>Ver imóvel</button></div></div>';document.body.appendChild(bg);}
+function openStory(sid){
+  const s=STORIES.find(x=>x.id===sid);if(!s)return;
+  s.seen=true;
+  const r=document.querySelector('[data-story="'+sid+'"] .story-ring');
+  if(r)r.classList.add('seen');
+  const bg=document.createElement('div');
+  bg.className='story-modal-bg';
+  bg.onclick=()=>bg.remove();
+  const videoSrc = s.nativeVideoUrl || s.localVideoUrl || null;
+  const media = videoSrc
+    ? `<div style="background:#000;max-height:460px;overflow:hidden">
+        <video src="${videoSrc}" controls autoplay muted playsinline
+          style="width:100%;max-height:460px;display:block;object-fit:contain"
+          onended="this.currentTime=0"></video>
+       </div>`
+    : s.videoEmbed
+    ? `<div style="position:relative;aspect-ratio:9/16;max-height:450px;background:#000"><iframe src="${s.videoEmbed}" allowfullscreen style="width:100%;height:100%;border:none"></iframe></div>`
+    : `<img src="${s.img}" alt="${s.name}" style="width:100%;display:block;max-height:450px;object-fit:cover">`;
+  bg.innerHTML=`<div class="story-modal" onclick="event.stopPropagation()">
+    <button class="story-close" onclick="this.closest('.story-modal-bg').remove()"><i class="ti ti-x"></i></button>
+    ${media}
+    <div class="story-modal-info">
+      <div class="story-modal-av">${s.name[0]}</div>
+      <div>
+        <div class="story-modal-title">${s.name}</div>
+        ${s.isOwn?'<div style="font-size:.65rem;color:rgba(255,255,255,.4);margin-top:1px">Seu story</div>':''}
+      </div>
+      <button class="story-modal-btn" onclick="document.querySelector('.story-modal-bg').remove();go('detail','${s.lid}')">
+        <i class="ti ti-arrow-right"></i>Ver imóvel
+      </button>
+    </div>
+  </div>`;
+  document.body.appendChild(bg);
+}
+
+
+// ── KAZA Stories — Criar Story ──────────────────────
+let CS = { step: 1, videoUrl: '', videoEmbed: '', listingId: null, listings: [] };
+
+async function openCreateStory() {
+  CS = { step: 1, videoUrl: '', videoEmbed: '', listingId: null, listings: [] };
+
+  // Buscar imóveis do usuário logado
+  try {
+    const data = await apiFetch('/me/listings');
+    CS.listings = (data?.listings || []).filter(l => l.status === 'active');
+  } catch(e) { CS.listings = []; }
+
+  renderCreateStory();
+}
+
+function renderCreateStory() {
+  // Remover modal anterior
+  document.getElementById('cs-modal-bg')?.remove();
+
+  const fmtPrice = (n, rent) => {
+    if (!n) return '—';
+    if (rent) return 'R$ ' + n.toLocaleString('pt-BR') + '/mês';
+    if (n >= 1e6) return 'R$ ' + (n/1e6).toFixed(1).replace('.', ',') + 'mi';
+    return 'R$ ' + (n/1e3).toFixed(0) + 'mil';
+  };
+
+  const bg = document.createElement('div');
+  bg.id = 'cs-modal-bg';
+  bg.className = 'cs-modal-bg';
+  bg.onclick = (e) => { if(e.target===bg) bg.remove(); };
+
+  bg.innerHTML = `
+    <div class="cs-modal">
+      <div class="cs-header">
+        <div class="cs-header-icon"><i class="ti ti-video-plus" aria-hidden="true"></i></div>
+        <div>
+          <div class="cs-header-title">Criar Story</div>
+          <div class="cs-header-sub">Mostre seu imóvel para quem está buscando</div>
+        </div>
+        <button class="cs-close" onclick="document.getElementById('cs-modal-bg').remove()">
+          <i class="ti ti-x" aria-hidden="true"></i>
+        </button>
+      </div>
+
+      <div class="cs-body">
+        <!-- Indicador de passos -->
+        <div class="cs-steps-indicator">
+          <div class="cs-dot ${CS.step>=1?'on':''}"></div>
+          <div class="cs-dot ${CS.step>=2?'on':''}"></div>
+          <div class="cs-dot ${CS.step>=3?'on':''}"></div>
+        </div>
+
+        <!-- PASSO 1: Upload de vídeo -->
+        <div class="cs-step ${CS.step===1?'active':''}">
+          ${CS.localVideoUrl ? `
+            <!-- Preview do vídeo selecionado -->
+            <div style="border-radius:12px;overflow:hidden;background:#000;margin-bottom:10px;position:relative">
+              <video id="cs-video-el" src="${CS.localVideoUrl}" controls style="width:100%;max-height:260px;display:block" playsinline></video>
+              <button onclick="csClearVideo()" style="position:absolute;top:8px;right:8px;width:28px;height:28px;border-radius:50%;background:rgba(0,0,0,.6);border:none;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:13px">✕</button>
+            </div>
+            <div style="background:#e8f5e9;border-radius:9px;padding:.75rem;display:flex;gap:8px;align-items:center;font-size:.82rem;color:#2e7d32">
+              <i class="ti ti-check" style="font-size:16px" aria-hidden="true"></i>
+              <span><strong>${CS.videoFile?.name||'Vídeo selecionado'}</strong> — pronto para publicar!</span>
+            </div>
+          ` : `
+            <!-- Área de upload -->
+            <div id="cs-drop-area" style="border:2px dashed #EDE4D4;border-radius:14px;padding:2rem 1rem;text-align:center;cursor:pointer;transition:all .2s;background:#fafaf8"
+              onclick="document.getElementById('cs-file-input').click()"
+              ondragover="event.preventDefault();this.style.borderColor='#C4622D';this.style.background='rgba(196,98,45,.04)'"
+              ondragleave="this.style.borderColor='#EDE4D4';this.style.background='#fafaf8'"
+              ondrop="event.preventDefault();this.style.borderColor='#EDE4D4';this.style.background='#fafaf8';csHandleFileDrop(event.dataTransfer.files)">
+              <div style="width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#1E3A2F,#2a4d3f);display:flex;align-items:center;justify-content:center;margin:0 auto 12px">
+                <i class="ti ti-video-plus" style="font-size:26px;color:#E8845A" aria-hidden="true"></i>
+              </div>
+              <div style="font-size:.95rem;font-weight:600;color:#111;margin-bottom:4px">Clique ou arraste o vídeo aqui</div>
+              <div style="font-size:.78rem;color:#8A7F77;margin-bottom:1rem">MP4, MOV ou WebM · Máximo 1 minuto · até 100MB</div>
+              <div style="display:inline-flex;align-items:center;gap:6px;background:#1E3A2F;color:#fff;padding:.5rem 1.25rem;border-radius:99px;font-size:.82rem;font-weight:500">
+                <i class="ti ti-upload" aria-hidden="true"></i>Escolher vídeo
+              </div>
+            </div>
+            <input type="file" id="cs-file-input" accept="video/*" style="display:none" onchange="csHandleFileSelect(this.files)">
+          `}
+          <div class="cs-tip" style="margin-top:10px">
+            <i class="ti ti-bulb" aria-hidden="true"></i>
+            <span>Grave pelo celular mesmo! Mostre a fachada, os cômodos principais e o diferencial do imóvel. <strong>Vídeos de 30–60 segundos</strong> são os que mais convertem.</span>
+          </div>
+        </div>
+
+        <!-- PASSO 2: Imóvel -->
+        <div class="cs-step ${CS.step===2?'active':''}">
+          <div class="cs-label"><i class="ti ti-home" aria-hidden="true"></i>Qual imóvel esse vídeo mostra?</div>
+          ${CS.listings.length === 0
+            ? `<div style="text-align:center;padding:1.5rem;background:#F5EFE6;border-radius:10px">
+                <i class="ti ti-home-off" style="font-size:2rem;color:#EDE4D4;display:block;margin-bottom:.5rem" aria-hidden="true"></i>
+                <div style="font-size:.84rem;font-weight:500;color:#111;margin-bottom:4px">Nenhum imóvel ativo</div>
+                <div style="font-size:.78rem;color:#8A7F77">Você precisa ter um anúncio ativo para criar um Story.</div>
+              </div>`
+            : `<div class="cs-property-grid">
+                ${CS.listings.slice(0,8).map(l => {
+                  const photo = (l.listing_photos||[])[0];
+                  const img = photo?.url || 'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=200&q=70';
+                  const typeLabel = {residential:'Residencial',rural:'Rural',lot:'Lote',commercial:'Comercial'};
+                  const price = fmtPrice(l.price, l.purpose==='rent');
+                  return `<div class="cs-prop ${CS.listingId===l.id?'sel':''}" onclick="csSelectListing('${l.id}')">
+                    <img class="cs-prop-img" src="${img}" alt="${l.title}" onerror="this.style.background='#EDE4D4'">
+                    <div style="flex:1;min-width:0">
+                      <div class="cs-prop-name">${l.title}</div>
+                      <div class="cs-prop-meta">${l.city||''} · ${price}</div>
+                    </div>
+                    <div class="cs-prop-check">
+                      ${CS.listingId===l.id?'<i class="ti ti-check" style="font-size:11px" aria-hidden="true"></i>':''}
+                    </div>
+                  </div>`;
+                }).join('')}
+              </div>`}
+        </div>
+
+        <!-- PASSO 3: Confirmar -->
+        <div class="cs-step ${CS.step===3?'active':''}">
+          ${CS.step===3 ? `
+          <div style="background:#F5EFE6;border-radius:12px;padding:1.1rem;display:flex;gap:12px;align-items:flex-start;margin-bottom:1rem">
+            <div style="width:36px;height:36px;border-radius:50%;background:#1E3A2F;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+              <i class="ti ti-check" style="color:#4ade80;font-size:16px" aria-hidden="true"></i>
+            </div>
+            <div>
+              <div style="font-size:.88rem;font-weight:600;color:#111;margin-bottom:2px">Tudo pronto!</div>
+              <div style="font-size:.78rem;color:#8A7F77;line-height:1.5">Seu story vai aparecer na tira de stories da home e destacar seu imóvel para quem está buscando.</div>
+            </div>
+          </div>
+          <div style="background:#fff;border:1.5px solid #EDE4D4;border-radius:12px;padding:1rem">
+            <div style="font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#8A7F77;margin-bottom:.625rem">Resumo do story</div>
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:.5rem">
+              <i class="ti ti-link" style="color:#C4622D;font-size:14px" aria-hidden="true"></i>
+              <span style="font-size:.82rem;color:#111;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${CS.videoUrl.substring(0,50)}${CS.videoUrl.length>50?'...':''}</span>
+            </div>
+            ${CS.listingId ? `<div style="display:flex;align-items:center;gap:8px">
+              <i class="ti ti-home" style="color:#1E3A2F;font-size:14px" aria-hidden="true"></i>
+              <span style="font-size:.82rem;color:#111">${CS.listings.find(l=>l.id===CS.listingId)?.title||''}</span>
+            </div>` : ''}
+          </div>` : ''}
+        </div>
+
+      </div>
+
+      <div class="cs-footer">
+        ${CS.step > 1
+          ? `<button class="cs-btn cs-btn-o" onclick="csStep(${CS.step-1})"><i class="ti ti-arrow-left" aria-hidden="true"></i>Voltar</button>`
+          : `<button class="cs-btn cs-btn-o" onclick="document.getElementById('cs-modal-bg').remove()">Cancelar</button>`}
+        ${CS.step < 3
+          ? `<button class="cs-btn cs-btn-p" onclick="csNext()">
+              Próximo <i class="ti ti-arrow-right" aria-hidden="true"></i>
+            </button>`
+          : `<button class="cs-btn cs-btn-t" onclick="csPublish()">
+              <i class="ti ti-rocket" aria-hidden="true"></i>Publicar story!
+            </button>`}
+      </div>
+    </div>`;
+
+  document.body.appendChild(bg);
+}
+
+function csStep(n) { CS.step = n; renderCreateStory(); }
+
+function csHandleFileSelect(files) {
+  if (!files || !files[0]) return;
+  csLoadFile(files[0]);
+}
+
+function csHandleFileDrop(files) {
+  if (!files || !files[0]) return;
+  if (!files[0].type.startsWith('video/')) return showToast('Selecione um arquivo de vídeo');
+  csLoadFile(files[0]);
+}
+
+function csLoadFile(file) {
+  if (!file.type.startsWith('video/')) return showToast('Selecione um arquivo de vídeo (MP4, MOV ou WebM)');
+  if (file.size > 100 * 1024 * 1024) return showToast('Vídeo muito grande. Máximo 100MB.');
+  CS.videoFile = file;
+  CS.localVideoUrl = URL.createObjectURL(file);
+  renderCreateStory();
+  // Verificar duração após render
+  setTimeout(() => {
+    const v = document.getElementById('cs-video-el');
+    if (v) v.onloadedmetadata = () => {
+      if (v.duration > 65) {
+        showToast('Vídeo com mais de 1 minuto. O Cloudinary vai cortar automaticamente nos 60 segundos.');
+      }
+    };
+  }, 200);
+}
+
+function csClearVideo() {
+  if (CS.localVideoUrl) URL.revokeObjectURL(CS.localVideoUrl);
+  CS.videoFile = null;
+  CS.localVideoUrl = null;
+  renderCreateStory();
+}
+
+function csNext() {
+  if (CS.step === 1) {
+    if (!CS.videoFile) return showToast('Selecione um vídeo para continuar');
+  }
+  if (CS.step === 2 && !CS.listingId && CS.listings.length > 0) {
+    return showToast('Selecione o imóvel que o vídeo mostra');
+  }
+  csStep(CS.step + 1);
+}
+
+function csSelectListing(id) {
+  CS.listingId = id;
+  renderCreateStory();
+}
+
+async function csPublish() {
+  if (!CS.videoFile) return showToast('Nenhum vídeo selecionado');
+  const listing = CS.listings.find(l => l.id === CS.listingId);
+
+  // Mostrar loading
+  const btn = document.querySelector('.cs-btn-t');
+  if (btn) { btn.disabled = true; btn.innerHTML = '<i class="ti ti-loader" style="animation:spin 1s linear infinite"></i>Enviando vídeo...'; }
+
+  try {
+    // Upload para o backend/Cloudinary
+    const formData = new FormData();
+    formData.append('video', CS.videoFile);
+    if (CS.listingId) formData.append('listing_id', CS.listingId);
+
+    const token = localStorage.getItem('kaza_token');
+    const res = await fetch(API_BASE + '/stories', {
+      method: 'POST',
+      headers: token ? { 'Authorization': 'Bearer ' + token } : {},
+      body: formData,
+    });
+
+    let videoUrl, thumbUrl;
+    if (res.ok) {
+      const data = await res.json();
+      videoUrl = data.video_url;
+      thumbUrl = data.thumb_url || listing?.listing_photos?.[0]?.url;
+    } else {
+      // Fallback: usar URL local temporária (só para esta sessão)
+      videoUrl = CS.localVideoUrl;
+      thumbUrl = listing?.listing_photos?.[0]?.url ||
+        'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=200&q=70';
+    }
+
+    const newStory = {
+      id: 's' + Date.now(),
+      lid: CS.listingId || '',
+      name: listing?.title?.substring(0, 18) || 'Meu vídeo',
+      seen: false,
+      img: thumbUrl || 'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=200&q=70',
+      nativeVideoUrl: videoUrl,
+      localVideoUrl: CS.localVideoUrl,
+      isOwn: true,
+    };
+    STORIES.unshift(newStory);
+
+    document.getElementById('cs-modal-bg').remove();
+    showToast('🎉 Story publicado com sucesso!');
+    render();
+
+  } catch(err) {
+    // Fallback sem backend
+    const newStory = {
+      id: 's' + Date.now(),
+      lid: CS.listingId || '',
+      name: listing?.title?.substring(0, 18) || 'Meu vídeo',
+      seen: false,
+      img: listing?.listing_photos?.[0]?.url || 'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=200&q=70',
+      localVideoUrl: CS.localVideoUrl,
+      isOwn: true,
+    };
+    STORIES.unshift(newStory);
+    document.getElementById('cs-modal-bg').remove();
+    showToast('Story adicionado! (vídeo local nesta sessão)');
+    render();
+  }
+}
 
 const PG={home:homePg,listings:listPg,detail:detailPg,dashboard:dashPg,create:createPg,login:loginPg,radar:radarPg,quero:queroPg,posso:possoPg,indice:indicePg};
 function go(p,id){S.page=p;if(id)S.lid=id;if(p==='create'){S.cstep=1;S.ctype=null;}if(p==='home')S.sent=false;render();document.getElementById('app').scrollTop=0;}
