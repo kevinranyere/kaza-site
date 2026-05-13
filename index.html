@@ -1634,6 +1634,7 @@ select.rdr-fi{appearance:auto}
     <a class="nl" href="#listings" data-type="rural">Rurais</a>
     <a class="nl" href="#radar"><i class="ti ti-radar" aria-hidden="true"></i>Radar</a>
     <a class="nl" href="#favoritos" aria-label="Favoritos"><i class="ti ti-heart" aria-hidden="true"></i><span class="fav-badge" id="favBadgeNav" hidden>0</span></a>
+    <a class="nl" href="#login" id="navLoginBtn"><i class="ti ti-user" aria-hidden="true"></i>Entrar</a>
     <a class="btn btn-primary btn-md" href="#anunciar"><i class="ti ti-plus" aria-hidden="true"></i>Anunciar grátis</a>
   </div>
 </nav>
@@ -2215,6 +2216,14 @@ function setupHeroCopy(){
   } else if(savedCount > 0){
     h.innerHTML = `Continue de onde parou.<br>Você tem <em>${savedCount} ${savedCount===1?'imóvel salvo':'imóveis salvos'}</em>.`;
     sub.textContent = 'Veja seus favoritos, compare preços e ative o Radar para novos matches.';
+  }
+
+  // Update navbar login button
+  const navBtn = document.getElementById('navLoginBtn');
+  if(navBtn && userName){
+    const initials = userName.split(' ').map(w=>w[0]).join('').substring(0,2).toUpperCase();
+    navBtn.innerHTML = `<span style="width:24px;height:24px;border-radius:50%;background:var(--tl);color:#fff;font-size:10px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0">${initials}</span>${userName.split(' ')[0]}`;
+    navBtn.href = '#painel';
   }
 }
 
