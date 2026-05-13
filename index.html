@@ -1612,6 +1612,43 @@ select.rdr-fi{appearance:auto}
 .favoritos-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s5)}
 @media(max-width:1024px){.favoritos-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:600px){.favoritos-grid{grid-template-columns:1fr}}
+
+/* ═══════════════════════════════════════
+   LOGIN / CADASTRO PAGE
+═══════════════════════════════════════ */
+.login-wrap{min-height:calc(100vh - 64px);display:flex;align-items:center;justify-content:center;background:var(--a);padding:var(--s6) var(--s4)}
+.login-card{background:#fff;border-radius:var(--r-xl);padding:var(--s7) var(--s6);width:100%;max-width:420px;box-shadow:var(--sh-md);border:1px solid rgba(30,58,47,.06)}
+.login-logo{display:flex;align-items:baseline;gap:1px;font-family:var(--fd);font-size:1.5rem;color:var(--v);letter-spacing:-.02em;margin-bottom:var(--s5);justify-content:center}
+.login-logo .dot{color:var(--t)}
+.login-tabs{display:grid;grid-template-columns:1fr 1fr;background:var(--a);border-radius:var(--r-md);padding:3px;gap:3px;margin-bottom:var(--s5)}
+.login-tab{padding:10px;border-radius:9px;font-family:var(--fb);font-size:var(--t2);font-weight:500;color:var(--cz);cursor:pointer;text-align:center;transition:all .18s var(--ease)}
+.login-tab.on{background:#fff;color:var(--ch);box-shadow:var(--sh-sm)}
+.login-title{font-family:var(--fd);font-size:var(--t5);color:var(--ch);margin-bottom:var(--s2);letter-spacing:-.015em}
+.login-sub{font-size:var(--t2);color:var(--cz);margin-bottom:var(--s5);line-height:1.5}
+.login-fg{margin-bottom:var(--s4)}
+.login-fl{display:block;font-size:var(--t1);font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--cz);margin-bottom:var(--s2)}
+.login-fi{width:100%;padding:12px 14px;border:1.5px solid #e8e0d4;border-radius:var(--r-md);font:inherit;font-size:var(--t3);outline:none;color:var(--ch);background:#fff;transition:border-color .15s,box-shadow .15s}
+.login-fi:focus{border-color:var(--t);box-shadow:0 0 0 3px rgba(196,98,45,.1)}
+.login-fi-wrap{position:relative}
+.login-fi-wrap .login-fi{padding-right:44px}
+.login-fi-eye{position:absolute;right:12px;top:50%;transform:translateY(-50%);color:var(--cz);cursor:pointer;font-size:18px;transition:color .15s;background:none;border:none;padding:0}
+.login-fi-eye:hover{color:var(--ch)}
+.login-btn{width:100%;padding:13px;background:var(--t);color:#fff;border:none;border-radius:var(--r-md);font-family:var(--fb);font-size:var(--t3);font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:var(--s2);box-shadow:0 4px 16px rgba(196,98,45,.35);transition:all .18s var(--ease);margin-bottom:var(--s3)}
+.login-btn:hover{filter:brightness(.92);transform:translateY(-1px)}
+.login-btn:active{transform:scale(.98)}
+.login-divider{display:flex;align-items:center;gap:var(--s3);margin:var(--s4) 0;font-size:var(--t1);color:var(--cz)}
+.login-divider::before,.login-divider::after{content:'';flex:1;height:1px;background:#e8e0d4}
+.login-social{width:100%;padding:11px;background:#fff;color:var(--ch);border:1.5px solid #e8e0d4;border-radius:var(--r-md);font-family:var(--fb);font-size:var(--t2);font-weight:500;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:var(--s2);transition:all .15s var(--ease);margin-bottom:var(--s3)}
+.login-social:hover{border-color:var(--t);background:var(--a)}
+.login-forgot{text-align:right;margin-top:calc(var(--s2) * -1);margin-bottom:var(--s4);font-size:var(--t1)}
+.login-forgot a{color:var(--t);cursor:pointer}
+.login-forgot a:hover{text-decoration:underline}
+.login-footer{text-align:center;margin-top:var(--s4);font-size:var(--t2);color:var(--cz)}
+.login-footer a{color:var(--t);font-weight:500;cursor:pointer}
+.login-footer a:hover{text-decoration:underline}
+.login-terms{font-size:var(--t1);color:var(--cz);text-align:center;margin-top:var(--s3);line-height:1.6}
+.login-terms a{color:var(--t);cursor:pointer}
+@media(max-width:480px){.login-card{padding:var(--s5) var(--s4);border-radius:var(--r-lg)}}
 </style>
 </head>
 <body>
@@ -1836,6 +1873,9 @@ select.rdr-fi{appearance:auto}
 
 <!-- ──────────── FAVORITOS PAGE (SPA) ──────────── -->
 <main class="page" id="page-favoritos" hidden></main>
+
+<!-- ──────────── LOGIN PAGE (SPA) ──────────── -->
+<main class="page" id="page-login" hidden></main>
 
 <!-- ──────────── FOOTER ──────────── -->
 <footer class="kz-footer">
@@ -2220,11 +2260,7 @@ function setupHeroCopy(){
 
   // Update navbar login button
   const navBtn = document.getElementById('navLoginBtn');
-  if(navBtn && userName){
-    const initials = userName.split(' ').map(w=>w[0]).join('').substring(0,2).toUpperCase();
-    navBtn.innerHTML = `<span style="width:24px;height:24px;border-radius:50%;background:var(--tl);color:#fff;font-size:10px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0">${initials}</span>${userName.split(' ')[0]}`;
-    navBtn.href = '#painel';
-  }
+  if(navBtn && userName){ updateNavLoginBtn(userName); }
 }
 
 /* ─────────────── SEARCH ─────────────── */
@@ -2294,7 +2330,7 @@ const SORT_LABELS = {
 
 function route(){
   const hash = location.hash || '#home';
-  const allPages = ['home','listings','detail','radar','favoritos'];
+  const allPages = ['home','listings','detail','radar','favoritos','login'];
   allPages.forEach(p => {
     const el = document.getElementById('page-' + p);
     if(el) el.hidden = true;
@@ -2306,6 +2342,7 @@ function route(){
   else if(hash.startsWith('#detail-')){ page = 'detail'; detailId = parseInt(hash.replace('#detail-',''),10); }
   else if(hash === '#radar') page = 'radar';
   else if(hash === '#favoritos') page = 'favoritos';
+  else if(hash === '#login' || hash === '#cadastro') page = 'login';
   else page = 'home';
 
   S.page = page;
@@ -2338,6 +2375,7 @@ function route(){
     case 'detail':    if(detailId) renderDetailPg(detailId); break;
     case 'radar':     renderRadarPg(); break;
     case 'favoritos': renderFavoritosPg(); break;
+    case 'login':     renderLoginPg(); break;
   }
 }
 
@@ -3422,7 +3460,203 @@ function initListingMap(res){
       map.fitBounds(group.getBounds().pad(0.2), {maxZoom: 12});
     }
   });
+/* ═══════════════════════════════════════
+   LOGIN / CADASTRO PAGE
+═══════════════════════════════════════ */
+function renderLoginPg(){
+  const root = document.getElementById('page-login');
+  const isRegister = location.hash === '#cadastro';
+  root.innerHTML = `
+    <div class="login-wrap page-enter">
+      <div class="login-card">
+
+        <div class="login-logo">KAZA<span class="dot">.</span></div>
+
+        <div class="login-tabs" role="tablist">
+          <button class="login-tab ${!isRegister?'on':''}" role="tab" aria-selected="${!isRegister}"
+            onclick="switchLoginTab('login')">Entrar</button>
+          <button class="login-tab ${isRegister?'on':''}" role="tab" aria-selected="${isRegister}"
+            onclick="switchLoginTab('cadastro')">Criar conta</button>
+        </div>
+
+        <div id="loginFormArea">
+          ${isRegister ? buildRegisterForm() : buildLoginForm()}
+        </div>
+
+      </div>
+    </div>
+  `;
 }
-</script>
-</body>
-</html>
+
+function buildLoginForm(){
+  return `
+    <h2 class="login-title">Bem-vindo de volta</h2>
+    <p class="login-sub">Entre na sua conta para acessar seus anúncios e favoritos.</p>
+
+    <button class="login-social" onclick="showToast('Login com Google em breve!','info')">
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+        <path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.875 2.684-6.615z" fill="#4285F4"/>
+        <path d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 009 18z" fill="#34A853"/>
+        <path d="M3.964 10.71A5.41 5.41 0 013.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 000 9c0 1.452.348 2.827.957 4.042l3.007-2.332z" fill="#FBBC05"/>
+        <path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 00.957 4.958L3.964 6.29C4.672 4.163 6.656 3.58 9 3.58z" fill="#EA4335"/>
+      </svg>
+      Continuar com Google
+    </button>
+
+    <div class="login-divider">ou</div>
+
+    <div class="login-fg">
+      <label class="login-fl" for="loginEmail">E-mail</label>
+      <input class="login-fi" type="email" id="loginEmail" placeholder="seu@email.com" autocomplete="email" inputmode="email">
+    </div>
+    <div class="login-fg">
+      <label class="login-fl" for="loginPass">Senha</label>
+      <div class="login-fi-wrap">
+        <input class="login-fi" type="password" id="loginPass" placeholder="••••••••" autocomplete="current-password">
+        <button class="login-fi-eye" onclick="togglePass('loginPass',this)" aria-label="Mostrar senha">
+          <i class="ti ti-eye" aria-hidden="true"></i>
+        </button>
+      </div>
+    </div>
+    <div class="login-forgot"><a onclick="showToast('Enviaremos um link de recuperação por e-mail.','info')">Esqueci minha senha</a></div>
+
+    <button class="login-btn" onclick="doLogin()">
+      <i class="ti ti-arrow-right" aria-hidden="true"></i>Entrar na minha conta
+    </button>
+
+    <div class="login-footer">
+      Não tem conta? <a onclick="switchLoginTab('cadastro')">Criar conta grátis</a>
+    </div>
+  `;
+}
+
+function buildRegisterForm(){
+  return `
+    <h2 class="login-title">Crie sua conta grátis</h2>
+    <p class="login-sub">Anuncie imóveis, salve favoritos e ative o Radar em um só lugar.</p>
+
+    <button class="login-social" onclick="showToast('Cadastro com Google em breve!','info')">
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+        <path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.875 2.684-6.615z" fill="#4285F4"/>
+        <path d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 009 18z" fill="#34A853"/>
+        <path d="M3.964 10.71A5.41 5.41 0 013.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 000 9c0 1.452.348 2.827.957 4.042l3.007-2.332z" fill="#FBBC05"/>
+        <path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 00.957 4.958L3.964 6.29C4.672 4.163 6.656 3.58 9 3.58z" fill="#EA4335"/>
+      </svg>
+      Cadastrar com Google
+    </button>
+
+    <div class="login-divider">ou</div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--s3)">
+      <div class="login-fg" style="margin-bottom:0">
+        <label class="login-fl" for="regName">Nome</label>
+        <input class="login-fi" type="text" id="regName" placeholder="Seu nome" autocomplete="given-name">
+      </div>
+      <div class="login-fg" style="margin-bottom:0">
+        <label class="login-fl" for="regWa">WhatsApp</label>
+        <input class="login-fi" type="tel" id="regWa" placeholder="(77) 9..." inputmode="tel">
+      </div>
+    </div>
+    <div class="login-fg" style="margin-top:var(--s3)">
+      <label class="login-fl" for="regEmail">E-mail</label>
+      <input class="login-fi" type="email" id="regEmail" placeholder="seu@email.com" autocomplete="email" inputmode="email">
+    </div>
+    <div class="login-fg">
+      <label class="login-fl" for="regPass">Senha</label>
+      <div class="login-fi-wrap">
+        <input class="login-fi" type="password" id="regPass" placeholder="Mínimo 6 caracteres" autocomplete="new-password">
+        <button class="login-fi-eye" onclick="togglePass('regPass',this)" aria-label="Mostrar senha">
+          <i class="ti ti-eye" aria-hidden="true"></i>
+        </button>
+      </div>
+    </div>
+
+    <button class="login-btn" onclick="doRegister()">
+      <i class="ti ti-user-plus" aria-hidden="true"></i>Criar minha conta grátis
+    </button>
+
+    <div class="login-terms">
+      Ao criar uma conta você concorda com os
+      <a>Termos de Uso</a> e a <a>Política de Privacidade</a>.
+    </div>
+
+    <div class="login-footer" style="margin-top:var(--s3)">
+      Já tem conta? <a onclick="switchLoginTab('login')">Entrar</a>
+    </div>
+  `;
+}
+
+function switchLoginTab(tab){
+  location.hash = '#' + tab;
+  const area = document.getElementById('loginFormArea');
+  const tabs = document.querySelectorAll('.login-tab');
+  if(!area) return;
+  const isRegister = tab === 'cadastro';
+  tabs.forEach((t,i) => t.classList.toggle('on', isRegister ? i===1 : i===0));
+  tabs.forEach((t,i) => t.setAttribute('aria-selected', String(isRegister ? i===1 : i===0)));
+  area.style.opacity = '0';
+  area.style.transform = 'translateY(8px)';
+  setTimeout(() => {
+    area.innerHTML = isRegister ? buildRegisterForm() : buildLoginForm();
+    requestAnimationFrame(() => {
+      area.style.transition = 'opacity .2s ease, transform .2s ease';
+      area.style.opacity = '1';
+      area.style.transform = 'none';
+    });
+  }, 120);
+}
+
+function togglePass(inputId, btn){
+  const input = document.getElementById(inputId);
+  if(!input) return;
+  const show = input.type === 'password';
+  input.type = show ? 'text' : 'password';
+  btn.innerHTML = `<i class="ti ti-eye${show?'-off':''}" aria-hidden="true"></i>`;
+  btn.setAttribute('aria-label', show ? 'Ocultar senha' : 'Mostrar senha');
+}
+
+function doLogin(){
+  const email = document.getElementById('loginEmail')?.value.trim();
+  const pass  = document.getElementById('loginPass')?.value;
+  if(!email || !email.includes('@')){ showToast('Informe um e-mail válido','error'); return; }
+  if(!pass || pass.length < 6){ showToast('Senha deve ter ao menos 6 caracteres','error'); return; }
+  // Demo: simular login
+  showToast('Conectando...','info');
+  setTimeout(() => {
+    const name = email.split('@')[0];
+    localStorage.setItem('kaza_user_name', name);
+    S.user = { name };
+    updateNavLoginBtn(name);
+    showToast('Bem-vindo de volta!','success');
+    location.hash = '#home';
+  }, 900);
+}
+
+function doRegister(){
+  const name  = document.getElementById('regName')?.value.trim();
+  const email = document.getElementById('regEmail')?.value.trim();
+  const wa    = document.getElementById('regWa')?.value.trim();
+  const pass  = document.getElementById('regPass')?.value;
+  if(!name){ showToast('Informe seu nome','error'); return; }
+  if(!email || !email.includes('@')){ showToast('Informe um e-mail válido','error'); return; }
+  if(!pass || pass.length < 6){ showToast('Senha deve ter ao menos 6 caracteres','error'); return; }
+  showToast('Criando sua conta...','info');
+  setTimeout(() => {
+    localStorage.setItem('kaza_user_name', name);
+    if(wa) localStorage.setItem('kaza_user_wa', wa);
+    S.user = { name };
+    updateNavLoginBtn(name);
+    showToast('Conta criada! Bem-vindo à KAZA.','success');
+    location.hash = '#home';
+  }, 900);
+}
+
+function updateNavLoginBtn(name){
+  const btn = document.getElementById('navLoginBtn');
+  if(!btn || !name) return;
+  const initials = name.split(' ').map(w=>w[0]).join('').substring(0,2).toUpperCase();
+  btn.innerHTML = `<span style="width:24px;height:24px;border-radius:50%;background:var(--tl);color:#fff;font-size:10px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0">${initials}</span>${name.split(' ')[0]}`;
+  btn.href = '#painel';
+  const bnLogin = document.querySelector('.bn-item[href="#login"]');
+  if(bnLogin){ bnLogin.querySelector('i').className = 'ti ti-user-circle'; bnLogin.lastChild.textContent = name.split(' ')[0]; }
+}
