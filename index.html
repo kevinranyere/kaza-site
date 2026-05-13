@@ -1652,6 +1652,85 @@ select.rdr-fi{appearance:auto}
 .login-terms{font-size:var(--t1);color:var(--cz);text-align:center;margin-top:var(--s3);line-height:1.6}
 .login-terms a{color:var(--t);cursor:pointer}
 @media(max-width:480px){.login-card{padding:var(--s5) var(--s4);border-radius:var(--r-lg)}}
+
+/* ═══════════════════════════════════════
+   ANUNCIAR — WIZARD
+═══════════════════════════════════════ */
+.wiz-wrap{min-height:calc(100vh - 64px);background:var(--a);padding:var(--s6) var(--s4) var(--s8)}
+.wiz-card{background:#fff;border-radius:var(--r-xl);padding:var(--s6);max-width:640px;margin:0 auto;box-shadow:var(--sh-sm);border:1px solid rgba(30,58,47,.06)}
+.wiz-progress{display:flex;align-items:center;gap:var(--s2);margin-bottom:var(--s6)}
+.wiz-step-dot{width:8px;height:8px;border-radius:50%;background:#e5dccc;flex-shrink:0;transition:all .2s}
+.wiz-step-dot.done{background:var(--v)}
+.wiz-step-dot.active{width:24px;border-radius:4px;background:var(--t)}
+.wiz-progress-bar{flex:1;height:3px;background:#e5dccc;border-radius:99px;overflow:hidden}
+.wiz-progress-fill{height:100%;background:var(--t);border-radius:99px;transition:width .3s var(--ease)}
+.wiz-step-label{font-size:var(--t1);color:var(--cz)}
+.wiz-title{font-family:var(--fd);font-size:var(--t5);color:var(--ch);margin-bottom:var(--s2);letter-spacing:-.015em}
+.wiz-sub{font-size:var(--t2);color:var(--cz);margin-bottom:var(--s5);line-height:1.5}
+.wiz-type-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s3);margin-bottom:var(--s5)}
+.wiz-type-opt{border:2px solid #e8e0d4;border-radius:var(--r-lg);padding:var(--s4);cursor:pointer;transition:all .15s var(--ease);background:#fff;text-align:left}
+.wiz-type-opt:hover{border-color:var(--t);background:#fff8f5}
+.wiz-type-opt.on{border-color:var(--v);background:rgba(30,58,47,.03)}
+.wiz-type-icon{font-size:28px;color:var(--cz);margin-bottom:var(--s2)}
+.wiz-type-opt.on .wiz-type-icon{color:var(--t)}
+.wiz-type-name{font-size:var(--t3);font-weight:600;color:var(--ch);margin-bottom:3px}
+.wiz-type-desc{font-size:var(--t1);color:var(--cz)}
+.wiz-fg{margin-bottom:var(--s4)}
+.wiz-fl{display:block;font-size:var(--t1);font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--cz);margin-bottom:var(--s2)}
+.wiz-fi{width:100%;padding:12px 14px;border:1.5px solid #e8e0d4;border-radius:var(--r-md);font:inherit;font-size:var(--t3);outline:none;color:var(--ch);background:#fff;transition:border-color .15s}
+.wiz-fi:focus{border-color:var(--t);box-shadow:0 0 0 3px rgba(196,98,45,.1)}
+.wiz-fi-row{display:grid;grid-template-columns:1fr 1fr;gap:var(--s3)}
+.wiz-photo-zone{border:2px dashed #e8e0d4;border-radius:var(--r-lg);padding:var(--s7) var(--s5);text-align:center;cursor:pointer;transition:all .15s var(--ease);margin-bottom:var(--s4)}
+.wiz-photo-zone:hover{border-color:var(--t);background:#fff8f5}
+.wiz-photo-zone i{font-size:36px;color:var(--cz);margin-bottom:var(--s3);display:block}
+.wiz-photo-zone p{font-size:var(--t2);color:var(--cz)}
+.wiz-photo-zone strong{color:var(--t)}
+.wiz-photos-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s3);margin-bottom:var(--s4)}
+.wiz-photo-thumb{aspect-ratio:4/3;border-radius:var(--r-md);background:var(--a);overflow:hidden;position:relative}
+.wiz-photo-thumb img{width:100%;height:100%;object-fit:cover}
+.wiz-photo-remove{position:absolute;top:6px;right:6px;width:24px;height:24px;border-radius:50%;background:rgba(0,0,0,.6);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;cursor:pointer;border:none}
+.wiz-nav{display:flex;align-items:center;justify-content:space-between;margin-top:var(--s5);padding-top:var(--s5);border-top:1px solid rgba(30,58,47,.07)}
+.wiz-success{text-align:center;padding:var(--s7) var(--s5)}
+.wiz-success-icon{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--v),#2a4d3f);display:flex;align-items:center;justify-content:center;margin:0 auto var(--s5);box-shadow:0 8px 24px rgba(30,58,47,.3)}
+.wiz-success-icon i{font-size:32px;color:#fff}
+@media(max-width:600px){.wiz-type-grid{grid-template-columns:1fr 1fr}.wiz-fi-row{grid-template-columns:1fr}.wiz-card{padding:var(--s5) var(--s4)}}
+@media(max-width:400px){.wiz-type-grid{grid-template-columns:1fr}}
+
+/* ═══════════════════════════════════════
+   PAINEL — DASHBOARD
+═══════════════════════════════════════ */
+.painel-head{background:var(--v);color:#fff;padding:var(--s6) 0}
+.painel-head-inner{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:var(--s4)}
+.painel-avatar{width:52px;height:52px;border-radius:50%;background:var(--t);display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:1.4rem;color:#fff;flex-shrink:0}
+.painel-greeting{font-family:var(--fd);font-size:var(--t5);letter-spacing:-.015em}
+.painel-greeting-sub{font-size:var(--t2);color:rgba(255,255,255,.6);margin-top:3px}
+.painel-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s4);margin:var(--s6) 0}
+.painel-stat{background:#fff;border-radius:var(--r-lg);padding:var(--s4) var(--s4);border:1px solid rgba(30,58,47,.07);transition:all .15s}
+.painel-stat:hover{box-shadow:var(--sh-sm)}
+.painel-stat-n{font-family:var(--fd);font-size:var(--t6);color:var(--ch);line-height:1;margin-bottom:var(--s2)}
+.painel-stat-l{font-size:var(--t1);color:var(--cz);text-transform:uppercase;letter-spacing:.08em}
+.painel-stat-trend{display:inline-flex;align-items:center;gap:3px;font-size:var(--t1);margin-top:var(--s1)}
+.painel-stat-trend.up{color:#059669}
+.painel-stat-trend.neutral{color:var(--cz)}
+.painel-listings-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--s4)}
+.painel-listing-row{display:flex;align-items:center;gap:var(--s4);padding:var(--s4);background:#fff;border-radius:var(--r-lg);border:1px solid rgba(30,58,47,.07);margin-bottom:var(--s3);transition:all .15s;cursor:pointer}
+.painel-listing-row:hover{box-shadow:var(--sh-sm);border-color:rgba(30,58,47,.15)}
+.painel-listing-img{width:80px;height:60px;border-radius:var(--r-md);object-fit:cover;flex-shrink:0}
+.painel-listing-info{flex:1;min-width:0}
+.painel-listing-title{font-size:var(--t3);font-weight:600;color:var(--ch);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:3px}
+.painel-listing-meta{font-size:var(--t1);color:var(--cz);display:flex;align-items:center;gap:var(--s3);flex-wrap:wrap}
+.painel-listing-price{font-size:var(--t2);font-weight:700;color:var(--t);flex-shrink:0}
+.painel-listing-actions{display:flex;gap:var(--s2);flex-shrink:0}
+.painel-listing-actions button{padding:6px 12px;border-radius:var(--r-sm);font-family:var(--fb);font-size:12px;font-weight:500;cursor:pointer;transition:all .15s;border:1.5px solid #e5dccc;background:#fff;color:var(--ch);display:inline-flex;align-items:center;gap:4px}
+.painel-listing-actions button:hover{border-color:var(--t);color:var(--t)}
+.painel-tip{background:linear-gradient(135deg,rgba(196,98,45,.06),rgba(30,58,47,.04));border:1px solid rgba(196,98,45,.15);border-radius:var(--r-lg);padding:var(--s4) var(--s5);display:flex;align-items:flex-start;gap:var(--s3);margin-bottom:var(--s4)}
+.painel-empty{text-align:center;padding:var(--s7) var(--s5);background:#fff;border-radius:var(--r-lg);border:1px solid rgba(30,58,47,.07)}
+@media(max-width:900px){.painel-stats{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){
+  .painel-stats{grid-template-columns:1fr 1fr}
+  .painel-listing-actions{display:none}
+  .painel-listing-img{width:64px;height:48px}
+}
 </style>
 </head>
 <body>
@@ -1883,6 +1962,12 @@ select.rdr-fi{appearance:auto}
 <!-- ──────────── LOGIN PAGE (SPA) ──────────── -->
 <main class="page" id="page-login" hidden></main>
 
+<!-- ──────────── ANUNCIAR PAGE (SPA) ──────────── -->
+<main class="page" id="page-anunciar" hidden></main>
+
+<!-- ──────────── PAINEL PAGE (SPA) ──────────── -->
+<main class="page" id="page-painel" hidden></main>
+
 <!-- ──────────── FOOTER ──────────── -->
 <footer class="kz-footer">
   <div class="cnt">
@@ -1957,8 +2042,80 @@ select.rdr-fi{appearance:auto}
 <div id="kz-toast" role="status" aria-live="polite"></div>
 
 <script>
-/* ─────────────── DATA ─────────────── */
-const L = [
+/* ════════════════════════════════════════
+   API INTEGRATION
+   Backend: https://web-production-66119.up.railway.app
+════════════════════════════════════════ */
+const API_BASE = 'https://web-production-66119.up.railway.app/api';
+
+/* Mapeador API → formato interno do frontend */
+function mapListing(r){
+  // Extrair foto principal do array aninhado listing_photos
+  const photos = r.listing_photos || [];
+  const coverPhoto = photos.find(p => p.is_cover)?.url || photos[0]?.url;
+  const advertiser = r.users || {};
+  return {
+    id:          r.id,
+    type:        r.type,
+    purpose:     r.purpose,
+    featured:    r.is_featured || r.featured || false,
+    title:       r.title,
+    city:        r.city,
+    neigh:       r.neighborhood || r.neigh || '',
+    price:       r.price ? +r.price : null,
+    area:        r.area_m2 ? +r.area_m2 : null,
+    area_ha:     r.area_ha ? +r.area_ha : null,
+    beds:        r.bedrooms   != null ? +r.bedrooms  : null,
+    baths:       r.bathrooms  != null ? +r.bathrooms : null,
+    park:        r.parking    != null ? +r.parking   : null,
+    views:       r.views || 0,
+    leads:       r.contact_count || 0,
+    created_at:  r.created_at ? r.created_at.split('T')[0] : null,
+    img:         coverPhoto || 'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=900&q=75',
+    photos:      photos.map(p => p.url),
+    description: r.description || '',
+    benchmark_m2:r.benchmark_m2 || null,
+    kaza_score:  r.kaza_score || null,
+    lat:         r.lat  != null ? +r.lat  : null,
+    lng:         r.lng  != null ? +r.lng  : null,
+    status:      r.status || 'active',
+    user_id:     r.user_id || null,
+    main_crop:   r.main_crop || null,
+    advertiser:  {
+      name:        advertiser.name || '',
+      agency_name: advertiser.agency_name || '',
+      type:        advertiser.type || 'person',
+      creci:       advertiser.creci || '',
+      verified:    advertiser.is_verified || false,
+    },
+  };
+}
+
+/* Cabeçalhos padrão */
+function apiHeaders(auth){
+  const h = { 'Content-Type':'application/json' };
+  const token = auth || localStorage.getItem('kaza_token');
+  if(token) h['Authorization'] = 'Bearer ' + token;
+  return h;
+}
+
+/* Wrapper de fetch com timeout e fallback */
+async function apiFetch(path, opts){
+  try{
+    const res = await fetch(API_BASE + path, {
+      ...opts,
+      headers: { ...apiHeaders(), ...(opts && opts.headers) },
+    });
+    const json = await res.json().catch(() => ({}));
+    if(!res.ok) throw new Error(json.message || json.error || 'Erro ' + res.status);
+    return json;
+  } catch(e){
+    throw e;
+  }
+}
+
+/* ─────────────── DADOS ESTÁTICOS (fallback offline) ─────────────── */
+const L_STATIC = [
   {id:1,type:'residential',purpose:'sale',featured:true,title:'Casa 3/4 no Morada dos Pássaros',city:'Barreiras',neigh:'Morada dos Pássaros',price:380000,area:120,beds:3,baths:2,park:2,views:847,created_at:'2026-05-09',img:'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=900&q=75',benchmark_m2:3800,lat:-12.1383,lng:-44.9722},
   {id:2,type:'rural',purpose:'sale',featured:true,title:'Fazenda 500ha com pivô central',city:'São Desidério',neigh:'Zona Rural',price:8500000,area_ha:500,views:1203,created_at:'2026-04-29',img:'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=900&q=75',lat:-12.3631,lng:-44.9745},
   {id:3,type:'lot',purpose:'sale',featured:true,title:'Lote 360m² no Residencial Bela Vista',city:'Barreiras',neigh:'Bela Vista',price:95000,area:360,views:412,created_at:'2026-05-11',img:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&q=75',benchmark_m2:320,lat:-12.1605,lng:-45.0080},
@@ -1968,6 +2125,26 @@ const L = [
   {id:7,type:'rural',purpose:'sale',featured:false,title:'Sítio 50ha às margens do Rio Grande',city:'Barreiras',neigh:'Zona Rural',price:1200000,area_ha:50,views:321,created_at:'2026-04-22',img:'https://images.unsplash.com/photo-1500076656116-558758c991c1?w=900&q=75',lat:-12.0900,lng:-45.0500},
   {id:8,type:'lot',purpose:'sale',featured:false,title:'Terreno 5.000m² para galpão industrial',city:'Luís Eduardo Magalhães',neigh:'Zona Industrial',price:450000,area:5000,views:187,created_at:'2026-05-01',img:'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=900&q=75',benchmark_m2:120,lat:-12.0900,lng:-45.7900},
 ];
+
+/* Array principal — começa com dados estáticos, substituído pelos dados reais */
+let L = [...L_STATIC];
+
+/* Carregar listings da API */
+async function loadListingsFromAPI(){
+  try{
+    const res = await apiFetch('/listings?limit=50&status=active&state=BA');
+    // API retorna { listings: [...], total: N } ou array direto
+    const items = res.listings || res.data || (Array.isArray(res) ? res : []);
+    if(Array.isArray(items) && items.length > 0){
+      L = items.map(mapListing);
+      console.log('[KAZA] ' + L.length + ' imóveis carregados da API');
+      return true;
+    }
+  } catch(e){
+    console.warn('[KAZA] API offline, usando dados locais:', e.message);
+  }
+  return false;
+}
 
 const TL_MAP = {residential:'Residencial',rural:'Rural',lot:'Lote',commercial:'Comercial'};
 const TC_MAP = {residential:'badge-res',rural:'badge-rur',lot:'badge-lot',commercial:'badge-com'};
@@ -1983,9 +2160,10 @@ const STORIES = [
 
 /* ─────────────── STATE ─────────────── */
 const S = {
-  saved: JSON.parse(localStorage.getItem('kaza_favs') || '{}'),
-  storiesSeen: JSON.parse(localStorage.getItem('kaza_stories_seen') || '{}'),
-  user: null,
+  saved:        JSON.parse(localStorage.getItem('kaza_favs') || '{}'),
+  storiesSeen:  JSON.parse(localStorage.getItem('kaza_stories_seen') || '{}'),
+  user:         null,
+  token:        localStorage.getItem('kaza_token') || null,
 };
 
 /* ─────────────── UTILS ─────────────── */
@@ -2308,13 +2486,35 @@ function go(page, purpose, type){
 }
 
 /* ─────────────── INIT ─────────────── */
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+  // Restore session from token
+  if(S.token){
+    try{
+      const me = await apiFetch('/auth/me');
+      S.user = me.user || me;
+      updateNavLoginBtn(S.user.name || S.user.email?.split('@')[0]);
+    } catch(e){
+      // Token expired — clear
+      localStorage.removeItem('kaza_token');
+      S.token = null;
+    }
+  }
+
+  // Load real listings from API (renders with static data first for speed)
   renderFeatured();
   renderStories();
   updateFavBadges();
   setupCounters();
   checkReturnUser();
   setupHeroCopy();
+
+  // Then reload with real data in background
+  loadListingsFromAPI().then(loaded => {
+    if(loaded && (S.page === 'home' || !S.page)){
+      renderFeatured();
+    }
+    if(loaded && S.page === 'listings') renderListingsPg();
+  });
 
   // Fallback: also listen to hashchange for browser back/forward
   window.addEventListener('hashchange', route);
@@ -2341,7 +2541,7 @@ const SORT_LABELS = {
 
 function route(){
   const hash = location.hash || '#home';
-  const allPages = ['home','listings','detail','radar','favoritos','login'];
+  const allPages = ['home','listings','detail','radar','favoritos','login','anunciar','painel'];
   allPages.forEach(p => {
     const el = document.getElementById('page-' + p);
     if(el) el.hidden = true;
@@ -2354,6 +2554,8 @@ function route(){
   else if(hash === '#radar') page = 'radar';
   else if(hash === '#favoritos') page = 'favoritos';
   else if(hash === '#login' || hash === '#cadastro') page = 'login';
+  else if(hash === '#anunciar') page = 'anunciar';
+  else if(hash === '#painel') page = 'painel';
   else page = 'home';
 
   S.page = page;
@@ -2393,6 +2595,8 @@ function route(){
     case 'radar':     renderRadarPg(); break;
     case 'favoritos': renderFavoritosPg(); break;
     case 'login':     renderLoginPg(); break;
+    case 'anunciar':  renderAnunciarPg(); break;
+    case 'painel':    renderPainelPg(); break;
   }
 }
 
@@ -2405,6 +2609,18 @@ function buildWaLink(l){
     `Olá! Vi o imóvel *${l.title}* no portal KAZA Imóveis.\n💰 ${price}\n📍 ${l.neigh}, ${l.city} — BA\n\nGostaria de mais informações e agendar uma visita.`
   );
   return `https://wa.me/5577999999999?text=${msg}`;
+}
+
+/* Registra lead quando usuário clica em contato */
+async function trackLead(listingId, name, phone, message){
+  try{
+    await apiFetch(`/listings/${listingId}/contact`, {
+      method:'POST',
+      body: JSON.stringify({ name: name||'Visitante', phone: phone||'N/A', message: message||'' })
+    });
+  } catch(e){
+    // Silently fail — tracking is secondary
+  }
 }
 
 function renderDetailPg(id){
@@ -3007,27 +3223,52 @@ function setRBeds(el){ document.querySelectorAll('[data-rbeds]').forEach(b=>b.cl
 // Keep legacy aliases
 function setRadarIntent(v){ setRdrIntent(v); }
 
-function submitRadar(){
+async function submitRadar(){
   const name = document.getElementById('rdrName')?.value.trim();
   const wa   = document.getElementById('rdrWa')?.value.trim();
   if(!name){ showToast('Por favor, informe seu nome','error'); return; }
   if(!wa||wa.replace(/\D/g,'').length < 10){ showToast('Informe um WhatsApp válido','error'); return; }
   const type = document.querySelector('[data-rtype].on')?.dataset.rtype || 'all';
+  const city = document.getElementById('rdrCity')?.value || '';
+  const maxP = document.getElementById('rdrMaxP')?.value || '';
+
+  const btn = document.querySelector('.rdr-cta-btn');
+  if(btn){ btn.disabled=true; btn.innerHTML='<i class="ti ti-loader-2" style="animation:spin .8s linear infinite"></i>Ativando…'; }
+
+  // Try to POST to API
+  try{
+    const intentEl = document.getElementById('rdi-buy');
+    const isBuyer = intentEl?.classList.contains('on');
+    const purpose = document.querySelector('[data-rpurpose].on')?.dataset.rpurpose || 'sale';
+    await apiFetch('/radar' + (isBuyer ? '' : '/property'), {
+      method:'POST',
+      body: JSON.stringify({
+        name, phone: wa,
+        type:      type === 'all' ? 'residential' : type,
+        purpose:   purpose,
+        city:      city || null,
+        state:     'BA',
+        max_price: maxP ? +maxP : null,
+      })
+    });
+  } catch(e){
+    console.warn('[KAZA] Radar API error, saving locally:', e.message);
+  }
+
   localStorage.setItem('kaza_radar_active','1');
   localStorage.setItem('kaza_user_name', name);
   const matches = L.filter(l => type==='all'||l.type===type).slice(0,3);
-
   const wrap = document.getElementById('radarCardWrap');
   wrap.innerHTML = `
     <div class="rdr-success">
       <div class="rdr-success-pulse"><i class="ti ti-radar" aria-hidden="true"></i></div>
       <h3>Radar ativo, ${name.split(' ')[0]}!</h3>
       <p>${matches.length>0?`Já encontrei <strong style="color:var(--ch)">${matches.length} imóveis</strong> compatíveis agora.`:''} Vou te avisar no WhatsApp <strong style="color:var(--ch)">${wa}</strong> quando aparecer um novo.</p>
-      <button class="btn btn-primary btn-lg btn-block" onclick="location.hash='#listings'">
+      <button class="btn btn-primary btn-lg btn-block" onclick="go('listings')">
         <i class="ti ti-search" aria-hidden="true"></i>Ver imóveis compatíveis
       </button>
       <div style="margin-top:var(--s3);font-size:var(--t1);color:var(--cz);text-align:center">Normalmente avisamos em até 2h após a publicação</div>
-      ${matches.length?`<div style="margin-top:var(--s5);text-align:left;border-top:1px solid rgba(30,58,47,.08);padding-top:var(--s4)"><div style="font-size:var(--t1);font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--cz);margin-bottom:var(--s3)">Compatíveis agora</div><div style="display:flex;flex-direction:column;gap:var(--s2)">${matches.map(l=>`<a onclick="location.hash='#detail-${l.id}'" style="display:flex;align-items:center;gap:var(--s3);padding:var(--s3);border-radius:var(--r-md);background:var(--a);cursor:pointer"><img src="${l.img}" style="width:48px;height:36px;object-fit:cover;border-radius:6px;flex-shrink:0" alt="${l.title}"><div><div style="font-size:var(--t2);font-weight:600;color:var(--ch)">${l.title}</div><div style="font-size:var(--t1);color:var(--t)">${fmt(l.price,l.purpose==='rent')}</div></div></a>`).join('')}</div></div>`:''}
+      ${matches.length?`<div style="margin-top:var(--s5);text-align:left;border-top:1px solid rgba(30,58,47,.08);padding-top:var(--s4)"><div style="font-size:var(--t1);font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--cz);margin-bottom:var(--s3)">Compatíveis agora</div><div style="display:flex;flex-direction:column;gap:var(--s2)">${matches.map(l=>`<a onclick="go('detail-${l.id}')" style="display:flex;align-items:center;gap:var(--s3);padding:var(--s3);border-radius:var(--r-md);background:var(--a);cursor:pointer"><img src="${l.img}" style="width:48px;height:36px;object-fit:cover;border-radius:6px;flex-shrink:0" alt="${l.title}"><div><div style="font-size:var(--t2);font-weight:600;color:var(--ch)">${l.title}</div><div style="font-size:var(--t1);color:var(--t)">${fmt(l.price,l.purpose==='rent')}</div></div></a>`).join('')}</div></div>`:''}
     </div>
   `;
   const dot = document.getElementById('bnRadarDot');
@@ -3480,6 +3721,322 @@ function initListingMap(res){
 }
 
 /* ═══════════════════════════════════════
+   ANUNCIAR — WIZARD DE CRIAÇÃO
+═══════════════════════════════════════ */
+const WIZ = { step:1, total:5, data:{} };
+
+function renderAnunciarPg(){
+  const userName = localStorage.getItem('kaza_user_name');
+  if(!userName){
+    localStorage.setItem('kaza_after_login','#anunciar');
+    showToast('Entre ou crie sua conta para anunciar','info');
+    go('login'); return;
+  }
+  WIZ.step = 1; WIZ.data = {};
+  renderWizStep();
+}
+
+function renderWizStep(){
+  const root = document.getElementById('page-anunciar');
+  const pct = Math.round((WIZ.step-1)/(WIZ.total)*100);
+  const dots = Array.from({length:WIZ.total},(_,i)=>
+    '<div class="wiz-step-dot '+(i+1<WIZ.step?'done':i+1===WIZ.step?'active':'')+'"></div>'
+  ).join('');
+  let body = '';
+  if(WIZ.step===1) body=wizStep1();
+  else if(WIZ.step===2) body=wizStep2();
+  else if(WIZ.step===3) body=wizStep3();
+  else if(WIZ.step===4) body=wizStep4();
+  else if(WIZ.step===5) body=wizStep5();
+  root.innerHTML='<div class="wiz-wrap page-enter"><div class="wiz-card">'
+    +'<div class="wiz-progress">'+dots
+    +'<div class="wiz-progress-bar"><div class="wiz-progress-fill" style="width:'+pct+'%"></div></div>'
+    +'<span class="wiz-step-label">'+WIZ.step+' de '+WIZ.total+'</span></div>'
+    +body+'</div></div>';
+}
+
+function wizStep1(){
+  const opts=[
+    {v:'residential',icon:'ti-home',name:'Residencial',desc:'Casa, apto, cobertura'},
+    {v:'rural',icon:'ti-tractor',name:'Rural / Fazenda',desc:'Fazenda, sítio, chácara'},
+    {v:'lot',icon:'ti-layout-grid',name:'Lote / Terreno',desc:'Lote urbano ou rural'},
+    {v:'commercial',icon:'ti-building-store',name:'Comercial',desc:'Sala, loja, galpão'},
+  ];
+  return '<div class="wiz-title">Que tipo de imóvel você quer anunciar?</div>'
+    +'<div class="wiz-sub">Escolha a categoria que melhor descreve seu imóvel.</div>'
+    +'<div class="wiz-type-grid">'
+    +opts.map(o=>'<button class="wiz-type-opt '+(WIZ.data.type===o.v?'on':'')+'" onclick="wizSetType(\''+o.v+'\')">'
+      +'<div class="wiz-type-icon"><i class="ti '+o.icon+'" aria-hidden="true"></i></div>'
+      +'<div class="wiz-type-name">'+o.name+'</div>'
+      +'<div class="wiz-type-desc">'+o.desc+'</div></button>').join('')
+    +'</div>'
+    +'<div class="wiz-nav">'
+    +'<button class="btn btn-ghost btn-md" onclick="go(\'home\')">Cancelar</button>'
+    +'<button class="btn btn-primary btn-md" onclick="wizNext()" '+(WIZ.data.type?'':'disabled')+'>Continuar <i class="ti ti-arrow-right" aria-hidden="true"></i></button>'
+    +'</div>';
+}
+
+function wizStep2(){
+  const isR=WIZ.data.type==='rural';
+  return '<div class="wiz-title">Informações do imóvel</div>'
+    +'<div class="wiz-sub">Quanto mais detalhes, mais leads você recebe.</div>'
+    +'<div class="wiz-fg"><label class="wiz-fl" for="wizTitle">Título do anúncio</label>'
+    +'<input class="wiz-fi" type="text" id="wizTitle" placeholder="Ex: Casa 3/4 com piscina no Jardins" value="'+(WIZ.data.title||'')+'" oninput="WIZ.data.title=this.value"></div>'
+    +'<div class="wiz-fi-row">'
+    +'<div class="wiz-fg"><label class="wiz-fl" for="wizPrice">Preço (R$)</label>'
+    +'<input class="wiz-fi" type="number" id="wizPrice" placeholder="380000" value="'+(WIZ.data.price||'')+'" oninput="WIZ.data.price=this.value"></div>'
+    +'<div class="wiz-fg"><label class="wiz-fl" for="wizPurpose">Finalidade</label>'
+    +'<select class="wiz-fi" id="wizPurpose" onchange="WIZ.data.purpose=this.value">'
+    +'<option value="sale" '+(WIZ.data.purpose==='sale'?'selected':'')+'>Venda</option>'
+    +'<option value="rent" '+(WIZ.data.purpose==='rent'?'selected':'')+'>Aluguel</option>'
+    +'</select></div></div>'
+    +'<div class="wiz-fi-row">'
+    +'<div class="wiz-fg"><label class="wiz-fl" for="wizArea">'+(isR?'Área (ha)':'Área (m²)')+'</label>'
+    +'<input class="wiz-fi" type="number" id="wizArea" placeholder="'+(isR?'500':'120')+'" value="'+(WIZ.data.area||'')+'" oninput="WIZ.data.area=this.value"></div>'
+    +(!isR?'<div class="wiz-fg"><label class="wiz-fl" for="wizBeds">Quartos</label>'
+      +'<select class="wiz-fi" id="wizBeds" onchange="WIZ.data.beds=this.value">'
+      +'<option value="">—</option>'
+      +[1,2,3,4,5].map(n=>'<option value="'+n+'" '+(WIZ.data.beds==n?'selected':'')+'>'+n+'</option>').join('')
+      +'</select></div>':'<div class="wiz-fg"></div>')
+    +'</div>'
+    +'<div class="wiz-fg"><label class="wiz-fl" for="wizDesc">Descrição</label>'
+    +'<textarea class="wiz-fi" id="wizDesc" rows="4" placeholder="Descreva os diferenciais..." oninput="WIZ.data.desc=this.value" style="resize:vertical">'+(WIZ.data.desc||'')+'</textarea></div>'
+    +'<div class="wiz-nav">'
+    +'<button class="btn btn-outline btn-md" onclick="wizBack()"><i class="ti ti-arrow-left" aria-hidden="true"></i>Voltar</button>'
+    +'<button class="btn btn-primary btn-md" onclick="wizNext()">Continuar <i class="ti ti-arrow-right" aria-hidden="true"></i></button>'
+    +'</div>';
+}
+
+function wizStep3(){
+  const cities=['Barreiras','São Desidério','Luís Eduardo Magalhães','Correntina','Santa Maria da Vitória','Bom Jesus da Lapa'];
+  return '<div class="wiz-title">Localização</div>'
+    +'<div class="wiz-sub">Onde fica o imóvel?</div>'
+    +'<div class="wiz-fg"><label class="wiz-fl" for="wizCity">Cidade</label>'
+    +'<select class="wiz-fi" id="wizCity" onchange="WIZ.data.city=this.value">'
+    +'<option value="">Selecione a cidade</option>'
+    +cities.map(c=>'<option value="'+c+'" '+(WIZ.data.city===c?'selected':'')+'>'+c+'</option>').join('')
+    +'</select></div>'
+    +'<div class="wiz-fg"><label class="wiz-fl" for="wizNeigh">Bairro / Localidade</label>'
+    +'<input class="wiz-fi" type="text" id="wizNeigh" placeholder="Ex: Jardins, Morada dos Pássaros..." value="'+(WIZ.data.neigh||'')+'" oninput="WIZ.data.neigh=this.value"></div>'
+    +'<div class="wiz-fg"><label class="wiz-fl" for="wizAddr">Endereço (opcional)</label>'
+    +'<input class="wiz-fi" type="text" id="wizAddr" placeholder="Rua, número..." value="'+(WIZ.data.addr||'')+'" oninput="WIZ.data.addr=this.value"></div>'
+    +'<div class="wiz-nav">'
+    +'<button class="btn btn-outline btn-md" onclick="wizBack()"><i class="ti ti-arrow-left" aria-hidden="true"></i>Voltar</button>'
+    +'<button class="btn btn-primary btn-md" onclick="wizNext()">Continuar <i class="ti ti-arrow-right" aria-hidden="true"></i></button>'
+    +'</div>';
+}
+
+function wizStep4(){
+  const photos=WIZ.data.photos||[];
+  return '<div class="wiz-title">Fotos do imóvel</div>'
+    +'<div class="wiz-sub">Imóveis com 5+ fotos recebem <strong style="color:var(--t)">3× mais leads</strong>.</div>'
+    +(photos.length?'<div class="wiz-photos-grid">'+photos.map((p,i)=>'<div class="wiz-photo-thumb"><img src="'+p+'" alt="Foto '+(i+1)+'" loading="lazy"><button class="wiz-photo-remove" onclick="wizRemovePhoto('+i+')" aria-label="Remover"><i class="ti ti-x" aria-hidden="true"></i></button></div>').join('')+'</div>':'')
+    +'<div class="wiz-photo-zone" onclick="wizAddPhotos()">'
+    +'<i class="ti ti-camera" aria-hidden="true"></i>'
+    +'<p><strong>Clique para adicionar fotos</strong><br>JPG, PNG — até 20 fotos</p></div>'
+    +'<div style="background:var(--a);border-radius:var(--r-md);padding:var(--s3) var(--s4);font-size:var(--t1);color:var(--cz);display:flex;align-items:center;gap:var(--s2)">'
+    +'<i class="ti ti-info-circle" style="color:var(--t);flex-shrink:0" aria-hidden="true"></i>'
+    +'Foto de capa, ambientes internos e fachada são essenciais.</div>'
+    +'<div class="wiz-nav">'
+    +'<button class="btn btn-outline btn-md" onclick="wizBack()"><i class="ti ti-arrow-left" aria-hidden="true"></i>Voltar</button>'
+    +'<button class="btn btn-primary btn-md" onclick="wizNext()">Continuar <i class="ti ti-arrow-right" aria-hidden="true"></i></button>'
+    +'</div>';
+}
+
+function wizStep5(){
+  const d=WIZ.data;
+  const price=d.price?fmt(+d.price,d.purpose==='rent'):'—';
+  return '<div class="wiz-title">Revisar e publicar</div>'
+    +'<div class="wiz-sub">Confira os dados antes de publicar seu anúncio.</div>'
+    +'<div style="background:var(--a);border-radius:var(--r-lg);padding:var(--s5);margin-bottom:var(--s5)">'
+    +'<div style="font-size:var(--t2);font-weight:700;color:var(--ch);margin-bottom:var(--s3)">'+(d.title||'Sem título')+'</div>'
+    +'<div style="display:flex;flex-wrap:wrap;gap:var(--s4);font-size:var(--t2);color:var(--cz)">'
+    +'<span><strong style="color:var(--t)">'+price+'</strong></span>'
+    +'<span>'+( d.neigh||'—')+', '+(d.city||'—')+'</span>'
+    +'<span>'+(d.area||'—')+' '+(d.type==='rural'?'ha':'m²')+'</span>'
+    +(d.beds?'<span>'+d.beds+' quartos</span>':'')
+    +'</div></div>'
+    +'<div class="painel-tip">'
+    +'<i class="ti ti-bolt" style="color:var(--t);font-size:18px;flex-shrink:0" aria-hidden="true"></i>'
+    +'<div><div style="font-weight:600;font-size:var(--t2);margin-bottom:3px">Compradores no Radar serão notificados</div>'
+    +'<div style="font-size:var(--t1);color:var(--cz)">Existem '+L.length+' imóveis similares com interesse ativo.</div></div></div>'
+    +'<div class="wiz-nav">'
+    +'<button class="btn btn-outline btn-md" onclick="wizBack()"><i class="ti ti-arrow-left" aria-hidden="true"></i>Voltar</button>'
+    +'<button class="btn btn-primary btn-lg" onclick="wizPublish()"><i class="ti ti-check" aria-hidden="true"></i>Publicar anúncio</button>'
+    +'</div>';
+}
+
+function wizSetType(v){ WIZ.data.type=v; renderWizStep(); }
+function wizNext(){
+  if(WIZ.step===1&&!WIZ.data.type){ showToast('Selecione o tipo de imóvel','error'); return; }
+  if(WIZ.step===2&&!WIZ.data.title){ showToast('Informe o título do anúncio','error'); return; }
+  if(WIZ.step===2&&!WIZ.data.price){ showToast('Informe o preço','error'); return; }
+  if(WIZ.step===3&&!WIZ.data.city){ showToast('Selecione a cidade','error'); return; }
+  if(WIZ.step<WIZ.total){ WIZ.step++; renderWizStep(); }
+}
+function wizBack(){ if(WIZ.step>1){ WIZ.step--; renderWizStep(); } else go('home'); }
+function wizAddPhotos(){
+  if(!WIZ.data.photos) WIZ.data.photos=[];
+  const samples=['https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=400&q=60','https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400&q=60','https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=400&q=60'];
+  if(WIZ.data.photos.length<6){ WIZ.data.photos.push(samples[WIZ.data.photos.length%samples.length]); renderWizStep(); showToast('Foto adicionada!','success'); }
+  else showToast('Máximo de 6 fotos na versão demo','info');
+}
+function wizRemovePhoto(i){ WIZ.data.photos.splice(i,1); renderWizStep(); }
+async function wizPublish(){
+  const root = document.getElementById('page-anunciar');
+  const d = WIZ.data;
+
+  // Show loading state
+  const btn = root.querySelector('.btn-primary.btn-lg');
+  if(btn){ btn.disabled = true; btn.innerHTML = '<i class="ti ti-loader-2" style="animation:spin .8s linear infinite"></i>Publicando...'; }
+
+  // Build payload matching API schema
+  const payload = {
+    title:       d.title,
+    type:        d.type,
+    purpose:     d.purpose || 'sale',
+    price:       +(d.price || 0),
+    city:        d.city,
+    neighborhood:d.neigh || '',
+    state:       'BA',
+    area_m2:     d.type !== 'rural' ? +(d.area || 0) : null,
+    area_ha:     d.type === 'rural'  ? +(d.area || 0) : null,
+    bedrooms:    d.beds  ? +d.beds  : null,
+    bathrooms:   d.baths ? +d.baths : null,
+    parking:     d.park  ? +d.park  : null,
+    description: d.desc || '',
+    status:      'active',
+    images:      d.photos || [],
+  };
+
+  let newListing;
+  try{
+    const res = await apiFetch('/listings', {
+      method:'POST',
+      body: JSON.stringify(payload)
+    });
+    newListing = mapListing(res.listing || res);
+    // Refresh global array
+    L.unshift(newListing);
+    showToast('Anúncio publicado com sucesso!','success');
+  } catch(e){
+    // Fallback: save locally
+    console.warn('[KAZA] Publish API error, saving locally:', e.message);
+    newListing = {
+      id:'user-'+Date.now(), ...d,
+      price:+(d.price||0), area:+(d.area||0), views:0, leads:0,
+      created_at:new Date().toISOString().split('T')[0],
+      img:(d.photos&&d.photos[0])||'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=900&q=75',
+      status:'active',
+    };
+    const saved = JSON.parse(localStorage.getItem('kaza_my_listings')||'[]');
+    saved.unshift(newListing);
+    localStorage.setItem('kaza_my_listings', JSON.stringify(saved));
+    showToast('Anúncio salvo localmente — será sincronizado quando online','info');
+  }
+
+  root.innerHTML='<div class="wiz-wrap page-enter" style="display:flex;align-items:center;justify-content:center;min-height:calc(100vh - 64px)">'
+    +'<div class="wiz-card" style="max-width:480px"><div class="wiz-success">'
+    +'<div class="wiz-success-icon"><i class="ti ti-check" aria-hidden="true"></i></div>'
+    +'<div style="font-family:var(--fd);font-size:var(--t6);margin-bottom:var(--s3);letter-spacing:-.02em">Anúncio publicado!</div>'
+    +'<p style="font-size:var(--t3);color:var(--cz);line-height:1.7;margin-bottom:var(--s5)">Seu imóvel já está no ar. Compradores com Radar ativo serão notificados agora.</p>'
+    +'<div style="display:flex;flex-direction:column;gap:var(--s3)">'
+    +'<button class="btn btn-primary btn-lg btn-block" onclick="go(\'painel\')"><i class="ti ti-layout-dashboard" aria-hidden="true"></i>Ver no meu painel</button>'
+    +'<button class="btn btn-outline btn-md btn-block" onclick="go(\'listings\')"><i class="ti ti-search" aria-hidden="true"></i>Ver todos os imóveis</button>'
+    +'</div></div></div></div>';
+}
+
+/* ═══════════════════════════════════════
+   PAINEL — DASHBOARD DO ANUNCIANTE
+═══════════════════════════════════════ */
+async function renderPainelPg(){
+  const root=document.getElementById('page-painel');
+  const userName=(S.user&&S.user.name)||localStorage.getItem('kaza_user_name');
+  if(!userName){ localStorage.setItem('kaza_after_login','#painel'); showToast('Entre na sua conta para acessar o painel','info'); go('login'); return; }
+  const initials=userName.split(' ').map(w=>w[0]).join('').substring(0,2).toUpperCase();
+
+  // Show skeleton while loading
+  root.innerHTML='<div class="page-enter"><section class="painel-head"><div class="cnt"><div class="painel-head-inner">'
+    +'<div style="display:flex;align-items:center;gap:var(--s4)"><div class="painel-avatar">'+initials+'</div>'
+    +'<div><div class="painel-greeting">Olá, '+userName.split(' ')[0]+'!</div><div class="painel-greeting-sub">Carregando seu painel…</div></div></div>'
+    +'<button class="btn btn-primary btn-md" onclick="go(\'anunciar\')"><i class="ti ti-plus" aria-hidden="true"></i>Novo anúncio</button>'
+    +'</div></div></section>'
+    +'<div class="cnt" style="padding:var(--s6) 0"><div class="painel-stats">'
+    +Array(4).fill('<div class="painel-stat"><div class="skeleton" style="height:32px;width:60px;margin-bottom:8px;border-radius:6px"></div><div class="skeleton" style="height:12px;width:80px;border-radius:4px"></div></div>').join('')
+    +'</div></div></div>';
+
+  // Load listings and stats in parallel
+  let myListings = [], stats = { active_listings:0, total_leads:0, total_views:0 };
+  try{
+    const [listRes, statsRes] = await Promise.allSettled([
+      apiFetch('/me/listings'),
+      apiFetch('/me/stats'),
+    ]);
+    if(listRes.status === 'fulfilled'){
+      const items = listRes.value.listings || listRes.value.data || listRes.value || [];
+      myListings = Array.isArray(items) ? items.map(mapListing) : [];
+    }
+    if(statsRes.status === 'fulfilled'){
+      stats = statsRes.value;
+    }
+  } catch(e){
+    // Fallback to localStorage
+    myListings = JSON.parse(localStorage.getItem('kaza_my_listings')||'[]');
+    console.warn('[KAZA] Painel API error:', e.message);
+  }
+
+  const totalViews = stats.total_views || myListings.reduce((a,l)=>a+(l.views||0),0);
+  const totalLeads = stats.total_leads || myListings.reduce((a,l)=>a+(l.leads||0),0);
+  const listingsHtml=myListings.length===0
+    ?'<div class="painel-empty"><div style="font-size:40px;margin-bottom:var(--s4)">🏡</div>'
+      +'<div style="font-family:var(--fd);font-size:var(--t5);margin-bottom:var(--s2)">Nenhum anúncio ainda</div>'
+      +'<p style="font-size:var(--t2);color:var(--cz);margin-bottom:var(--s5)">Publique seu primeiro imóvel gratuitamente em menos de 5 minutos.</p>'
+      +'<button class="btn btn-primary btn-md" onclick="go(\'anunciar\')"><i class="ti ti-plus" aria-hidden="true"></i>Criar primeiro anúncio</button></div>'
+    :myListings.map(l=>'<div class="painel-listing-row" onclick="go(\'detail-\'+\''+l.id+'\')">'
+      +'<img class="painel-listing-img" src="'+l.img+'" alt="'+l.title+'" loading="lazy" onerror="this.src=\'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=200&q=50\'">'
+      +'<div class="painel-listing-info"><div class="painel-listing-title">'+l.title+'</div>'
+      +'<div class="painel-listing-meta"><span>'+(l.city||'')+'</span>'
+      +'<span><i class="ti ti-eye" style="font-size:12px" aria-hidden="true"></i> '+(l.views||0)+' visitas</span>'
+      +'<span style="color:'+(l.status==='active'?'#059669':'var(--cz)')+'">● '+(l.status==='active'?'Ativo':'Inativo')+'</span></div></div>'
+      +'<div class="painel-listing-price">'+fmt(l.price,l.purpose==='rent')+'</div>'
+      +'<div class="painel-listing-actions">'
+      +'<button onclick="event.stopPropagation();showToast(\'Editor em breve!\',\'info\')"><i class="ti ti-pencil" aria-hidden="true"></i>Editar</button>'
+      +'<button onclick="event.stopPropagation();removeListing(\''+l.id+'\')" style="color:#c62828;border-color:#fca5a5"><i class="ti ti-trash" aria-hidden="true"></i></button>'
+      +'</div></div>').join('');
+
+  root.innerHTML='<div class="page-enter">'
+    +'<section class="painel-head"><div class="cnt"><div class="painel-head-inner">'
+    +'<div style="display:flex;align-items:center;gap:var(--s4)">'
+    +'<div class="painel-avatar">'+initials+'</div>'
+    +'<div><div class="painel-greeting">Olá, '+userName.split(' ')[0]+'!</div>'
+    +'<div class="painel-greeting-sub">Seu painel de anunciante KAZA</div></div></div>'
+    +'<button class="btn btn-primary btn-md" onclick="go(\'anunciar\')"><i class="ti ti-plus" aria-hidden="true"></i>Novo anúncio</button>'
+    +'</div></div></section>'
+    +'<div class="cnt" style="padding-bottom:var(--s8)">'
+    +'<div class="painel-stats">'
+    +'<div class="painel-stat"><div class="painel-stat-n">'+myListings.length+'</div><div class="painel-stat-l">Anúncios ativos</div></div>'
+    +'<div class="painel-stat"><div class="painel-stat-n">'+totalViews.toLocaleString('pt-BR')+'</div><div class="painel-stat-l">Visualizações</div>'+(totalViews>0?'<div class="painel-stat-trend up"><i class="ti ti-trending-up" aria-hidden="true"></i>Total</div>':'')+'</div>'
+    +'<div class="painel-stat"><div class="painel-stat-n">'+totalLeads+'</div><div class="painel-stat-l">Leads recebidos</div></div>'
+    +'<div class="painel-stat"><div class="painel-stat-n">'+myListings.filter(l=>l.status==='active').length+'</div><div class="painel-stat-l">No Radar</div><div class="painel-stat-trend up"><i class="ti ti-radar" aria-hidden="true"></i>Ativos</div></div>'
+    +'</div>'
+    +(myListings.length?'<div class="painel-tip"><i class="ti ti-bulb" style="color:var(--t);font-size:18px;flex-shrink:0" aria-hidden="true"></i><div><strong style="font-size:var(--t2)">Dica do dia:</strong><span style="font-size:var(--t2);color:var(--cz)"> Imóveis com 5+ fotos recebem 3× mais contatos.</span></div></div>':'')
+    +'<div class="painel-listings-head"><div style="font-family:var(--fd);font-size:var(--t5)">Meus anúncios</div>'
+    +(myListings.length?'<button class="btn btn-outline btn-sm" onclick="go(\'anunciar\')"><i class="ti ti-plus" aria-hidden="true"></i>Novo</button>':'')
+    +'</div>'
+    +listingsHtml
+    +'</div></div>';
+}
+
+function removeListing(id){
+  if(!confirm('Remover este anúncio?')) return;
+  let myListings=JSON.parse(localStorage.getItem('kaza_my_listings')||'[]');
+  myListings=myListings.filter(l=>String(l.id)!==String(id));
+  localStorage.setItem('kaza_my_listings',JSON.stringify(myListings));
+  renderPainelPg();
+  showToast('Anúncio removido','default');
+}
+
+/* ═══════════════════════════════════════
    LOGIN / CADASTRO PAGE
 ═══════════════════════════════════════ */
 function renderLoginPg(){
@@ -3583,7 +4140,7 @@ function buildRegisterForm(){
     <div class="login-fg">
       <label class="login-fl" for="regPass">Senha</label>
       <div class="login-fi-wrap">
-        <input class="login-fi" type="password" id="regPass" placeholder="Mínimo 6 caracteres" autocomplete="new-password">
+        <input class="login-fi" type="password" id="regPass" placeholder="Mínimo 8 caracteres" autocomplete="new-password">
         <button class="login-fi-eye" onclick="togglePass('regPass',this)" aria-label="Mostrar senha">
           <i class="ti ti-eye" aria-hidden="true"></i>
         </button>
@@ -3634,40 +4191,67 @@ function togglePass(inputId, btn){
   btn.setAttribute('aria-label', show ? 'Ocultar senha' : 'Mostrar senha');
 }
 
-function doLogin(){
+async function doLogin(){
   const email = document.getElementById('loginEmail')?.value.trim();
   const pass  = document.getElementById('loginPass')?.value;
   if(!email || !email.includes('@')){ showToast('Informe um e-mail válido','error'); return; }
-  if(!pass || pass.length < 6){ showToast('Senha deve ter ao menos 6 caracteres','error'); return; }
-  // Demo: simular login
-  showToast('Conectando...','info');
-  setTimeout(() => {
-    const name = email.split('@')[0];
+  if(!pass || pass.length < 8){ showToast('Senha deve ter ao menos 8 caracteres','error'); return; }
+  const btn = document.querySelector('.login-btn');
+  if(btn){ btn.disabled = true; btn.innerHTML = '<i class="ti ti-loader-2" style="animation:spin .8s linear infinite"></i>Entrando...'; }
+  try{
+    const res = await apiFetch('/auth/login', {
+      method:'POST',
+      body: JSON.stringify({ email, password:pass })
+    });
+    const token = res.token || res.access_token;
+    const user  = res.user || res;
+    const name  = user.name || user.full_name || email.split('@')[0];
+    S.token = token;
+    S.user  = { ...user, name };
+    localStorage.setItem('kaza_token', token);
     localStorage.setItem('kaza_user_name', name);
-    S.user = { name };
     updateNavLoginBtn(name);
-    showToast('Bem-vindo de volta!','success');
-    location.hash = '#home';
-  }, 900);
+    showToast('Bem-vindo de volta, ' + name.split(' ')[0] + '!','success');
+    const after = localStorage.getItem('kaza_after_login') || 'home';
+    localStorage.removeItem('kaza_after_login');
+    go(after.replace('#',''));
+  } catch(e){
+    showToast(e.message || 'E-mail ou senha incorretos','error');
+    if(btn){ btn.disabled = false; btn.innerHTML = '<i class="ti ti-arrow-right" aria-hidden="true"></i>Entrar na minha conta'; }
+  }
 }
 
-function doRegister(){
+async function doRegister(){
   const name  = document.getElementById('regName')?.value.trim();
   const email = document.getElementById('regEmail')?.value.trim();
   const wa    = document.getElementById('regWa')?.value.trim();
   const pass  = document.getElementById('regPass')?.value;
   if(!name){ showToast('Informe seu nome','error'); return; }
   if(!email || !email.includes('@')){ showToast('Informe um e-mail válido','error'); return; }
-  if(!pass || pass.length < 6){ showToast('Senha deve ter ao menos 6 caracteres','error'); return; }
-  showToast('Criando sua conta...','info');
-  setTimeout(() => {
+  if(!pass || pass.length < 8){ showToast('Senha deve ter ao menos 8 caracteres','error'); return; }
+  const btn = document.querySelector('.login-btn');
+  if(btn){ btn.disabled = true; btn.innerHTML = '<i class="ti ti-loader-2" style="animation:spin .8s linear infinite"></i>Criando conta...'; }
+  try{
+    const res = await apiFetch('/auth/register', {
+      method:'POST',
+      body: JSON.stringify({ name, email, password:pass, phone:wa })
+    });
+    const token = res.token || res.access_token;
+    const user  = res.user || res;
+    S.token = token;
+    S.user  = { ...user, name };
+    localStorage.setItem('kaza_token', token);
     localStorage.setItem('kaza_user_name', name);
     if(wa) localStorage.setItem('kaza_user_wa', wa);
-    S.user = { name };
     updateNavLoginBtn(name);
-    showToast('Conta criada! Bem-vindo à KAZA.','success');
-    location.hash = '#home';
-  }, 900);
+    showToast('Conta criada! Bem-vindo à KAZA, ' + name.split(' ')[0] + '!','success');
+    const after = localStorage.getItem('kaza_after_login') || 'home';
+    localStorage.removeItem('kaza_after_login');
+    go(after.replace('#',''));
+  } catch(e){
+    showToast(e.message || 'Erro ao criar conta. Tente novamente.','error');
+    if(btn){ btn.disabled = false; btn.innerHTML = '<i class="ti ti-user-plus" aria-hidden="true"></i>Criar minha conta grátis'; }
+  }
 }
 
 function updateNavLoginBtn(name){
