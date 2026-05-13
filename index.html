@@ -2125,19 +2125,23 @@ function mapListing(r){
 }
 
 /* Cabeçalhos padrão */
-function apiHeaders(auth){
-  const h = { 'Content-Type':'application/json' };
-  const token = auth || localStorage.getItem('kaza_token');
+function apiHeaders(opts){
+  const h = {};
+  const token = localStorage.getItem('kaza_token');
   if(token) h['Authorization'] = 'Bearer ' + token;
+  // Content-Type só em requests com body — GET/HEAD não precisam e causam preflight desnecessário
+  const method = ((opts && opts.method) || 'GET').toUpperCase();
+  if(method !== 'GET' && method !== 'HEAD') h['Content-Type'] = 'application/json';
   return h;
 }
 
-/* Wrapper de fetch com timeout e fallback */
+/* Wrapper de fetch */
 async function apiFetch(path, opts){
   try{
     const res = await fetch(API_BASE + path, {
+      mode: 'cors',
       ...opts,
-      headers: { ...apiHeaders(), ...(opts && opts.headers) },
+      headers: { ...apiHeaders(opts), ...(opts && opts.headers) },
     });
     const json = await res.json().catch(() => ({}));
     if(!res.ok) throw new Error(json.message || json.error || 'Erro ' + res.status);
