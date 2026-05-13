@@ -103,6 +103,7 @@ nav.navbar{
 .logo{
   display:flex;align-items:baseline;gap:1px;cursor:pointer;
   font-family:var(--fd);font-size:1.6rem;color:#fff;letter-spacing:-.02em;
+  user-select:none;-webkit-tap-highlight-color:transparent;
 }
 .logo .dot{color:var(--t)}
 .logo .sub{
@@ -117,6 +118,8 @@ nav.navbar{
   font-size:var(--t2);font-weight:500;
   padding:var(--s2) var(--s3);border-radius:var(--r-sm);
   transition:all .15s var(--ease);cursor:pointer;
+  user-select:none;-webkit-tap-highlight-color:transparent;
+  display:inline-flex;align-items:center;
 }
 .nl:hover{background:rgba(255,255,255,.08);color:#fff}
 .nl.active{background:rgba(255,255,255,.12);color:#fff;box-shadow:inset 0 -2px 0 var(--tl)}
@@ -1663,17 +1666,20 @@ select.rdr-fi{appearance:auto}
 
 <!-- ──────────── NAVBAR ──────────── -->
 <nav class="navbar">
-  <a class="logo" href="#home">KAZA<span class="dot">.</span><span class="sub">Imóveis</span></a>
+  <a class="logo" onclick="go('home')" role="link" aria-label="KAZA Imóveis - Início">KAZA<span class="dot">.</span><span class="sub">Imóveis</span></a>
   <div class="nav-links">
-    <a class="nl active" href="#home">Início</a>
-    <a class="nl" href="#listings" data-purpose="sale">Comprar</a>
-    <a class="nl" href="#listings" data-purpose="rent">Alugar</a>
-    <a class="nl" href="#listings" data-type="rural">Rurais</a>
-    <a class="nl" href="#radar"><i class="ti ti-radar" aria-hidden="true"></i>Radar</a>
-    <a class="nl" href="#favoritos" aria-label="Favoritos"><i class="ti ti-heart" aria-hidden="true"></i><span class="fav-badge" id="favBadgeNav" hidden>0</span></a>
-    <a class="nl" href="#login" id="navLoginBtn"><i class="ti ti-user" aria-hidden="true"></i>Entrar</a>
-    <a class="btn btn-primary btn-md" href="#anunciar"><i class="ti ti-plus" aria-hidden="true"></i>Anunciar grátis</a>
+    <a class="nl active" onclick="go('home')">Início</a>
+    <a class="nl" onclick="go('listings','sale')">Comprar</a>
+    <a class="nl" onclick="go('listings','rent')">Alugar</a>
+    <a class="nl" onclick="go('listings',null,'rural')">Rurais</a>
+    <a class="nl" onclick="go('radar')"><i class="ti ti-radar" aria-hidden="true"></i>Radar</a>
+    <a class="nl" onclick="go('favoritos')" aria-label="Imóveis salvos"><i class="ti ti-heart" aria-hidden="true"></i><span class="fav-badge" id="favBadgeNav" hidden>0</span></a>
+    <a class="nl" onclick="go('login')" id="navLoginBtn"><i class="ti ti-user" aria-hidden="true"></i>Entrar</a>
+    <a class="btn btn-primary btn-md" onclick="go('anunciar')"><i class="ti ti-plus" aria-hidden="true"></i>Anunciar grátis</a>
   </div>
+  <button class="hamburger" id="hamburgerBtn" aria-label="Abrir menu" aria-expanded="false" onclick="toggleDrawer()">
+    <i class="ti ti-menu-2" aria-hidden="true"></i>
+  </button>
 </nav>
 
 <main class="page page-enter" id="page-home">
@@ -1935,11 +1941,11 @@ select.rdr-fi{appearance:auto}
 
 <!-- ──────────── BOTTOM NAV (mobile) ──────────── -->
 <nav class="bot-nav" aria-label="Navegação principal">
-  <a class="bn-item on" href="#home"><i class="ti ti-home" aria-hidden="true"></i>Início</a>
-  <a class="bn-item" href="#listings"><i class="ti ti-search" aria-hidden="true"></i>Buscar</a>
-  <a class="bn-item" href="#radar"><i class="ti ti-radar" aria-hidden="true"></i>Radar<span class="bn-radar-dot" id="bnRadarDot" hidden></span></a>
-  <a class="bn-item" href="#favoritos"><i class="ti ti-heart" aria-hidden="true"></i>Salvos<span class="bn-fav-badge" id="bnFavBadge" hidden>0</span></a>
-  <a class="bn-item" href="#login"><i class="ti ti-user" aria-hidden="true"></i>Entrar</a>
+  <a class="bn-item on" onclick="go('home')"><i class="ti ti-home" aria-hidden="true"></i>Início</a>
+  <a class="bn-item" onclick="go('listings')"><i class="ti ti-search" aria-hidden="true"></i>Buscar</a>
+  <a class="bn-item" onclick="go('radar')"><i class="ti ti-radar" aria-hidden="true"></i>Radar<span class="bn-radar-dot" id="bnRadarDot" hidden></span></a>
+  <a class="bn-item" onclick="go('favoritos')"><i class="ti ti-heart" aria-hidden="true"></i>Salvos<span class="bn-fav-badge" id="bnFavBadge" hidden>0</span></a>
+  <a class="bn-item" onclick="go('login')"><i class="ti ti-user" aria-hidden="true"></i>Entrar</a>
 </nav>
 
 <!-- ──────────── WHATSAPP FAB ──────────── -->
@@ -2281,7 +2287,24 @@ function openIAWithPrompt(prompt){
 }
 
 function openDetail(id){
-  location.hash = '#detail-' + id;
+  go('detail-' + id);
+}
+
+/* ─────────────── NAVIGATION ─────────────── */
+function go(page, purpose, type){
+  // Apply filter shortcuts from nav
+  if(purpose) S.f.purpose = purpose;
+  if(type)    S.f.type    = type;
+  // Update URL without relying on hashchange to re-render
+  const hash = '#' + page;
+  if(location.hash === hash){
+    // Same hash — force re-render manually
+    route();
+  } else {
+    location.hash = hash;
+    // hashchange will call route(), but also call directly as fallback
+    setTimeout(route, 0);
+  }
 }
 
 /* ─────────────── INIT ─────────────── */
@@ -2293,19 +2316,7 @@ document.addEventListener('DOMContentLoaded', () => {
   checkReturnUser();
   setupHeroCopy();
 
-  // Demo nav links com data-attributes
-  document.querySelectorAll('.nl[data-purpose], .nl[data-type]').forEach(a => {
-    a.addEventListener('click', (e) => {
-      e.preventDefault();
-      const purpose = a.dataset.purpose;
-      const type = a.dataset.type;
-      if(purpose) S.f.purpose = purpose;
-      if(type)    S.f.type    = type;
-      location.hash = '#listings';
-    });
-  });
-
-  // SPA routing
+  // Fallback: also listen to hashchange for browser back/forward
   window.addEventListener('hashchange', route);
   route();
 });
@@ -2356,17 +2367,23 @@ function route(){
   if(stickyBar) stickyBar.hidden = (page !== 'detail');
 
   document.querySelectorAll('.bn-item').forEach(a => {
-    const href = a.getAttribute('href');
+    const onclick = a.getAttribute('onclick') || '';
     a.classList.toggle('on',
-      (href==='#home'&&page==='home')||(href==='#listings'&&page==='listings')||
-      (href==='#radar'&&page==='radar')||(href==='#favoritos'&&page==='favoritos')
+      (onclick.includes("'home'")&&page==='home')||
+      (onclick.includes("'listings'")&&page==='listings')||
+      (onclick.includes("'radar'")&&page==='radar')||
+      (onclick.includes("'favoritos'")&&page==='favoritos')||
+      (onclick.includes("'login'")&&page==='login')
     );
   });
   document.querySelectorAll('.nl').forEach(a => {
-    const href = a.getAttribute('href');
+    const onclick = a.getAttribute('onclick') || '';
     a.classList.toggle('active',
-      (href==='#home'&&page==='home')||(href==='#listings'&&page==='listings')||
-      (href==='#radar'&&page==='radar')||(href==='#favoritos'&&page==='favoritos')
+      (onclick.includes("'home'")&&page==='home')||
+      (onclick.includes("'listings'")&&page==='listings')||
+      (onclick.includes("'radar'")&&page==='radar')||
+      (onclick.includes("'favoritos'")&&page==='favoritos')||
+      (onclick.includes("'login'")&&page==='login')
     );
   });
 
