@@ -1654,8 +1654,41 @@ select.rdr-fi{appearance:auto}
 @media(max-width:480px){.login-card{padding:var(--s5) var(--s4);border-radius:var(--r-lg)}}
 
 /* ═══════════════════════════════════════
-   ANUNCIAR — WIZARD
+   STORIES VIEWER
 ═══════════════════════════════════════ */
+.sv-overlay{position:fixed;inset:0;z-index:700;background:#000;display:flex;align-items:center;justify-content:center;animation:fadeIn .15s}
+.sv-wrap{position:relative;width:100%;max-width:420px;height:100dvh;max-height:100dvh;overflow:hidden;background:#111}
+.sv-progress-row{position:absolute;top:env(safe-area-inset-top,0);left:0;right:0;z-index:10;display:flex;gap:3px;padding:12px 12px 0}
+.sv-bar{flex:1;height:3px;background:rgba(255,255,255,.3);border-radius:99px;overflow:hidden}
+.sv-bar-fill{height:100%;background:#fff;border-radius:99px;width:0%;transition:width linear}
+.sv-header{position:absolute;top:calc(env(safe-area-inset-top,0px) + 24px);left:0;right:0;z-index:10;display:flex;align-items:center;gap:var(--s3);padding:0 var(--s4)}
+.sv-avatar{width:36px;height:36px;border-radius:50%;background:var(--t);border:2px solid #fff;display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:.8rem;color:#fff;flex-shrink:0;overflow:hidden}
+.sv-avatar img{width:100%;height:100%;object-fit:cover}
+.sv-user{flex:1}
+.sv-user-name{font-size:var(--t2);font-weight:600;color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.5)}
+.sv-user-time{font-size:var(--t1);color:rgba(255,255,255,.65)}
+.sv-close{width:36px;height:36px;border-radius:50%;background:rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;font-size:18px;color:#fff;cursor:pointer;border:none;flex-shrink:0}
+.sv-video{width:100%;height:100%;object-fit:cover;display:block}
+.sv-tap-left{position:absolute;left:0;top:0;width:35%;height:100%;z-index:5;cursor:pointer}
+.sv-tap-right{position:absolute;right:0;top:0;width:35%;height:100%;z-index:5;cursor:pointer}
+.sv-footer{position:absolute;bottom:0;left:0;right:0;z-index:10;padding:var(--s4) var(--s4) calc(var(--s4) + env(safe-area-inset-bottom,0px));background:linear-gradient(transparent,rgba(0,0,0,.7))}
+.sv-caption{font-size:var(--t3);color:#fff;margin-bottom:var(--s3);text-shadow:0 1px 6px rgba(0,0,0,.6);line-height:1.5}
+.sv-listing-card{background:rgba(255,255,255,.12);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.15);border-radius:var(--r-lg);padding:var(--s3) var(--s4);display:flex;align-items:center;gap:var(--s3);cursor:pointer;transition:background .15s}
+.sv-listing-card:hover{background:rgba(255,255,255,.2)}
+.sv-listing-img{width:48px;height:48px;border-radius:var(--r-sm);object-fit:cover;flex-shrink:0}
+.sv-listing-info{flex:1;min-width:0}
+.sv-listing-title{font-size:var(--t2);font-weight:600;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sv-listing-price{font-size:var(--t1);color:rgba(255,255,255,.75);margin-top:2px}
+.sv-listing-cta{font-size:var(--t1);color:var(--tl);font-weight:600;white-space:nowrap;display:flex;align-items:center;gap:3px}
+.sv-mute{position:absolute;bottom:var(--s4);right:var(--s4);z-index:11;width:36px;height:36px;border-radius:50%;background:rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;font-size:16px;color:#fff;cursor:pointer;border:none}
+/* Story upload modal */
+.story-upload-modal{position:fixed;inset:0;z-index:600;background:rgba(0,0,0,.6);display:flex;align-items:flex-end;justify-content:center;animation:fadeIn .2s}
+.story-upload-sheet{background:#fff;border-radius:var(--r-xl) var(--r-xl) 0 0;padding:var(--s6) var(--s5) calc(var(--s5) + env(safe-area-inset-bottom,0px));width:100%;max-width:480px;animation:shareUp .25s cubic-bezier(.34,1.18,.64,1)}
+.story-drop-zone{border:2px dashed #e8e0d4;border-radius:var(--r-lg);padding:var(--s7) var(--s4);text-align:center;cursor:pointer;transition:all .15s;position:relative;overflow:hidden}
+.story-drop-zone:hover,.story-drop-zone.drag-over{border-color:var(--t);background:#fff8f5}
+.story-drop-zone input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer}
+.story-video-preview{width:100%;max-height:200px;border-radius:var(--r-md);object-fit:cover;margin-bottom:var(--s3)}
+@media(max-width:420px){.sv-wrap{max-width:100%}}
 .wiz-wrap{min-height:calc(100vh - 64px);background:var(--a);padding:var(--s6) var(--s4) var(--s8)}
 .wiz-card{background:#fff;border-radius:var(--r-xl);padding:var(--s6);max-width:640px;margin:0 auto;box-shadow:var(--sh-sm);border:1px solid rgba(30,58,47,.06)}
 .wiz-progress{display:flex;align-items:center;gap:var(--s2);margin-bottom:var(--s6)}
@@ -2149,14 +2182,28 @@ async function loadListingsFromAPI(){
 const TL_MAP = {residential:'Residencial',rural:'Rural',lot:'Lote',commercial:'Comercial'};
 const TC_MAP = {residential:'badge-res',rural:'badge-rur',lot:'badge-lot',commercial:'badge-com'};
 
-const STORIES = [
-  {id:'tendencias',label:'Tendências',icon:'ti-trending-up',isNew:true},
-  {id:'bairros',label:'Bairros em alta',icon:'ti-map-2',isNew:true},
-  {id:'score',label:'Como funciona o Score',icon:'ti-bolt',isNew:false},
-  {id:'rurais',label:'Especial Rurais',icon:'ti-tractor',isNew:true},
-  {id:'financiamento',label:'Financiamento',icon:'ti-calculator',isNew:false},
-  {id:'verificado',label:'Selo Verificado',icon:'ti-rosette-discount-check',isNew:false},
+const STORIES_FALLBACK = [
+  {id:'tendencias', label:'Tendências',     icon:'ti-trending-up',           isNew:true,  type:'editorial'},
+  {id:'bairros',    label:'Bairros em alta',icon:'ti-map-2',                  isNew:true,  type:'editorial'},
+  {id:'rurais',     label:'Especial Rurais',icon:'ti-tractor',                isNew:true,  type:'editorial'},
+  {id:'score',      label:'KAZA Score',     icon:'ti-bolt',                   isNew:false, type:'editorial'},
+  {id:'verificado', label:'Verificados',    icon:'ti-rosette-discount-check', isNew:false, type:'editorial'},
 ];
+
+let STORIES_DATA = [];  // populated from API
+
+async function loadStoriesFromAPI(){
+  try{
+    const res = await apiFetch('/stories');
+    const items = res.stories || [];
+    if(items.length > 0){
+      STORIES_DATA = items;
+      renderStories();
+    }
+  } catch(e){
+    console.warn('[KAZA] Stories API offline:', e.message);
+  }
+}
 
 /* ─────────────── STATE ─────────────── */
 const S = {
@@ -2316,12 +2363,35 @@ function renderFeatured(){
 /* ─────────────── RENDER: STORIES ─────────────── */
 function renderStories(){
   const row = document.getElementById('storiesRow');
-  row.innerHTML = STORIES.map(s => {
+  if(!row) return;
+
+  // Combine real stories + editorial fallbacks
+  const realStories = STORIES_DATA.map(s => {
+    const advertiser = s.users || {};
+    const name = advertiser.agency_name || advertiser.name || 'KAZA';
+    const initials = name.split(' ').map(w=>w[0]).join('').substring(0,2).toUpperCase();
     const seen = !!S.storiesSeen[s.id];
-    return `<button class="story ${seen?'seen':''}" onclick="openStory('${s.id}')" aria-label="${s.label}${s.isNew && !seen ? ' (novo)' : ''}">
+    return { id:s.id, label:name.split(' ')[0], thumb:s.thumb_url, initials, seen, type:'video', data:s };
+  });
+
+  const editorialShown = STORIES_DATA.length === 0 ? STORIES_FALLBACK : [];
+
+  const allStories = [
+    ...realStories,
+    ...editorialShown.map(s => ({ id:s.id, label:s.label, icon:s.icon, seen:!!S.storiesSeen[s.id], type:'editorial', isNew:s.isNew }))
+  ];
+
+  row.innerHTML = allStories.map(s => {
+    const seen = s.seen;
+    const inner = s.thumb
+      ? `<img src="${s.thumb}" alt="${s.label}" style="width:100%;height:100%;object-fit:cover;border-radius:50%">`
+      : s.icon
+        ? `<i class="ti ${s.icon}" aria-hidden="true"></i>`
+        : `<span style="font-family:var(--fd);font-size:.9rem;color:#fff">${s.initials||'K'}</span>`;
+    return `<button class="story ${seen?'seen':''}" onclick="openStory('${s.id}')" aria-label="${s.label}${s.isNew&&!seen?' (novo)':''}">
       <div class="story-ring">
-        <div class="story-inner"><i class="ti ${s.icon}" aria-hidden="true"></i></div>
-        ${s.isNew && !seen ? '<span class="story-badge">Novo</span>' : ''}
+        <div class="story-inner">${inner}</div>
+        ${s.isNew&&!seen?'<span class="story-badge">Novo</span>':''}
       </div>
       <span class="story-label">${s.label}</span>
     </button>`;
@@ -2329,10 +2399,20 @@ function renderStories(){
 }
 
 function openStory(id){
+  // Mark as seen
   S.storiesSeen[id] = true;
   localStorage.setItem('kaza_stories_seen', JSON.stringify(S.storiesSeen));
-  const story = STORIES.find(s => s.id === id);
-  showToast(`Story "${story.label}" — em breve`, 'info');
+
+  // Check if it's a real video story
+  const realStory = STORIES_DATA.find(s => s.id === id);
+  if(realStory){
+    openStoryViewer(STORIES_DATA, STORIES_DATA.findIndex(s => s.id === id));
+    return;
+  }
+
+  // Editorial fallback
+  const editorial = STORIES_FALLBACK.find(s => s.id === id);
+  if(editorial) showToast('Story "'+editorial.label+'" — em breve', 'info');
   renderStories();
 }
 
@@ -2515,6 +2595,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
     if(loaded && S.page === 'listings') renderListingsPg();
   });
+
+  // Load real stories
+  loadStoriesFromAPI();
 
   // Fallback: also listen to hashchange for browser back/forward
   window.addEventListener('hashchange', route);
@@ -4010,7 +4093,10 @@ async function renderPainelPg(){
     +'<div class="painel-avatar">'+initials+'</div>'
     +'<div><div class="painel-greeting">Olá, '+userName.split(' ')[0]+'!</div>'
     +'<div class="painel-greeting-sub">Seu painel de anunciante KAZA</div></div></div>'
+    +'<div style="display:flex;gap:var(--s2)">'
+    +'<button class="btn btn-outline btn-md" onclick="openStoryUploadModal(myListings)" style="background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.2);color:#fff"><i class="ti ti-video-plus" aria-hidden="true"></i>Postar Story</button>'
     +'<button class="btn btn-primary btn-md" onclick="go(\'anunciar\')"><i class="ti ti-plus" aria-hidden="true"></i>Novo anúncio</button>'
+    +'</div>'
     +'</div></div></section>'
     +'<div class="cnt" style="padding-bottom:var(--s8)">'
     +'<div class="painel-stats">'
@@ -4262,6 +4348,303 @@ function updateNavLoginBtn(name){
   btn.href = '#painel';
   const bnLogin = document.querySelector('.bn-item[href="#login"]');
   if(bnLogin){ bnLogin.querySelector('i').className = 'ti ti-user-circle'; bnLogin.lastChild.textContent = name.split(' ')[0]; }
+}
+
+/* ═══════════════════════════════════════
+   STORIES VIEWER
+═══════════════════════════════════════ */
+let svState = { stories:[], idx:0, timer:null, muted:false };
+
+function openStoryViewer(stories, startIdx){
+  svState = { stories, idx: startIdx || 0, timer:null, muted:false };
+  renderStoryViewer();
+}
+
+function renderStoryViewer(){
+  document.querySelector('.sv-overlay')?.remove();
+  const { stories, idx, muted } = svState;
+  const s = stories[idx];
+  if(!s) return;
+
+  const advertiser = s.users || {};
+  const listing    = s.listings;
+  const name = advertiser.agency_name || advertiser.name || 'KAZA Imóveis';
+  const initials = name.split(' ').map(w=>w[0]).join('').substring(0,2).toUpperCase();
+  const timeAgo = s.created_at ? daysSince(s.created_at) : '';
+
+  // Foto da cover do listing
+  const listingPhotos = listing?.listing_photos || [];
+  const listingCover = listingPhotos.find(p=>p.is_cover)?.url || listingPhotos[0]?.url;
+
+  const overlay = document.createElement('div');
+  overlay.className = 'sv-overlay';
+  overlay.setAttribute('role','dialog');
+  overlay.setAttribute('aria-modal','true');
+  overlay.setAttribute('aria-label','KAZA Stories');
+
+  overlay.innerHTML = `
+    <div class="sv-wrap" id="svWrap">
+      <!-- Progress bars -->
+      <div class="sv-progress-row" id="svProgressRow">
+        ${stories.map((_,i)=>`<div class="sv-bar" id="svBar${i}"><div class="sv-bar-fill" id="svFill${i}"></div></div>`).join('')}
+      </div>
+
+      <!-- Header -->
+      <div class="sv-header">
+        <div class="sv-avatar">
+          ${advertiser.avatar_url
+            ? `<img src="${advertiser.avatar_url}" alt="${name}">`
+            : initials}
+        </div>
+        <div class="sv-user">
+          <div class="sv-user-name">${name}</div>
+          <div class="sv-user-time">${timeAgo}</div>
+        </div>
+        <button class="sv-close" onclick="closeStoryViewer()" aria-label="Fechar">
+          <i class="ti ti-x" aria-hidden="true"></i>
+        </button>
+      </div>
+
+      <!-- Video -->
+      <video class="sv-video" id="svVideo"
+        src="${s.video_url}"
+        playsinline webkit-playsinline
+        ${muted?'muted':''}
+        autoplay
+        preload="auto"
+        poster="${s.thumb_url||''}"
+      ></video>
+
+      <!-- Tap zones -->
+      <div class="sv-tap-left"  onclick="svNavigate(-1)" aria-label="Story anterior"></div>
+      <div class="sv-tap-right" onclick="svNavigate(1)"  aria-label="Próximo story"></div>
+
+      <!-- Mute button -->
+      <button class="sv-mute" id="svMuteBtn" onclick="svToggleMute()" aria-label="${muted?'Ativar':'Silenciar'} som">
+        <i class="ti ${muted?'ti-volume-3':'ti-volume'}" aria-hidden="true"></i>
+      </button>
+
+      <!-- Footer -->
+      <div class="sv-footer">
+        ${s.caption ? `<div class="sv-caption">${s.caption}</div>` : ''}
+        ${listing ? `
+          <div class="sv-listing-card" onclick="closeStoryViewer();go('detail-${listing.id}')">
+            ${listingCover
+              ? `<img class="sv-listing-img" src="${listingCover}" alt="${listing.title}" loading="lazy">`
+              : `<div class="sv-listing-img" style="background:var(--v);display:flex;align-items:center;justify-content:center"><i class="ti ti-home" style="color:#fff;font-size:20px"></i></div>`}
+            <div class="sv-listing-info">
+              <div class="sv-listing-title">${listing.title}</div>
+              <div class="sv-listing-price">${listing.price ? fmt(listing.price, listing.purpose==='rent') : ''} · ${listing.city||''}</div>
+            </div>
+            <div class="sv-listing-cta">Ver imóvel <i class="ti ti-arrow-right" style="font-size:11px"></i></div>
+          </div>` : ''}
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(overlay);
+
+  // Mark past bars as complete
+  for(let i=0; i<idx; i++){
+    const fill = document.getElementById('svFill'+i);
+    if(fill) fill.style.width = '100%';
+  }
+
+  // Start video and progress
+  const video = document.getElementById('svVideo');
+  if(video){
+    video.addEventListener('loadedmetadata', () => svStartProgress(video.duration || 15));
+    video.addEventListener('ended', () => svNavigate(1));
+    video.play().catch(() => {
+      // Autoplay blocked — try muted
+      video.muted = true;
+      svState.muted = true;
+      const btn = document.getElementById('svMuteBtn');
+      if(btn) btn.innerHTML = '<i class="ti ti-volume-3" aria-hidden="true"></i>';
+      video.play().catch(()=>{});
+    });
+  }
+
+  // Register view
+  apiFetch('/stories/'+s.id+'/view', {method:'POST'}).catch(()=>{});
+
+  // Keyboard navigation
+  const onKey = e => {
+    if(e.key==='Escape') closeStoryViewer();
+    if(e.key==='ArrowRight') svNavigate(1);
+    if(e.key==='ArrowLeft')  svNavigate(-1);
+  };
+  overlay._onKey = onKey;
+  document.addEventListener('keydown', onKey);
+
+  // Touch swipe
+  let touchX = 0;
+  const wrap = document.getElementById('svWrap');
+  if(wrap){
+    wrap.addEventListener('touchstart', e=>{ touchX = e.touches[0].clientX; }, {passive:true});
+    wrap.addEventListener('touchend', e=>{
+      const dx = e.changedTouches[0].clientX - touchX;
+      if(Math.abs(dx) > 60) svNavigate(dx < 0 ? 1 : -1);
+    }, {passive:true});
+  }
+}
+
+function svStartProgress(duration){
+  const fillEl = document.getElementById('svFill'+svState.idx);
+  if(!fillEl) return;
+  if(svState.timer) clearInterval(svState.timer);
+
+  const totalMs = (duration || 15) * 1000;
+  const step = 100 / (totalMs / 50); // update every 50ms
+  let pct = 0;
+
+  svState.timer = setInterval(() => {
+    pct = Math.min(pct + step, 100);
+    fillEl.style.width = pct + '%';
+    if(pct >= 100){
+      clearInterval(svState.timer);
+      svNavigate(1);
+    }
+  }, 50);
+}
+
+function svNavigate(dir){
+  if(svState.timer) clearInterval(svState.timer);
+  const newIdx = svState.idx + dir;
+  if(newIdx < 0 || newIdx >= svState.stories.length){
+    closeStoryViewer();
+    return;
+  }
+  svState.idx = newIdx;
+  // Mark as seen
+  const s = svState.stories[newIdx];
+  if(s){ S.storiesSeen[s.id] = true; localStorage.setItem('kaza_stories_seen', JSON.stringify(S.storiesSeen)); }
+  renderStoryViewer();
+}
+
+function svToggleMute(){
+  svState.muted = !svState.muted;
+  const video = document.getElementById('svVideo');
+  if(video) video.muted = svState.muted;
+  const btn = document.getElementById('svMuteBtn');
+  if(btn) btn.innerHTML = `<i class="ti ${svState.muted?'ti-volume-3':'ti-volume'}" aria-hidden="true"></i>`;
+}
+
+function closeStoryViewer(){
+  if(svState.timer) clearInterval(svState.timer);
+  const overlay = document.querySelector('.sv-overlay');
+  if(overlay){
+    if(overlay._onKey) document.removeEventListener('keydown', overlay._onKey);
+    overlay.remove();
+  }
+  renderStories(); // update seen state
+}
+
+/* ═══════════════════════════════════════
+   STORY UPLOAD (no painel)
+═══════════════════════════════════════ */
+function openStoryUploadModal(myListings){
+  document.querySelector('.story-upload-modal')?.remove();
+  const modal = document.createElement('div');
+  modal.className = 'story-upload-modal';
+  modal.onclick = e => { if(e.target===modal) modal.remove(); };
+
+  const listingOpts = (myListings||[]).map(l=>
+    `<option value="${l.id}">${l.title}</option>`
+  ).join('');
+
+  modal.innerHTML = `
+    <div class="story-upload-sheet">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--s5)">
+        <div style="font-family:var(--fd);font-size:var(--t5)">Postar Story</div>
+        <button style="background:none;border:none;cursor:pointer;font-size:20px;color:var(--cz)" onclick="document.querySelector('.story-upload-modal').remove()">
+          <i class="ti ti-x" aria-hidden="true"></i>
+        </button>
+      </div>
+
+      <div class="story-drop-zone" id="storyDropZone">
+        <input type="file" accept="video/*" id="storyFileInput" onchange="previewStoryVideo(this)">
+        <i class="ti ti-video-plus" style="font-size:36px;color:var(--cz);margin-bottom:var(--s3);display:block" aria-hidden="true"></i>
+        <div style="font-size:var(--t3);font-weight:600;color:var(--ch)">Selecionar vídeo</div>
+        <div style="font-size:var(--t1);color:var(--cz);margin-top:var(--s2)">MP4, MOV, WebM · Até 1 minuto · 100MB</div>
+      </div>
+
+      <video id="storyVideoPreview" class="story-video-preview" controls style="display:none"></video>
+
+      ${listingOpts ? `
+      <div class="wiz-fg" style="margin-top:var(--s4)">
+        <label class="wiz-fl" for="storyListing">Vincular a um imóvel (opcional)</label>
+        <select class="wiz-fi" id="storyListing">
+          <option value="">Sem vínculo</option>
+          ${listingOpts}
+        </select>
+      </div>` : ''}
+
+      <div class="wiz-fg">
+        <label class="wiz-fl" for="storyCaption">Legenda (opcional)</label>
+        <input class="wiz-fi" type="text" id="storyCaption" placeholder="Ex: Vista do quintal ao pôr do sol..." maxlength="120">
+      </div>
+
+      <button class="btn btn-primary btn-block btn-lg" id="storyPublishBtn" onclick="publishStory()" disabled>
+        <i class="ti ti-brand-instagram" aria-hidden="true"></i>Publicar Story
+      </button>
+      <div style="text-align:center;margin-top:var(--s3);font-size:var(--t1);color:var(--cz)">
+        O story ficará visível por 7 dias
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(modal);
+}
+
+function previewStoryVideo(input){
+  const file = input.files[0];
+  if(!file) return;
+  const preview = document.getElementById('storyVideoPreview');
+  const zone    = document.getElementById('storyDropZone');
+  const btn     = document.getElementById('storyPublishBtn');
+  if(preview){
+    preview.src = URL.createObjectURL(file);
+    preview.style.display = 'block';
+    if(zone) zone.style.display = 'none';
+  }
+  if(btn) btn.disabled = false;
+}
+
+async function publishStory(){
+  const fileInput = document.getElementById('storyFileInput');
+  const file = fileInput?.files[0];
+  if(!file){ showToast('Selecione um vídeo','error'); return; }
+
+  const btn = document.getElementById('storyPublishBtn');
+  if(btn){ btn.disabled=true; btn.innerHTML='<i class="ti ti-loader-2" style="animation:spin .8s linear infinite"></i>Enviando…'; }
+
+  const formData = new FormData();
+  formData.append('video', file);
+  const caption   = document.getElementById('storyCaption')?.value.trim();
+  const listingId = document.getElementById('storyListing')?.value;
+  if(caption)   formData.append('caption',    caption);
+  if(listingId) formData.append('listing_id', listingId);
+
+  try{
+    const token = S.token || localStorage.getItem('kaza_token');
+    const res = await fetch(API_BASE + '/stories', {
+      method: 'POST',
+      headers: token ? { Authorization: 'Bearer '+token } : {},
+      body: formData,
+    });
+    const data = await res.json();
+    if(!res.ok) throw new Error(data.error || 'Erro ao publicar');
+
+    document.querySelector('.story-upload-modal')?.remove();
+    showToast('Story publicado!','success');
+
+    // Reload stories
+    await loadStoriesFromAPI();
+  } catch(e){
+    showToast(e.message || 'Erro ao publicar story','error');
+    if(btn){ btn.disabled=false; btn.innerHTML='<i class="ti ti-brand-instagram" aria-hidden="true"></i>Publicar Story'; }
+  }
 }
 </script>
 </body>
