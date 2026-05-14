@@ -4346,11 +4346,15 @@ function removeListing(id){
 }
 
 async function toggleListingStatus(id, newStatus){
-  const label = newStatus==='active' ? 'Reativar anúncio?' : 'Pausar este anúncio?';
+  const label = newStatus==='active' ? 'Reativar este anúncio?' : 'Pausar este anúncio?';
   if(!confirm(label)) return;
   try{
-    await apiFetch('/listings/'+id, {method:'PATCH', body:JSON.stringify({status:newStatus})});
-    showToast(newStatus==='active' ? 'Anúncio reativado' : 'Anúncio pausado', 'success');
+    // Backend tem PATCH /listings/:id que aceita {status}
+    await apiFetch('/listings/'+id, {
+      method:'PATCH',
+      body: JSON.stringify({ status: newStatus })
+    });
+    showToast(newStatus==='active' ? 'Anúncio reativado ✓' : 'Anúncio pausado', 'success');
     renderPainelPg();
   } catch(e){
     showToast(e.message || 'Erro ao atualizar status','error');
@@ -4358,9 +4362,12 @@ async function toggleListingStatus(id, newStatus){
 }
 
 async function markAsSold(id){
-  if(!confirm('Marcar como vendido/alugado?\nO anúncio sairá do ar e aparecerá como concluído.')) return;
+  if(!confirm('Marcar como vendido/alugado?\nO anúncio sairá do ar e será registrado no KAZA Índice.')) return;
   try{
-    await apiFetch('/listings/'+id, {method:'PATCH', body:JSON.stringify({status:'sold'})});
+    await apiFetch('/listings/'+id, {
+      method:'PATCH',
+      body: JSON.stringify({ status: 'sold' })
+    });
     showToast('Parabéns pela negociação! 🎉','success');
     renderPainelPg();
   } catch(e){
