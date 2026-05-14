@@ -395,63 +395,95 @@ nav.navbar{
 }
 .radar-ctas{display:flex;gap:var(--s3);flex-wrap:wrap}
 
-/* ─────────────── STORIES ─────────────── */
-.stories-section{padding:var(--s6) 0 0}
-.stories-label{
-  display:flex;align-items:center;gap:var(--s2);
-  font-size:var(--t1);font-weight:700;
-  text-transform:uppercase;letter-spacing:.1em;
-  color:var(--cz);margin-bottom:var(--s3);
-}
-.stories-label i{color:var(--t);font-size:14px}
+/* ─────────────── STORIES — INSTAGRAM/TIKTOK STYLE ─────────────── */
+.stories-section{padding:var(--s5) 0 0;background:#fff;border-bottom:1px solid rgba(30,58,47,.06)}
+.stories-head{display:flex;align-items:center;justify-content:space-between;padding:0 var(--s5);margin-bottom:var(--s3)}
+.stories-title{font-size:var(--t1);font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--cz);display:flex;align-items:center;gap:6px}
+.stories-title i{color:var(--t)}
 .stories-row{
   display:flex;gap:var(--s4);
   overflow-x:auto;overflow-y:hidden;
-  padding:var(--s2) 0 var(--s5);
+  padding:var(--s2) var(--s5) var(--s5);
   scrollbar-width:none;-webkit-overflow-scrolling:touch;
   scroll-snap-type:x mandatory;
 }
 .stories-row::-webkit-scrollbar{display:none}
+
+/* Story ring — estilo Instagram */
 .story{
-  display:flex;flex-direction:column;align-items:center;gap:var(--s2);
-  cursor:pointer;flex-shrink:0;
-  scroll-snap-align:start;
-  text-align:center;
-  width:80px;
+  display:flex;flex-direction:column;align-items:center;gap:7px;
+  cursor:pointer;flex-shrink:0;scroll-snap-align:start;
+  text-align:center;width:72px;border:none;background:none;padding:0;
+  -webkit-tap-highlight-color:transparent;
+  transition:transform .18s var(--ease);
 }
+.story:active{transform:scale(.94)}
+
+/* Anel gradiente — brand KAZA */
 .story-ring{
-  width:72px;height:72px;border-radius:50%;
-  padding:3px;
-  background:linear-gradient(135deg,var(--t) 0%,var(--tl) 100%);
+  width:68px;height:68px;border-radius:50%;
+  padding:2.5px;
+  background:conic-gradient(from 135deg,#C4622D,#E8845A,#1E3A2F,#C4622D);
   position:relative;
-  transition:transform .2s var(--ease);
+  box-shadow:0 2px 10px rgba(196,98,45,.25);
 }
 .story.seen .story-ring{
-  background:linear-gradient(135deg,#d4cdc1,#bdb6aa);
+  background:conic-gradient(from 0deg,#ccc,#e0d8d0,#ccc);
+  box-shadow:none;
 }
-.story:hover .story-ring{transform:scale(1.05)}
+.story-add .story-ring{
+  background:linear-gradient(135deg,var(--v),#2a5c40);
+  box-shadow:0 2px 10px rgba(30,58,47,.2);
+}
+
+/* Thumbnail dentro do anel */
 .story-inner{
   width:100%;height:100%;border-radius:50%;
-  border:3px solid var(--a);
-  background:var(--v);color:#fff;
-  display:flex;align-items:center;justify-content:center;
+  border:2.5px solid #fff;
+  background:var(--a);
   overflow:hidden;
-  background-size:cover;background-position:center;
+  display:flex;align-items:center;justify-content:center;
+  position:relative;
 }
-.story-inner i{font-size:24px;color:var(--tl)}
-.story-badge{
-  position:absolute;top:-2px;right:-2px;
-  background:var(--t);color:#fff;
-  font-size:9px;font-weight:700;
-  padding:2px 6px;border-radius:var(--r-full);
-  border:2px solid var(--a);
-  letter-spacing:.04em;
+.story-inner img{width:100%;height:100%;object-fit:cover}
+.story-inner video{width:100%;height:100%;object-fit:cover}
+
+/* Ícone "+" para adicionar story */
+.story-add-icon{
+  width:22px;height:22px;border-radius:50%;
+  background:var(--t);
+  display:flex;align-items:center;justify-content:center;
+  position:absolute;bottom:-2px;right:-2px;
+  border:2px solid #fff;
+  font-size:13px;color:#fff;font-weight:700;
+  z-index:2;
 }
+
+/* Label */
 .story-label{
-  font-size:var(--t1);font-weight:500;
+  font-size:11px;font-weight:500;
   color:var(--ch);line-height:1.3;
-  text-wrap:balance;
+  white-space:nowrap;overflow:hidden;
+  text-overflow:ellipsis;width:100%;
 }
+.story.seen .story-label{color:var(--cz)}
+
+/* Live indicator */
+.story-live{
+  position:absolute;bottom:0;left:50%;transform:translateX(-50%);
+  background:#E31010;color:#fff;
+  font-size:8px;font-weight:700;letter-spacing:.06em;
+  padding:1px 5px;border-radius:3px;
+  border:1.5px solid #fff;
+}
+
+/* Estado vazio — nenhum story ainda */
+.stories-empty{
+  padding:var(--s5) var(--s5) var(--s6);
+  display:flex;align-items:center;gap:var(--s4);
+}
+.stories-empty-text{font-size:var(--t2);color:var(--cz);line-height:1.5}
+.stories-empty-text strong{color:var(--ch);display:block;margin-bottom:2px}
 
 /* ─────────────── SECTION HEADERS ─────────────── */
 .sec-head{
@@ -1654,40 +1686,42 @@ select.rdr-fi{appearance:auto}
 @media(max-width:480px){.login-card{padding:var(--s5) var(--s4);border-radius:var(--r-lg)}}
 
 /* ═══════════════════════════════════════
-   STORIES VIEWER
+   STORIES VIEWER — INSTAGRAM/TIKTOK STYLE
 ═══════════════════════════════════════ */
-.sv-overlay{position:fixed;inset:0;z-index:700;background:#000;display:flex;align-items:center;justify-content:center;animation:fadeIn .15s}
-.sv-wrap{position:relative;width:100%;max-width:420px;height:100dvh;max-height:100dvh;overflow:hidden;background:#111}
-.sv-progress-row{position:absolute;top:env(safe-area-inset-top,0);left:0;right:0;z-index:10;display:flex;gap:3px;padding:12px 12px 0}
-.sv-bar{flex:1;height:3px;background:rgba(255,255,255,.3);border-radius:99px;overflow:hidden}
-.sv-bar-fill{height:100%;background:#fff;border-radius:99px;width:0%;transition:width linear}
-.sv-header{position:absolute;top:calc(env(safe-area-inset-top,0px) + 24px);left:0;right:0;z-index:10;display:flex;align-items:center;gap:var(--s3);padding:0 var(--s4)}
-.sv-avatar{width:36px;height:36px;border-radius:50%;background:var(--t);border:2px solid #fff;display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:.8rem;color:#fff;flex-shrink:0;overflow:hidden}
+.sv-overlay{position:fixed;inset:0;z-index:700;background:#000;display:flex;align-items:center;justify-content:center}
+.sv-wrap{position:relative;width:100%;max-width:420px;height:100vh;height:100dvh;overflow:hidden;background:#000}
+.sv-progress-row{position:absolute;top:0;left:0;right:0;z-index:10;display:flex;gap:2px;padding:calc(env(safe-area-inset-top,12px) + 8px) 10px 0}
+.sv-bar{flex:1;height:2px;border-radius:99px;background:rgba(255,255,255,.35);overflow:hidden}
+.sv-bar-fill{height:100%;background:#fff;border-radius:99px;width:0%}
+.sv-header{position:absolute;top:calc(env(safe-area-inset-top,0px) + 20px);left:0;right:0;z-index:10;display:flex;align-items:center;gap:10px;padding:10px 12px 0}
+.sv-avatar{width:34px;height:34px;border-radius:50%;border:1.5px solid rgba(255,255,255,.8);overflow:hidden;flex-shrink:0;background:var(--t);display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;color:#fff;font-family:var(--fd)}
 .sv-avatar img{width:100%;height:100%;object-fit:cover}
-.sv-user{flex:1}
-.sv-user-name{font-size:var(--t2);font-weight:600;color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.5)}
-.sv-user-time{font-size:var(--t1);color:rgba(255,255,255,.65)}
-.sv-close{width:36px;height:36px;border-radius:50%;background:rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;font-size:18px;color:#fff;cursor:pointer;border:none;flex-shrink:0}
-.sv-video{width:100%;height:100%;object-fit:cover;display:block}
-.sv-tap-left{position:absolute;left:0;top:0;width:35%;height:100%;z-index:5;cursor:pointer}
-.sv-tap-right{position:absolute;right:0;top:0;width:35%;height:100%;z-index:5;cursor:pointer}
-.sv-footer{position:absolute;bottom:0;left:0;right:0;z-index:10;padding:var(--s4) var(--s4) calc(var(--s4) + env(safe-area-inset-bottom,0px));background:linear-gradient(transparent,rgba(0,0,0,.7))}
-.sv-caption{font-size:var(--t3);color:#fff;margin-bottom:var(--s3);text-shadow:0 1px 6px rgba(0,0,0,.6);line-height:1.5}
-.sv-listing-card{background:rgba(255,255,255,.12);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.15);border-radius:var(--r-lg);padding:var(--s3) var(--s4);display:flex;align-items:center;gap:var(--s3);cursor:pointer;transition:background .15s}
-.sv-listing-card:hover{background:rgba(255,255,255,.2)}
-.sv-listing-img{width:48px;height:48px;border-radius:var(--r-sm);object-fit:cover;flex-shrink:0}
+.sv-user{flex:1;min-width:0}
+.sv-user-name{font-size:13px;font-weight:600;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.6);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sv-user-time{font-size:11px;color:rgba(255,255,255,.6);margin-top:1px}
+.sv-close{width:32px;height:32px;border-radius:50%;background:rgba(0,0,0,.35);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;font-size:16px;color:#fff;cursor:pointer;border:none;flex-shrink:0}
+.sv-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;background:#000}
+.sv-tap-left {position:absolute;left:0; top:80px;width:30%;height:calc(100% - 220px);z-index:5}
+.sv-tap-right{position:absolute;right:0;top:80px;width:30%;height:calc(100% - 220px);z-index:5}
+.sv-mute{position:absolute;top:calc(env(safe-area-inset-top,0px) + 70px);right:12px;z-index:11;width:34px;height:34px;border-radius:50%;background:rgba(0,0,0,.35);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;font-size:15px;color:#fff;cursor:pointer;border:none}
+.sv-footer{position:absolute;bottom:0;left:0;right:0;z-index:10;padding:50px 14px calc(20px + env(safe-area-inset-bottom,0px));background:linear-gradient(to top,rgba(0,0,0,.85) 0%,rgba(0,0,0,.4) 55%,transparent 100%)}
+.sv-caption{font-size:14px;color:#fff;line-height:1.5;margin-bottom:12px;text-shadow:0 1px 4px rgba(0,0,0,.5)}
+.sv-listing-card{background:rgba(255,255,255,.1);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.18);border-radius:14px;padding:10px 14px;display:flex;align-items:center;gap:12px;cursor:pointer;transition:background .15s}
+.sv-listing-card:active{background:rgba(255,255,255,.2)}
+.sv-listing-img{width:46px;height:46px;border-radius:8px;object-fit:cover;flex-shrink:0;border:1px solid rgba(255,255,255,.15)}
 .sv-listing-info{flex:1;min-width:0}
-.sv-listing-title{font-size:var(--t2);font-weight:600;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.sv-listing-price{font-size:var(--t1);color:rgba(255,255,255,.75);margin-top:2px}
-.sv-listing-cta{font-size:var(--t1);color:var(--tl);font-weight:600;white-space:nowrap;display:flex;align-items:center;gap:3px}
-.sv-mute{position:absolute;bottom:var(--s4);right:var(--s4);z-index:11;width:36px;height:36px;border-radius:50%;background:rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;font-size:16px;color:#fff;cursor:pointer;border:none}
+.sv-listing-title{font-size:13px;font-weight:600;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:2px}
+.sv-listing-price{font-size:11px;color:rgba(255,255,255,.7)}
+.sv-listing-cta{background:var(--t);color:#fff;font-size:11px;font-weight:700;padding:6px 12px;border-radius:8px;white-space:nowrap;flex-shrink:0}
+.sv-paused-icon{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:9;background:rgba(0,0,0,.4);width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;color:#fff;opacity:0;transition:opacity .2s;pointer-events:none}
+.sv-paused-icon.visible{opacity:1}
 /* Story upload modal */
-.story-upload-modal{position:fixed;inset:0;z-index:600;background:rgba(0,0,0,.6);display:flex;align-items:flex-end;justify-content:center;animation:fadeIn .2s}
-.story-upload-sheet{background:#fff;border-radius:var(--r-xl) var(--r-xl) 0 0;padding:var(--s6) var(--s5) calc(var(--s5) + env(safe-area-inset-bottom,0px));width:100%;max-width:480px;animation:shareUp .25s cubic-bezier(.34,1.18,.64,1)}
+.story-upload-modal{position:fixed;inset:0;z-index:800;background:rgba(0,0,0,.7);display:flex;align-items:flex-end;justify-content:center}
+.story-upload-sheet{background:#fff;border-radius:var(--r-xl) var(--r-xl) 0 0;padding:var(--s6) var(--s5) calc(var(--s5) + env(safe-area-inset-bottom,0px));width:100%;max-width:500px;animation:shareUp .25s cubic-bezier(.34,1.18,.64,1);max-height:90vh;overflow-y:auto}
 .story-drop-zone{border:2px dashed #e8e0d4;border-radius:var(--r-lg);padding:var(--s7) var(--s4);text-align:center;cursor:pointer;transition:all .15s;position:relative;overflow:hidden}
 .story-drop-zone:hover,.story-drop-zone.drag-over{border-color:var(--t);background:#fff8f5}
-.story-drop-zone input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer}
-.story-video-preview{width:100%;max-height:200px;border-radius:var(--r-md);object-fit:cover;margin-bottom:var(--s3)}
+.story-drop-zone input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;font-size:0}
+.story-video-preview{width:100%;max-height:240px;border-radius:var(--r-md);object-fit:cover;margin-bottom:var(--s3);display:none}
 @media(max-width:420px){.sv-wrap{max-width:100%}}
 .wiz-wrap{min-height:calc(100vh - 64px);background:var(--a);padding:var(--s6) var(--s4) var(--s8)}
 .wiz-card{background:#fff;border-radius:var(--r-xl);padding:var(--s6);max-width:640px;margin:0 auto;box-shadow:var(--sh-sm);border:1px solid rgba(30,58,47,.06)}
@@ -1896,11 +1930,11 @@ select.rdr-fi{appearance:auto}
   </section>
 
   <!-- ──────────── KAZA STORIES ──────────── -->
-  <section class="sec-cream">
-    <div class="cnt">
-      <div class="stories-label"><i class="ti ti-news" aria-hidden="true"></i>KAZA Stories</div>
-      <div class="stories-row" id="storiesRow"></div>
+  <section class="stories-section" id="storiesSection">
+    <div class="stories-head">
+      <div class="stories-title"><i class="ti ti-circle-dashed" aria-hidden="true"></i>KAZA Stories</div>
     </div>
+    <div class="stories-row" id="storiesRow"></div>
   </section>
 
   <!-- ──────────── IMÓVEIS EM DESTAQUE ──────────── -->
@@ -2186,27 +2220,16 @@ async function loadListingsFromAPI(){
 const TL_MAP = {residential:'Residencial',rural:'Rural',lot:'Lote',commercial:'Comercial'};
 const TC_MAP = {residential:'badge-res',rural:'badge-rur',lot:'badge-lot',commercial:'badge-com'};
 
-const STORIES_FALLBACK = [
-  {id:'tendencias', label:'Tendências',     icon:'ti-trending-up',           isNew:true,  type:'editorial'},
-  {id:'bairros',    label:'Bairros em alta',icon:'ti-map-2',                  isNew:true,  type:'editorial'},
-  {id:'rurais',     label:'Especial Rurais',icon:'ti-tractor',                isNew:true,  type:'editorial'},
-  {id:'score',      label:'KAZA Score',     icon:'ti-bolt',                   isNew:false, type:'editorial'},
-  {id:'verificado', label:'Verificados',    icon:'ti-rosette-discount-check', isNew:false, type:'editorial'},
-];
-
-let STORIES_DATA = [];  // populated from API
+let STORIES_DATA = [];
 
 async function loadStoriesFromAPI(){
   try{
     const res = await apiFetch('/stories');
-    const items = res.stories || [];
-    if(items.length > 0){
-      STORIES_DATA = items;
-      renderStories();
-    }
+    STORIES_DATA = res.stories || [];
   } catch(e){
     console.warn('[KAZA] Stories API offline:', e.message);
   }
+  renderStories();
 }
 
 /* ─────────────── STATE ─────────────── */
@@ -2367,57 +2390,76 @@ function renderFeatured(){
 /* ─────────────── RENDER: STORIES ─────────────── */
 function renderStories(){
   const row = document.getElementById('storiesRow');
+  const section = document.getElementById('storiesSection');
   if(!row) return;
 
-  // Combine real stories + editorial fallbacks
-  const realStories = STORIES_DATA.map(s => {
-    const advertiser = s.users || {};
-    const name = advertiser.agency_name || advertiser.name || 'KAZA';
+  const userName = (S.user&&S.user.name) || localStorage.getItem('kaza_user_name');
+
+  // Anel "+ Adicionar story" — só para usuário logado
+  const addBtn = userName ? `
+    <button class="story story-add" onclick="openStoryUploadModal([])" aria-label="Postar story">
+      <div class="story-ring">
+        <div class="story-inner" style="background:var(--a)">
+          <i class="ti ti-video-plus" style="font-size:22px;color:var(--v)" aria-hidden="true"></i>
+        </div>
+        <div class="story-add-icon">+</div>
+      </div>
+      <span class="story-label">Seu story</span>
+    </button>` : '';
+
+  // Seção sempre visível para qualquer visitante
+  if(section) section.hidden = false;
+
+  // Stories reais da API
+  const storiesHtml = STORIES_DATA.map(s => {
+    const adv = s.users || {};
+    const name = adv.agency_name || adv.name || 'KAZA';
+    const firstName = name.split(' ')[0];
     const initials = name.split(' ').map(w=>w[0]).join('').substring(0,2).toUpperCase();
     const seen = !!S.storiesSeen[s.id];
-    return { id:s.id, label:name.split(' ')[0], thumb:s.thumb_url, initials, seen, type:'video', data:s };
-  });
-
-  const editorialShown = STORIES_DATA.length === 0 ? STORIES_FALLBACK : [];
-
-  const allStories = [
-    ...realStories,
-    ...editorialShown.map(s => ({ id:s.id, label:s.label, icon:s.icon, seen:!!S.storiesSeen[s.id], type:'editorial', isNew:s.isNew }))
-  ];
-
-  row.innerHTML = allStories.map(s => {
-    const seen = s.seen;
-    const inner = s.thumb
-      ? `<img src="${s.thumb}" alt="${s.label}" style="width:100%;height:100%;object-fit:cover;border-radius:50%">`
-      : s.icon
-        ? `<i class="ti ${s.icon}" aria-hidden="true"></i>`
-        : `<span style="font-family:var(--fd);font-size:.9rem;color:#fff">${s.initials||'K'}</span>`;
-    return `<button class="story ${seen?'seen':''}" onclick="openStory('${s.id}')" aria-label="${s.label}${s.isNew&&!seen?' (novo)':''}">
+    const thumb = s.thumb_url;
+    return `<button class="story ${seen?'seen':''}" onclick="openStory('${s.id}')" aria-label="Story de ${firstName}">
       <div class="story-ring">
-        <div class="story-inner">${inner}</div>
-        ${s.isNew&&!seen?'<span class="story-badge">Novo</span>':''}
+        <div class="story-inner">
+          ${thumb
+            ? `<img src="${thumb}" alt="${firstName}" loading="lazy">`
+            : `<span style="font-family:var(--fd);font-size:.85rem;color:#fff">${initials}</span>`}
+        </div>
+        ${!seen ? '<span class="story-badge" aria-hidden="true">Novo</span>' : ''}
       </div>
-      <span class="story-label">${s.label}</span>
+      <span class="story-label">${firstName}</span>
     </button>`;
   }).join('');
+
+  // Estado vazio — mensagem diferente para logado vs visitante
+  const emptyHint = STORIES_DATA.length === 0 ? `
+    <div class="stories-empty">
+      <button class="story story-add" onclick="${userName ? 'openStoryUploadModal()' : "go('login')"}" aria-label="${userName ? 'Postar story' : 'Entrar para postar'}">
+        <div class="story-ring">
+          <div class="story-inner" style="background:var(--a)">
+            <i class="ti ti-video-plus" style="font-size:22px;color:var(--v)" aria-hidden="true"></i>
+          </div>
+          <div class="story-add-icon">+</div>
+        </div>
+        <span class="story-label">${userName ? 'Postar' : 'Entrar'}</span>
+      </button>
+      <div class="stories-empty-text">
+        <strong>${userName ? 'Seja o primeiro a postar' : 'Nenhum story ainda'}</strong>
+        ${userName
+          ? 'Grave um vídeo curto do seu imóvel e apareça aqui.'
+          : 'Anunciantes podem postar vídeos dos seus imóveis.'}
+      </div>
+    </div>` : '';
+
+  row.innerHTML = (STORIES_DATA.length > 0 ? (addBtn + storiesHtml) : '') + emptyHint;
 }
 
 function openStory(id){
-  // Mark as seen
   S.storiesSeen[id] = true;
   localStorage.setItem('kaza_stories_seen', JSON.stringify(S.storiesSeen));
-
-  // Check if it's a real video story
-  const realStory = STORIES_DATA.find(s => s.id === id);
-  if(realStory){
-    openStoryViewer(STORIES_DATA, STORIES_DATA.findIndex(s => s.id === id));
-    return;
-  }
-
-  // Editorial fallback
-  const editorial = STORIES_FALLBACK.find(s => s.id === id);
-  if(editorial) showToast('Story "'+editorial.label+'" — em breve', 'info');
-  renderStories();
+  const idx = STORIES_DATA.findIndex(s => s.id === id);
+  if(idx >= 0) openStoryViewer(STORIES_DATA, idx);
+  else showToast('Story não encontrado','error');
 }
 
 /* ─────────────── FAVORITOS ─────────────── */
@@ -2577,6 +2619,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       const me = await apiFetch('/auth/me');
       S.user = me.user || me;
       updateNavLoginBtn(S.user.name || S.user.email?.split('@')[0]);
+      renderStories(); // show "+" add story button now that user is known
     } catch(e){
       // Token expired — clear
       localStorage.removeItem('kaza_token');
@@ -4098,7 +4141,7 @@ async function renderPainelPg(){
     +'<div><div class="painel-greeting">Olá, '+userName.split(' ')[0]+'!</div>'
     +'<div class="painel-greeting-sub">Seu painel de anunciante KAZA</div></div></div>'
     +'<div style="display:flex;gap:var(--s2)">'
-    +'<button class="btn btn-outline btn-md" onclick="openStoryUploadModal(myListings)" style="background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.2);color:#fff"><i class="ti ti-video-plus" aria-hidden="true"></i>Postar Story</button>'
+    +'<button class="btn btn-outline btn-md" onclick="openStoryUploadModal()" style="background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.2);color:#fff"><i class="ti ti-video-plus" aria-hidden="true"></i>Postar Story</button>'
     +'<button class="btn btn-primary btn-md" onclick="go(\'anunciar\')"><i class="ti ti-plus" aria-hidden="true"></i>Novo anúncio</button>'
     +'</div>'
     +'</div></div></section>'
@@ -4302,6 +4345,7 @@ async function doLogin(){
     localStorage.setItem('kaza_user_name', name);
     updateNavLoginBtn(name);
     showToast('Bem-vindo de volta, ' + name.split(' ')[0] + '!','success');
+    renderStories();
     const after = localStorage.getItem('kaza_after_login') || 'home';
     localStorage.removeItem('kaza_after_login');
     go(after.replace('#',''));
@@ -4375,10 +4419,9 @@ function renderStoryViewer(){
   const name = advertiser.agency_name || advertiser.name || 'KAZA Imóveis';
   const initials = name.split(' ').map(w=>w[0]).join('').substring(0,2).toUpperCase();
   const timeAgo = s.created_at ? daysSince(s.created_at) : '';
-
-  // Foto da cover do listing
   const listingPhotos = listing?.listing_photos || [];
   const listingCover = listingPhotos.find(p=>p.is_cover)?.url || listingPhotos[0]?.url;
+  const hasListing = !!listing;
 
   const overlay = document.createElement('div');
   overlay.className = 'sv-overlay';
@@ -4388,17 +4431,12 @@ function renderStoryViewer(){
 
   overlay.innerHTML = `
     <div class="sv-wrap" id="svWrap">
-      <!-- Progress bars -->
       <div class="sv-progress-row" id="svProgressRow">
         ${stories.map((_,i)=>`<div class="sv-bar" id="svBar${i}"><div class="sv-bar-fill" id="svFill${i}"></div></div>`).join('')}
       </div>
-
-      <!-- Header -->
       <div class="sv-header">
         <div class="sv-avatar">
-          ${advertiser.avatar_url
-            ? `<img src="${advertiser.avatar_url}" alt="${name}">`
-            : initials}
+          ${advertiser.avatar_url?`<img src="${advertiser.avatar_url}" alt="${name}">`:initials}
         </div>
         <div class="sv-user">
           <div class="sv-user-name">${name}</div>
@@ -4409,38 +4447,30 @@ function renderStoryViewer(){
         </button>
       </div>
 
-      <!-- Video -->
       <video class="sv-video" id="svVideo"
-        src="${s.video_url}"
-        playsinline webkit-playsinline
-        ${muted?'muted':''}
-        autoplay
         preload="auto"
         poster="${s.thumb_url||''}"
       ></video>
 
-      <!-- Tap zones -->
       <div class="sv-tap-left"  onclick="svNavigate(-1)" aria-label="Story anterior"></div>
       <div class="sv-tap-right" onclick="svNavigate(1)"  aria-label="Próximo story"></div>
 
-      <!-- Mute button -->
-      <button class="sv-mute" id="svMuteBtn" onclick="svToggleMute()" aria-label="${muted?'Ativar':'Silenciar'} som">
+      <button class="sv-mute ${hasListing?'':'sv-mute-nolisting'}" id="svMuteBtn" onclick="svToggleMute()" aria-label="${muted?'Ativar':'Silenciar'} som">
         <i class="ti ${muted?'ti-volume-3':'ti-volume'}" aria-hidden="true"></i>
       </button>
 
-      <!-- Footer -->
       <div class="sv-footer">
-        ${s.caption ? `<div class="sv-caption">${s.caption}</div>` : ''}
-        ${listing ? `
+        ${s.caption?`<div class="sv-caption">${s.caption}</div>`:''}
+        ${hasListing?`
           <div class="sv-listing-card" onclick="closeStoryViewer();go('detail-${listing.id}')">
             ${listingCover
-              ? `<img class="sv-listing-img" src="${listingCover}" alt="${listing.title}" loading="lazy">`
-              : `<div class="sv-listing-img" style="background:var(--v);display:flex;align-items:center;justify-content:center"><i class="ti ti-home" style="color:#fff;font-size:20px"></i></div>`}
+              ?`<img class="sv-listing-img" src="${listingCover}" alt="${listing.title}" loading="lazy">`
+              :`<div class="sv-listing-img" style="background:rgba(30,58,47,.6);display:flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:8px;flex-shrink:0"><i class="ti ti-home" style="color:#fff;font-size:18px" aria-hidden="true"></i></div>`}
             <div class="sv-listing-info">
               <div class="sv-listing-title">${listing.title}</div>
-              <div class="sv-listing-price">${listing.price ? fmt(listing.price, listing.purpose==='rent') : ''} · ${listing.city||''}</div>
+              <div class="sv-listing-price">${listing.price?fmt(listing.price,listing.purpose==='rent'):''} · ${listing.city||''}</div>
             </div>
-            <div class="sv-listing-cta">Ver imóvel <i class="ti ti-arrow-right" style="font-size:11px"></i></div>
+            <div class="sv-listing-cta">Ver imóvel</div>
           </div>` : ''}
       </div>
     </div>
@@ -4448,19 +4478,43 @@ function renderStoryViewer(){
 
   document.body.appendChild(overlay);
 
-  // Mark past bars as complete
+  // Fill past bars
   for(let i=0; i<idx; i++){
-    const fill = document.getElementById('svFill'+i);
-    if(fill) fill.style.width = '100%';
+    const f = document.getElementById('svFill'+i);
+    if(f) f.style.width = '100%';
   }
 
-  // Start video and progress
+  // Setup video via JS for iOS compatibility
   const video = document.getElementById('svVideo');
   if(video){
-    video.addEventListener('loadedmetadata', () => svStartProgress(video.duration || 15));
+    // iOS requires these set via JS, not just HTML attributes
+    video.playsInline = true;
+    video.setAttribute('playsinline','');
+    video.setAttribute('webkit-playsinline','');
+    video.muted = muted;
+    video.src = s.video_url;
+
+    let progressStarted = false;
+    const startProgress = () => {
+      if(progressStarted) return;
+      progressStarted = true;
+      svStartProgress(video.duration || s.duration || 15);
+    };
+
+    video.addEventListener('loadedmetadata', startProgress);
+    video.addEventListener('playing', startProgress);  // fallback: start when actually playing
     video.addEventListener('ended', () => svNavigate(1));
+
+    // Fallback: if metadata doesn't load in 3s, start anyway
+    setTimeout(() => {
+      if(!progressStarted){
+        progressStarted = true;
+        svStartProgress(s.duration || 15);
+      }
+    }, 3000);
+
     video.play().catch(() => {
-      // Autoplay blocked — try muted
+      // Autoplay blocked → try muted
       video.muted = true;
       svState.muted = true;
       const btn = document.getElementById('svMuteBtn');
@@ -4472,21 +4526,37 @@ function renderStoryViewer(){
   // Register view
   apiFetch('/stories/'+s.id+'/view', {method:'POST'}).catch(()=>{});
 
-  // Keyboard navigation
+  // Keyboard
   const onKey = e => {
-    if(e.key==='Escape') closeStoryViewer();
-    if(e.key==='ArrowRight') svNavigate(1);
-    if(e.key==='ArrowLeft')  svNavigate(-1);
+    if(e.key==='Escape')      closeStoryViewer();
+    if(e.key==='ArrowRight')  svNavigate(1);
+    if(e.key==='ArrowLeft')   svNavigate(-1);
   };
   overlay._onKey = onKey;
   document.addEventListener('keydown', onKey);
 
-  // Touch swipe
-  let touchX = 0;
+  // Touch swipe + long press pause
+  let touchX = 0, touchT = 0, holdTimer = null;
   const wrap = document.getElementById('svWrap');
   if(wrap){
-    wrap.addEventListener('touchstart', e=>{ touchX = e.touches[0].clientX; }, {passive:true});
-    wrap.addEventListener('touchend', e=>{
+    wrap.addEventListener('touchstart', e => {
+      touchX = e.touches[0].clientX;
+      touchT = Date.now();
+      // Long press: pause video
+      holdTimer = setTimeout(() => {
+        video && video.pause();
+        if(svState.timer) clearInterval(svState.timer);
+      }, 400);
+    }, {passive:true});
+    wrap.addEventListener('touchend', e => {
+      clearTimeout(holdTimer);
+      const dt = Date.now() - touchT;
+      if(dt > 350){
+        // Was long press — resume
+        video && video.play().catch(()=>{});
+        svStartProgress(video ? (video.duration || s.duration || 15) * (1 - (video.currentTime / (video.duration||15))) : s.duration||15);
+        return;
+      }
       const dx = e.changedTouches[0].clientX - touchX;
       if(Math.abs(dx) > 60) svNavigate(dx < 0 ? 1 : -1);
     }, {passive:true});
@@ -4547,13 +4617,29 @@ function closeStoryViewer(){
 /* ═══════════════════════════════════════
    STORY UPLOAD (no painel)
 ═══════════════════════════════════════ */
-function openStoryUploadModal(myListings){
+async function openStoryUploadModal(){
   document.querySelector('.story-upload-modal')?.remove();
+
+  // Check login
+  const userName = (S.user&&S.user.name) || localStorage.getItem('kaza_user_name');
+  if(!userName){
+    showToast('Entre na sua conta para postar stories','info');
+    go('login');
+    return;
+  }
+
+  // Load user's listings for the link selector
+  let myListings = [];
+  try{
+    const res = await apiFetch('/me/listings');
+    myListings = (res.listings || []).filter(l => l.status === 'active');
+  } catch(e){ /* sem listings, tudo bem */ }
+
   const modal = document.createElement('div');
   modal.className = 'story-upload-modal';
   modal.onclick = e => { if(e.target===modal) modal.remove(); };
 
-  const listingOpts = (myListings||[]).map(l=>
+  const listingOpts = myListings.map(l=>
     `<option value="${l.id}">${l.title}</option>`
   ).join('');
 
@@ -4561,7 +4647,7 @@ function openStoryUploadModal(myListings){
     <div class="story-upload-sheet">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--s5)">
         <div style="font-family:var(--fd);font-size:var(--t5)">Postar Story</div>
-        <button style="background:none;border:none;cursor:pointer;font-size:20px;color:var(--cz)" onclick="document.querySelector('.story-upload-modal').remove()">
+        <button style="background:none;border:none;cursor:pointer;font-size:20px;color:var(--cz)" onclick="document.querySelector('.story-upload-modal').remove()" aria-label="Fechar">
           <i class="ti ti-x" aria-hidden="true"></i>
         </button>
       </div>
@@ -4570,10 +4656,10 @@ function openStoryUploadModal(myListings){
         <input type="file" accept="video/*" id="storyFileInput" onchange="previewStoryVideo(this)">
         <i class="ti ti-video-plus" style="font-size:36px;color:var(--cz);margin-bottom:var(--s3);display:block" aria-hidden="true"></i>
         <div style="font-size:var(--t3);font-weight:600;color:var(--ch)">Selecionar vídeo</div>
-        <div style="font-size:var(--t1);color:var(--cz);margin-top:var(--s2)">MP4, MOV, WebM · Até 1 minuto · 100MB</div>
+        <div style="font-size:var(--t1);color:var(--cz);margin-top:var(--s2)">MP4, MOV, WebM · Máximo 1 minuto</div>
       </div>
 
-      <video id="storyVideoPreview" class="story-video-preview" controls style="display:none"></video>
+      <video id="storyVideoPreview" class="story-video-preview" controls></video>
 
       ${listingOpts ? `
       <div class="wiz-fg" style="margin-top:var(--s4)">
@@ -4584,7 +4670,7 @@ function openStoryUploadModal(myListings){
         </select>
       </div>` : ''}
 
-      <div class="wiz-fg">
+      <div class="wiz-fg" style="margin-top:var(--s4)">
         <label class="wiz-fl" for="storyCaption">Legenda (opcional)</label>
         <input class="wiz-fi" type="text" id="storyCaption" placeholder="Ex: Vista do quintal ao pôr do sol..." maxlength="120">
       </div>
@@ -4593,7 +4679,7 @@ function openStoryUploadModal(myListings){
         <i class="ti ti-brand-instagram" aria-hidden="true"></i>Publicar Story
       </button>
       <div style="text-align:center;margin-top:var(--s3);font-size:var(--t1);color:var(--cz)">
-        O story ficará visível por 7 dias
+        O story fica visível por 7 dias
       </div>
     </div>
   `;
