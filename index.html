@@ -1371,7 +1371,7 @@ footer.kz-footer{
   min-height:calc(100vh - 64px);
   display:flex;align-items:center;
   position:relative;overflow:hidden;
-  padding:var(--s7) 0;
+  padding:var(--s5) 0;
 }
 .rdr-hero::before{
   content:'';position:absolute;inset:0;pointer-events:none;
@@ -1380,7 +1380,6 @@ footer.kz-footer{
     radial-gradient(circle at 1px 1px,rgba(255,255,255,.03) 1px,transparent 0);
   background-size:auto,32px 32px;
 }
-/* Radar rings decoration */
 .rdr-rings{
   position:absolute;right:-120px;top:50%;transform:translateY(-50%);
   width:600px;height:600px;pointer-events:none;
@@ -1396,9 +1395,13 @@ footer.kz-footer{
 .rdr-ring-dot{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:12px;height:12px;border-radius:50%;background:var(--tl);box-shadow:0 0 0 4px rgba(232,132,90,.2),0 0 20px rgba(232,132,90,.4)}
 @keyframes rdrPulse{0%{opacity:.6;transform:translate(-50%,-50%) scale(.9)}100%{opacity:0;transform:translate(-50%,-50%) scale(1.1)}}
 
-.rdr-hero-cnt{display:grid;grid-template-columns:1fr 440px;gap:var(--s8);align-items:center;position:relative;z-index:1;width:100%}
+.rdr-hero-cnt{
+  display:grid;grid-template-columns:1fr 400px;
+  gap:var(--s6);
+  align-items:center;
+  position:relative;z-index:1;width:100%;
+}
 
-/* Left column */
 .rdr-left{}
 .rdr-pill{
   display:inline-flex;align-items:center;gap:var(--s2);
@@ -1407,192 +1410,167 @@ footer.kz-footer{
   color:var(--tl);
   font-size:var(--t1);font-weight:700;
   letter-spacing:.18em;text-transform:uppercase;
-  padding:6px 14px;border-radius:var(--r-full);
-  margin-bottom:var(--s5);
+  padding:5px 12px;border-radius:var(--r-full);
+  margin-bottom:var(--s4);
 }
-.rdr-pill i{font-size:13px;animation:rdrSpin 3s linear infinite}
+.rdr-pill i{font-size:12px;animation:rdrSpin 3s linear infinite}
 @keyframes rdrSpin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
 .rdr-h1{
   font-family:var(--fd);
-  font-size:clamp(2rem,4vw,3rem);
-  line-height:1.08;
+  font-size:clamp(1.75rem,3.5vw,2.75rem);
+  line-height:1.1;
   letter-spacing:-.025em;
-  margin-bottom:var(--s4);
+  margin-bottom:var(--s3);
   text-wrap:balance;
 }
 .rdr-h1 em{color:var(--tl);font-style:italic;font-weight:400}
 .rdr-sub{
-  font-size:var(--t3);color:rgba(255,255,255,.65);
-  line-height:1.7;
-  margin-bottom:var(--s6);
-  max-width:440px;
+  font-size:var(--t2);color:rgba(255,255,255,.6);
+  line-height:1.65;
+  margin-bottom:var(--s5);
+  max-width:400px;
 }
 .rdr-benefits{
-  display:flex;flex-direction:column;gap:var(--s3);
-  margin-bottom:var(--s6);
+  display:flex;flex-direction:column;gap:var(--s2);
+  margin-bottom:var(--s5);
 }
 .rdr-benefit{
   display:flex;align-items:center;gap:var(--s3);
   font-size:var(--t2);color:rgba(255,255,255,.8);
 }
 .rdr-benefit-icon{
-  width:32px;height:32px;border-radius:var(--r-sm);
+  width:28px;height:28px;border-radius:6px;
   background:rgba(232,132,90,.12);
   border:1px solid rgba(232,132,90,.2);
   display:flex;align-items:center;justify-content:center;
   flex-shrink:0;
 }
-.rdr-benefit-icon i{font-size:15px;color:var(--tl)}
+.rdr-benefit-icon i{font-size:13px;color:var(--tl)}
 .rdr-stats{
   display:flex;gap:var(--s5);flex-wrap:wrap;
-  padding-top:var(--s5);
+  padding-top:var(--s4);
   border-top:1px solid rgba(255,255,255,.08);
 }
-.rdr-stat{}
 .rdr-stat-n{
-  font-family:var(--fd);font-size:var(--t6);color:#fff;
+  font-family:var(--fd);font-size:1.75rem;color:#fff;
   line-height:1;font-variant-numeric:tabular-nums;
 }
-.rdr-stat-l{font-size:var(--t1);color:rgba(255,255,255,.5);letter-spacing:.05em;margin-top:3px}
+.rdr-stat-l{font-size:var(--t1);color:rgba(255,255,255,.5);letter-spacing:.05em;margin-top:2px}
 .rdr-live{
   display:inline-flex;align-items:center;gap:6px;
-  font-size:var(--t1);color:rgba(255,255,255,.5);
+  font-size:var(--t1);color:rgba(255,255,255,.45);
   margin-top:var(--s2);
 }
 .rdr-live-dot{width:7px;height:7px;border-radius:50%;background:#4ade80;box-shadow:0 0 0 3px rgba(74,222,128,.2);animation:pulse 2s ease-out infinite}
 
-/* Right column — activation card */
+/* Card direito — glow, compacto */
 .rdr-card{
   background:#fff;
-  border-radius:var(--r-xl);
-  padding:var(--s5) var(--s5);
-  box-shadow:0 24px 64px rgba(0,0,0,.3),0 0 0 1px rgba(255,255,255,.06);
+  border-radius:20px;
+  padding:var(--s4) var(--s5) var(--s5);
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.06),
+    0 24px 60px rgba(0,0,0,.35),
+    0 0 80px rgba(196,98,45,.12);
   position:relative;
   overflow:hidden;
 }
 .rdr-card::before{
-  content:'';position:absolute;top:-60px;right:-60px;
-  width:160px;height:160px;border-radius:50%;
-  background:radial-gradient(circle,rgba(196,98,45,.08),transparent 70%);
+  content:'';position:absolute;top:-40px;right:-40px;
+  width:120px;height:120px;border-radius:50%;
+  background:radial-gradient(circle,rgba(196,98,45,.1),transparent 70%);
   pointer-events:none;
 }
 .rdr-card-header{
   display:flex;align-items:center;justify-content:space-between;
-  margin-bottom:var(--s4);
+  margin-bottom:var(--s3);
+  padding-bottom:var(--s3);
+  border-bottom:1px solid rgba(30,58,47,.06);
 }
-.rdr-card-title{font-family:var(--fd);font-size:var(--t5);color:var(--ch);letter-spacing:-.015em}
+.rdr-card-title{font-family:var(--fd);font-size:var(--t4);color:var(--ch);letter-spacing:-.015em}
 .rdr-card-badge{
-  display:inline-flex;align-items:center;gap:5px;
+  display:inline-flex;align-items:center;gap:4px;
   background:#f0fdf4;color:#15803d;
   font-size:10px;font-weight:700;
-  padding:4px 10px;border-radius:var(--r-full);
-  letter-spacing:.06em;text-transform:uppercase;
+  padding:3px 9px;border-radius:var(--r-full);
+  letter-spacing:.05em;text-transform:uppercase;
 }
-.rdr-card-badge i{font-size:10px}
-
-/* Intent toggle */
 .rdr-toggle{
   display:grid;grid-template-columns:1fr 1fr;
-  background:var(--a);
-  border-radius:var(--r-md);
-  padding:3px;
-  margin-bottom:var(--s4);
-  gap:3px;
+  background:var(--a);border-radius:10px;
+  padding:3px;margin-bottom:var(--s3);gap:3px;
 }
 .rdr-toggle-opt{
-  padding:9px 12px;border-radius:9px;
-  font-family:var(--fb);font-size:var(--t2);font-weight:500;
+  padding:8px 10px;border-radius:8px;
+  font-family:var(--fb);font-size:var(--t1);font-weight:500;
   color:var(--cz);cursor:pointer;text-align:center;
-  transition:all .2s var(--ease);
-  display:flex;align-items:center;justify-content:center;gap:6px;
+  transition:all .18s var(--ease);
+  display:flex;align-items:center;justify-content:center;gap:5px;
 }
-.rdr-toggle-opt i{font-size:15px}
+.rdr-toggle-opt i{font-size:13px}
 .rdr-toggle-opt.on{background:#fff;color:var(--ch);box-shadow:var(--sh-sm)}
-
-/* Field group */
 .rdr-fg{margin-bottom:var(--s3)}
-.rdr-fl{display:block;font-size:var(--t1);font-weight:600;text-transform:uppercase;letter-spacing:.09em;color:var(--cz);margin-bottom:var(--s2)}
+.rdr-fl{display:block;font-size:var(--t1);font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--cz);margin-bottom:6px}
 .rdr-fi{
-  width:100%;padding:11px 14px;
-  border:1.5px solid #e8e0d4;
-  border-radius:var(--r-md);
+  width:100%;padding:10px 12px;
+  border:1.5px solid #e8e0d4;border-radius:10px;
   font:inherit;font-size:var(--t2);
   outline:none;color:var(--ch);background:#fff;
   transition:border-color .15s,box-shadow .15s;
 }
 .rdr-fi:focus{border-color:var(--t);box-shadow:0 0 0 3px rgba(196,98,45,.1)}
 select.rdr-fi{appearance:auto}
-
-/* Type pills (compact) */
-.rdr-type-row{display:flex;gap:6px;flex-wrap:wrap}
+.rdr-type-row{display:flex;gap:5px;flex-wrap:wrap}
 .rdr-type-pill{
-  flex:1;min-width:0;
-  padding:8px 6px;border-radius:var(--r-sm);
+  flex:1;min-width:0;padding:7px 4px;border-radius:8px;
   border:1.5px solid #e8e0d4;background:#fff;
-  font-family:var(--fb);font-size:12px;font-weight:500;
+  font-family:var(--fb);font-size:11px;font-weight:500;
   color:var(--cz);cursor:pointer;text-align:center;
   transition:all .15s var(--ease);white-space:nowrap;
 }
 .rdr-type-pill:hover{border-color:var(--t);color:var(--t)}
 .rdr-type-pill.on{background:var(--v);color:#fff;border-color:var(--v)}
-
-/* Input row */
 .rdr-input-row{display:grid;grid-template-columns:1fr 1fr;gap:var(--s3)}
-
-/* Social proof inline */
 .rdr-proof{
   display:flex;align-items:center;gap:var(--s2);
-  background:var(--a);border-radius:var(--r-md);
-  padding:var(--s2) var(--s3);
-  margin-bottom:var(--s4);
+  background:var(--a);border-radius:8px;
+  padding:7px 10px;margin-bottom:var(--s3);
   font-size:var(--t1);color:var(--cz);
 }
-.rdr-proof i{color:var(--tl);font-size:14px;flex-shrink:0}
+.rdr-proof i{color:var(--tl);font-size:13px;flex-shrink:0}
 .rdr-proof strong{color:var(--ch)}
-
-/* CTA button with glow */
 .rdr-cta-btn{
-  width:100%;
-  padding:14px 20px;
+  width:100%;padding:13px 20px;
   background:var(--t);color:#fff;
-  border:none;border-radius:var(--r-md);
-  font-family:var(--fb);font-size:var(--t3);font-weight:600;
+  border:none;border-radius:10px;
+  font-family:var(--fb);font-size:var(--t2);font-weight:600;
   cursor:pointer;
   display:flex;align-items:center;justify-content:center;gap:var(--s2);
-  box-shadow:0 4px 20px rgba(196,98,45,.4);
+  box-shadow:0 4px 20px rgba(196,98,45,.45);
   transition:all .2s var(--ease);
   position:relative;overflow:hidden;
 }
-.rdr-cta-btn::after{
-  content:'';position:absolute;inset:0;
-  background:linear-gradient(135deg,rgba(255,255,255,.08),transparent);
-}
-.rdr-cta-btn:hover{transform:translateY(-1px);box-shadow:0 8px 28px rgba(196,98,45,.5)}
+.rdr-cta-btn::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.1),transparent)}
+.rdr-cta-btn:hover{transform:translateY(-1px);box-shadow:0 8px 28px rgba(196,98,45,.55)}
 .rdr-cta-btn:active{transform:scale(.98)}
-.rdr-cta-btn i{font-size:18px}
+.rdr-cta-btn i{font-size:16px}
 .rdr-cta-sub{
   text-align:center;margin-top:var(--s2);
   font-size:var(--t1);color:var(--cz);
   display:flex;align-items:center;justify-content:center;gap:5px;
 }
-.rdr-cta-sub i{font-size:12px}
-
-/* Success state */
-.rdr-success{text-align:center;padding:var(--s6) var(--s4)}
+.rdr-success{text-align:center;padding:var(--s5) var(--s3)}
 .rdr-success-pulse{
-  width:72px;height:72px;border-radius:50%;
+  width:64px;height:64px;border-radius:50%;
   background:linear-gradient(135deg,var(--v),#2a4d3f);
   display:flex;align-items:center;justify-content:center;
   margin:0 auto var(--s4);
-  box-shadow:0 0 0 0 rgba(30,58,47,.3);
   animation:successPulse 2s ease-out infinite;
 }
-@keyframes successPulse{0%{box-shadow:0 0 0 0 rgba(30,58,47,.4)}70%{box-shadow:0 0 0 16px rgba(30,58,47,0)}100%{box-shadow:0 0 0 0 rgba(30,58,47,0)}}
-.rdr-success-pulse i{font-size:30px;color:var(--tl)}
-.rdr-success h3{font-family:var(--fd);font-size:var(--t5);margin-bottom:var(--s2);color:var(--ch)}
-.rdr-success p{font-size:var(--t2);color:var(--cz);line-height:1.6;margin-bottom:var(--s4)}
-
-/* Steps section */
+@keyframes successPulse{0%{box-shadow:0 0 0 0 rgba(30,58,47,.4)}70%{box-shadow:0 0 0 14px rgba(30,58,47,0)}100%{box-shadow:0 0 0 0 rgba(30,58,47,0)}}
+.rdr-success-pulse i{font-size:26px;color:var(--tl)}
+.rdr-success h3{font-family:var(--fd);font-size:var(--t4);margin-bottom:var(--s2);color:var(--ch)}
+.rdr-success p{font-size:var(--t2);color:var(--cz);line-height:1.6;margin-bottom:var(--s3)}
 .rdr-steps-section{background:var(--a);padding:var(--s7) 0}
 .radar-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s4);margin-top:var(--s6)}
 .radar-step{background:#fff;border-radius:var(--r-lg);padding:var(--s5);border:1px solid rgba(30,58,47,.06);text-align:center;transition:all .2s var(--ease)}
@@ -1601,8 +1579,6 @@ select.rdr-fi{appearance:auto}
 .radar-step-icon{font-size:26px;color:var(--v);margin-bottom:var(--s3)}
 .radar-step-title{font-family:var(--fd);font-size:var(--t3);margin-bottom:var(--s2)}
 .radar-step-sub{font-size:var(--t1);color:var(--cz);line-height:1.55}
-
-/* Índice */
 .fi-group{margin-bottom:var(--s4)}
 .fi-label{display:block;font-size:var(--t1);font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--cz);margin-bottom:var(--s2)}
 .fi{width:100%;padding:12px 16px;border:1.5px solid #e5dccc;border-radius:var(--r-md);font:inherit;font-size:var(--t3);outline:none;color:var(--ch);background:#fff;transition:border-color .15s}
@@ -1620,16 +1596,17 @@ select.rdr-fi{appearance:auto}
 .radar-success h2{font-family:var(--fd);font-size:var(--t6);margin-bottom:var(--s3);letter-spacing:-.02em}
 .radar-success p{font-size:var(--t3);color:var(--cz);line-height:1.7;max-width:440px;margin:0 auto var(--s4)}
 
-/* Responsive */
+/* MOBILE — card primeiro, headline depois */
 @media(max-width:900px){
-  .rdr-hero{min-height:auto;padding:var(--s6) 0}
-  .rdr-hero-cnt{grid-template-columns:1fr;gap:var(--s6)}
+  .rdr-hero{min-height:auto;padding:var(--s5) 0 var(--s6)}
+  .rdr-hero-cnt{grid-template-columns:1fr;gap:var(--s5)}
+  .rdr-card-col{order:-1} /* card acima da dobra no mobile */
   .rdr-rings{display:none}
   .rdr-sub{max-width:100%}
-  .rdr-card{box-shadow:var(--sh-lg)}
+  .rdr-card{box-shadow:0 8px 32px rgba(0,0,0,.15)}
 }
 @media(max-width:720px){
-  .rdr-h1{font-size:var(--t6)}
+  .rdr-h1{font-size:1.75rem}
   .rdr-input-row{grid-template-columns:1fr}
   .radar-steps{grid-template-columns:1fr;gap:var(--s3)}
   .rdr-stats{gap:var(--s4)}
@@ -1637,7 +1614,7 @@ select.rdr-fi{appearance:auto}
 }
 @media(max-width:400px){
   .rdr-type-row{gap:4px}
-  .rdr-type-pill{font-size:11px;padding:7px 4px}
+  .rdr-type-pill{font-size:11px;padding:6px 3px}
 }
 
 /* ═══════════════════════════════════════
@@ -3147,27 +3124,23 @@ function renderRadarPg(){
         <div class="cnt">
           <div class="rdr-hero-cnt">
 
-            <!-- LEFT: headline + benefits -->
+            <!-- ESQUERDA: headline + benefícios -->
             <div class="rdr-left">
               <div class="rdr-pill"><i class="ti ti-radar" aria-hidden="true"></i>KAZA RADAR</div>
-              <h1 class="rdr-h1">Receba imóveis<br>antes de<br><em>todo mundo.</em></h1>
-              <p class="rdr-sub">Ative o Radar inteligente da KAZA. O sistema monitora novos anúncios 24h por dia e te avisa no WhatsApp assim que aparecer um imóvel compatível.</p>
+              <h1 class="rdr-h1">Seu próximo imóvel<br>ainda não foi anunciado.<br><em>Você será o primeiro.</em></h1>
+              <p class="rdr-sub">Ative o Radar e receba imóveis compatíveis direto no WhatsApp — antes de aparecer para todo mundo.</p>
               <div class="rdr-benefits">
                 <div class="rdr-benefit">
                   <div class="rdr-benefit-icon"><i class="ti ti-bolt" aria-hidden="true"></i></div>
-                  <span>Alertas em tempo real — antes do anúncio público</span>
+                  <span>Alerta em tempo real, antes do anúncio público</span>
                 </div>
                 <div class="rdr-benefit">
                   <div class="rdr-benefit-icon"><i class="ti ti-brand-whatsapp" aria-hidden="true"></i></div>
-                  <span>Notificação direto no seu WhatsApp</span>
+                  <span>Notificação direta no seu WhatsApp</span>
                 </div>
                 <div class="rdr-benefit">
                   <div class="rdr-benefit-icon"><i class="ti ti-circle-check" aria-hidden="true"></i></div>
-                  <span>100% gratuito — sem mensalidade</span>
-                </div>
-                <div class="rdr-benefit">
-                  <div class="rdr-benefit-icon"><i class="ti ti-map-pin" aria-hidden="true"></i></div>
-                  <span>Filtrado por tipo, cidade e preço</span>
+                  <span>Gratuito — sem mensalidade, sem compromisso</span>
                 </div>
               </div>
               <div class="rdr-stats">
@@ -3179,10 +3152,6 @@ function renderRadarPg(){
                   <div class="rdr-stat-n" data-count="127">0</div>
                   <div class="rdr-stat-l">imóveis monitorados</div>
                 </div>
-                <div class="rdr-stat">
-                  <div class="rdr-stat-n">2h</div>
-                  <div class="rdr-stat-l">tempo médio de alerta</div>
-                </div>
               </div>
               <div class="rdr-live" style="margin-top:var(--s3)">
                 <span class="rdr-live-dot"></span>
@@ -3190,8 +3159,8 @@ function renderRadarPg(){
               </div>
             </div>
 
-            <!-- RIGHT: activation card -->
-            <div>
+            <!-- DIREITA: card de ativação (order:-1 no mobile) -->
+            <div class="rdr-card-col">
               <div class="rdr-card" id="radarCardWrap">
                 ${buildRadarCard()}
               </div>
