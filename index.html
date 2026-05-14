@@ -227,121 +227,184 @@ nav.navbar{
 .sbar .btn{height:44px}
 
 /* IA tease */
-.ia-tease{
+/* ─── HERO MINI FEED — feed horizontal de imóveis reais ─── */
+.hero-mini-feed{
   margin-top:var(--s4);
-  display:flex;flex-wrap:wrap;gap:var(--s2);
-  align-items:center;
+  display:flex;gap:12px;
+  overflow-x:auto;overflow-y:hidden;
+  padding:4px 0 var(--s3);
+  scrollbar-width:none;
+  -webkit-overflow-scrolling:touch;
+  scroll-snap-type:x mandatory;
+  /* fade nas bordas para indicar scroll */
+  -webkit-mask:linear-gradient(to right,transparent,#000 5%,#000 88%,transparent);
+  mask:linear-gradient(to right,transparent,#000 5%,#000 88%,transparent);
 }
-.ia-tease-label{
-  display:inline-flex;align-items:center;gap:var(--s2);
-  font-size:var(--t2);color:rgba(255,255,255,.7);
-  font-weight:500;
+.hero-mini-feed::-webkit-scrollbar{display:none}
+.hmc{
+  flex-shrink:0;width:148px;
+  border-radius:14px;
+  background:#fff;
+  overflow:hidden;
+  cursor:pointer;
+  scroll-snap-align:start;
+  transition:transform .18s var(--ease);
+  box-shadow:0 2px 12px rgba(0,0,0,.18),0 0 0 1px rgba(255,255,255,.06);
 }
-.ia-tease-label i{color:var(--tl);font-size:16px}
-.ia-chip{
-  display:inline-flex;align-items:center;gap:var(--s1);
-  background:rgba(255,255,255,.08);
-  border:1px solid rgba(255,255,255,.12);
-  color:rgba(255,255,255,.85);
-  font-size:var(--t2);font-weight:400;
-  padding:6px 14px;border-radius:var(--r-full);
-  transition:all .2s var(--ease);
-  font-style:italic;
+.hmc:hover{transform:translateY(-2px) scale(1.01)}
+.hmc:active{transform:scale(.97)}
+.hmc-img{
+  width:100%;height:96px;
+  object-fit:cover;display:block;
+  background:#e5dccc;
+  position:relative;
 }
-.ia-chip:hover{background:rgba(232,132,90,.15);border-color:rgba(232,132,90,.35);color:#fff}
+.hmc-img-wrap{position:relative;overflow:hidden}
+.hmc-badge{
+  position:absolute;top:6px;left:6px;
+  font-size:9px;font-weight:700;
+  letter-spacing:.04em;text-transform:uppercase;
+  padding:2px 7px;border-radius:6px;
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+}
+.hmc-badge.res{background:rgba(30,58,47,.75);color:#a3d9b1}
+.hmc-badge.rur{background:rgba(20,80,30,.75);color:#86efac}
+.hmc-badge.lot{background:rgba(100,70,10,.75);color:#fde68a}
+.hmc-badge.com{background:rgba(60,20,80,.75);color:#d8b4fe}
+.hmc-body{padding:8px 10px 10px}
+.hmc-title{
+  font-size:12px;font-weight:600;color:#1a1a1a;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  margin-bottom:2px;
+}
+.hmc-loc{
+  font-size:11px;color:#8a7f77;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  margin-bottom:5px;
+  display:flex;align-items:center;gap:3px;
+}
+.hmc-price{
+  font-size:12px;font-weight:700;color:#C4622D;
+  white-space:nowrap;
+}
 
-/* Counter strip */
-.counter-strip{
-  display:flex;flex-wrap:wrap;gap:var(--s6);
-  margin-top:var(--s6);
-  padding-top:var(--s5);
+/* Counter strip (sem mudança) */
+/* ─── STATUS BAR — inline compacta ─── */
+.status-bar{
+  display:flex;align-items:center;
+  gap:0;
+  margin-top:var(--s5);
+  padding-top:var(--s4);
   border-top:1px solid rgba(255,255,255,.1);
+  flex-wrap:nowrap;overflow-x:auto;
+  scrollbar-width:none;
 }
-.cs-item{display:flex;align-items:center;gap:var(--s3)}
-.cs-dot{
-  width:8px;height:8px;border-radius:50%;
-  background:var(--tl);
-  box-shadow:0 0 0 4px rgba(232,132,90,.18);
-  animation:pulse 2s ease-out infinite;
+.status-bar::-webkit-scrollbar{display:none}
+.sb-item{
+  display:flex;align-items:center;gap:6px;
+  flex-shrink:0;
+  padding:0 var(--s4) 0 0;
+  transition:opacity .15s;
 }
-@keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.2);opacity:.7}}
-.cs-n{
-  font-family:var(--fd);
-  font-size:var(--t5);
+.sb-item:hover{opacity:.8}
+/* separador entre items */
+.sb-item+.sb-item{
+  padding-left:var(--s4);
+  border-left:1px solid rgba(255,255,255,.12);
+}
+.sb-dot{
+  width:7px;height:7px;border-radius:50%;
+  background:var(--tl);flex-shrink:0;
+  box-shadow:0 0 0 3px rgba(232,132,90,.18);
+  animation:pulse 2.5s ease-in-out infinite;
+}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.25);opacity:.7}}
+.sb-icon{font-size:13px;color:rgba(255,255,255,.5);flex-shrink:0}
+.sb-n{
+  font-family:var(--fd);font-size:var(--t4);
   color:#fff;line-height:1;
-  font-variant-numeric:tabular-nums;
+  font-variant-numeric:tabular-nums;letter-spacing:-.01em;
 }
-.cs-l{font-size:var(--t1);color:rgba(255,255,255,.55);letter-spacing:.05em;margin-top:2px}
+.sb-l{
+  font-size:11px;color:rgba(255,255,255,.5);
+  letter-spacing:.03em;white-space:nowrap;
+}
 
 /* ─────────────── INTENT SPLIT ─────────────── */
-.intent-split{
-  display:grid;grid-template-columns:1fr 1fr;
-  gap:var(--s4);
-  margin-top:calc(var(--s7) * -1);
+/* ─── QUICK ACTIONS — compactas, estilo app ─── */
+.qa-row{
+  display:flex;gap:10px;
+  margin-top:calc(var(--s6) * -1);
   position:relative;z-index:2;
+  padding:0 0 var(--s1);
 }
-.intent-card{
-  background:#fff;border-radius:var(--r-lg);
-  padding:var(--s6) var(--s5);
-  display:flex;flex-direction:column;gap:var(--s3);
-  box-shadow:var(--sh-md);
-  border:1.5px solid transparent;
-  transition:all .25s var(--ease);
+.qa{
+  flex:1;min-width:0;
+  display:flex;align-items:center;gap:12px;
+  background:#fff;
+  border-radius:14px;
+  padding:14px 14px;
+  box-shadow:0 2px 16px rgba(0,0,0,.08),0 1px 3px rgba(0,0,0,.06);
+  border:1.5px solid rgba(196,98,45,.25);
   cursor:pointer;
+  transition:all .18s var(--ease);
+  text-align:left;
+  -webkit-tap-highlight-color:transparent;
 }
-.intent-card:hover{transform:translateY(-3px);box-shadow:var(--sh-lg);border-color:rgba(196,98,45,.25)}
-.intent-icon{
-  width:48px;height:48px;border-radius:var(--r-md);
+.qa:hover{
+  transform:translateY(-2px);
+  box-shadow:0 6px 24px rgba(0,0,0,.1);
+  border-color:rgba(196,98,45,.55);
+}
+.qa:active{transform:scale(.97)}
+.qa.dark{background:var(--v);border-color:rgba(232,132,90,.35)}
+.qa.dark:hover{border-color:rgba(232,132,90,.65);box-shadow:0 6px 24px rgba(30,58,47,.25)}
+.qa-icon{
+  width:38px;height:38px;border-radius:10px;flex-shrink:0;
   display:flex;align-items:center;justify-content:center;
-  background:rgba(196,98,45,.1);color:var(--t);
+  background:rgba(196,98,45,.1);
 }
-.intent-icon i{font-size:24px}
-.intent-card.dark{background:var(--v);color:#fff}
-.intent-card.dark .intent-icon{background:rgba(232,132,90,.15);color:var(--tl)}
-.intent-title{
-  font-family:var(--fd);
-  font-size:var(--t5);
-  line-height:1.2;
-  letter-spacing:-.015em;
+.qa-icon i{font-size:18px;color:var(--t)}
+.qa.dark .qa-icon{background:rgba(232,132,90,.15)}
+.qa.dark .qa-icon i{color:var(--tl)}
+.qa-text{flex:1;min-width:0}
+.qa-title{
+  font-size:13px;font-weight:700;color:var(--ch);
+  line-height:1.3;margin-bottom:2px;
 }
-.intent-sub{
-  font-size:var(--t2);
-  color:var(--cz);
-  line-height:1.5;
-  margin-bottom:var(--s2);
+.qa.dark .qa-title{color:#fff}
+.qa-meta{
+  font-size:11px;color:var(--cz);
+  line-height:1.4;
 }
-.intent-card.dark .intent-sub{color:rgba(255,255,255,.65)}
-.intent-link{
-  display:inline-flex;align-items:center;gap:var(--s1);
-  color:var(--t);font-size:var(--t2);font-weight:600;
-  margin-top:auto;
+.qa.dark .qa-meta{color:rgba(255,255,255,.55)}
+.qa-arrow{
+  font-size:14px;color:var(--cz);flex-shrink:0;
+  transition:transform .18s var(--ease);
 }
-.intent-card.dark .intent-link{color:var(--tl)}
-.intent-link i{transition:transform .2s var(--ease)}
-.intent-card:hover .intent-link i{transform:translateX(4px)}
+.qa:hover .qa-arrow{transform:translateX(3px)}
+.qa.dark .qa-arrow{color:rgba(255,255,255,.4)}
+@media(max-width:400px){
+  .qa-row{gap:8px}
+  .qa{padding:12px 12px}
+  .qa-icon{width:34px;height:34px;border-radius:9px}
+  .qa-icon i{font-size:16px}
+  .qa-title{font-size:12px}
+}
 
 /* ─────────────── RADAR STRIP ─────────────── */
 .radar-strip{
   background:var(--v);color:#fff;
   border-radius:var(--r-xl);
-  padding:var(--s7) var(--s6);
+  padding:var(--s5) var(--s5);
   position:relative;overflow:hidden;
-  margin-top:var(--s7);
+  margin-top:var(--s5);
 }
 .radar-strip::before{
-  content:'';position:absolute;right:-80px;top:-80px;
-  width:280px;height:280px;border-radius:50%;
-  background:radial-gradient(circle,rgba(232,132,90,.16),transparent 70%);
-}
-.radar-strip::after{
-  content:'';position:absolute;left:-40px;bottom:-40px;
+  content:'';position:absolute;right:-60px;top:-60px;
   width:200px;height:200px;border-radius:50%;
-  border:2px solid rgba(232,132,90,.12);
-  animation:radarPing 4s ease-out infinite;
-}
-@keyframes radarPing{
-  0%{transform:scale(.85);opacity:.6}
-  100%{transform:scale(1.5);opacity:0}
+  background:radial-gradient(circle,rgba(232,132,90,.14),transparent 70%);
+  pointer-events:none;
 }
 .radar-strip > *{position:relative;z-index:1}
 .radar-eyebrow{
@@ -350,50 +413,51 @@ nav.navbar{
   border:1px solid rgba(232,132,90,.3);
   color:var(--tl);
   font-size:var(--t1);font-weight:600;
-  letter-spacing:.18em;text-transform:uppercase;
-  padding:6px 14px;border-radius:var(--r-full);
-  margin-bottom:var(--s4);
+  letter-spacing:.16em;text-transform:uppercase;
+  padding:4px 12px;border-radius:var(--r-full);
+  margin-bottom:var(--s3);
 }
-.radar-eyebrow i{font-size:14px}
+.radar-eyebrow i{font-size:13px}
 .radar-headline{
   font-family:var(--fd);
-  font-size:clamp(var(--t5),3vw,var(--t6));
-  line-height:1.15;
+  font-size:clamp(var(--t4),2.5vw,var(--t5));
+  line-height:1.2;
   letter-spacing:-.02em;
   margin-bottom:var(--s2);
-  max-width:560px;
 }
 .radar-sub{
-  font-size:var(--t3);color:rgba(255,255,255,.65);
-  line-height:1.6;margin-bottom:var(--s6);
-  max-width:520px;
+  font-size:var(--t2);color:rgba(255,255,255,.6);
+  line-height:1.5;margin-bottom:var(--s4);
 }
+/* Stats em linha — não mais empilhados */
 .radar-stats{
-  display:grid;grid-template-columns:repeat(3,1fr);
-  gap:var(--s3);margin-bottom:var(--s6);
-  max-width:720px;
+  display:flex;gap:var(--s4);
+  margin-bottom:var(--s4);
+  padding:var(--s3) 0;
+  border-top:1px solid rgba(255,255,255,.08);
+  border-bottom:1px solid rgba(255,255,255,.08);
 }
-.radar-stat{
-  background:rgba(255,255,255,.06);
-  border:1px solid rgba(255,255,255,.1);
-  border-radius:var(--r-md);
-  padding:var(--s4) var(--s3);
-  text-align:center;
-  transition:all .2s var(--ease);
-}
-.radar-stat:hover{background:rgba(255,255,255,.1);border-color:rgba(232,132,90,.3)}
+.radar-stat{text-align:left;flex:1}
 .radar-stat-n{
   font-family:var(--fd);
-  font-size:var(--t6);
+  font-size:var(--t5);
   color:var(--tl);line-height:1;
   font-variant-numeric:tabular-nums;
 }
 .radar-stat-l{
-  font-size:var(--t1);color:rgba(255,255,255,.6);
-  text-transform:uppercase;letter-spacing:.08em;
-  margin-top:var(--s2);line-height:1.3;
+  font-size:10px;color:rgba(255,255,255,.5);
+  text-transform:uppercase;letter-spacing:.07em;
+  margin-top:3px;line-height:1.3;
 }
-.radar-ctas{display:flex;gap:var(--s3);flex-wrap:wrap}
+/* CTA row compacta */
+.radar-ctas{display:flex;gap:var(--s2);flex-wrap:wrap}
+.radar-ctas .btn{font-size:var(--t2);padding:10px 16px}
+@media(max-width:480px){
+  .radar-strip{padding:var(--s4) var(--s4)}
+  .radar-stats{gap:var(--s3)}
+  .radar-ctas{flex-direction:column}
+  .radar-ctas .btn{text-align:center;justify-content:center}
+}
 
 /* ─────────────── STORIES — INSTAGRAM/TIKTOK STYLE ─────────────── */
 .stories-section{padding:var(--s5) 0 0;background:#fff;border-bottom:1px solid rgba(30,58,47,.06)}
@@ -862,14 +926,7 @@ footer.kz-footer{
   .sbar-input-wrap{flex-basis:100%;border-radius:var(--r-sm);background:var(--a);padding:0 var(--s3)}
   .sbar select{flex:1}
   .sbar .btn{flex:1 1 100%}
-  .intent-split{grid-template-columns:1fr;gap:var(--s3);margin-top:calc(var(--s6) * -1)}
-  .intent-card{padding:var(--s5)}
-  .radar-strip{padding:var(--s6) var(--s5);border-radius:var(--r-lg)}
-  .radar-stats{grid-template-columns:1fr;gap:var(--s2)}
-  .radar-stat{display:flex;align-items:center;justify-content:flex-start;gap:var(--s3);text-align:left;padding:var(--s3) var(--s4)}
-  .radar-stat-n{font-size:var(--t5)}
-  .radar-stat-l{margin-top:0}
-  .radar-ctas .btn{flex:1}
+  .radar-strip{padding:var(--s4) var(--s4);border-radius:var(--r-lg)}
   .featured-grid{grid-template-columns:1fr;gap:var(--s4)}
   .cnt{padding:0 var(--s4)}
   .sec{padding:var(--s6) 0}
@@ -881,8 +938,6 @@ footer.kz-footer{
   .cta-perks{grid-template-columns:1fr}
 }
 @media(max-width:400px){
-  .counter-strip{gap:var(--s4)}
-  .cs-n{font-size:var(--t4)}
 }
 
 /* ═══════════════════════════════════════════ */
@@ -1812,7 +1867,7 @@ select.rdr-fi{appearance:auto}
     <div class="cnt">
       <div class="hero-eyebrow">Imóveis · Oeste da Bahia</div>
       <h1 id="heroHeadline">Encontre o imóvel certo<br>no <em>Oeste Baiano</em>.</h1>
-      <p class="hero-sub" id="heroSub">Casas, apartamentos, lotes, fazendas e imóveis comerciais em Barreiras, LEM, São Desidério e região.</p>
+      <p class="hero-sub" id="heroSub">Casas, apartamentos, lotes, fazendas e imóveis comerciais.</p>
 
       <form class="sbar" onsubmit="event.preventDefault();doSearch()" role="search">
         <div class="sbar-input-wrap">
@@ -1834,73 +1889,76 @@ select.rdr-fi{appearance:auto}
         <button class="btn btn-primary btn-md" type="submit"><i class="ti ti-arrow-right" aria-hidden="true"></i>Buscar</button>
       </form>
 
-      <div class="ia-tease">
-        <span class="ia-tease-label"><i class="ti ti-sparkles" aria-hidden="true"></i>KAZA IA — descreva com suas palavras:</span>
-        <button type="button" class="ia-chip" onclick="openIAWithPrompt('Casa 3 quartos no Jardins até 400mil')">"Casa 3 quartos no Jardins até 400mil"</button>
-        <button type="button" class="ia-chip" onclick="openIAWithPrompt('Fazenda para soja em São Desidério')">"Fazenda pra soja em São Desidério"</button>
-      </div>
+      <div class="hero-mini-feed" id="heroMiniFeed" aria-label="Imóveis em destaque"></div>
 
-      <div class="counter-strip" id="counterStrip">
-        <div class="cs-item">
-          <span class="cs-dot" aria-hidden="true"></span>
-          <div><div class="cs-n" data-count="127">0</div><div class="cs-l">imóveis ativos agora</div></div>
+      <div class="status-bar" id="counterStrip" role="status" aria-label="Métricas do mercado">
+        <div class="sb-item">
+          <span class="sb-dot" aria-hidden="true"></span>
+          <span class="sb-n" data-count="127">0</span>
+          <span class="sb-l">ativos agora</span>
         </div>
-        <div class="cs-item">
-          <i class="ti ti-radar" style="color:var(--tl);font-size:18px" aria-hidden="true"></i>
-          <div><div class="cs-n" data-count="54">0</div><div class="cs-l">buscas no Radar</div></div>
+        <div class="sb-item">
+          <i class="ti ti-radar sb-icon" aria-hidden="true"></i>
+          <span class="sb-n" data-count="54">0</span>
+          <span class="sb-l">no Radar</span>
         </div>
-        <div class="cs-item">
-          <i class="ti ti-trending-up" style="color:var(--tl);font-size:18px" aria-hidden="true"></i>
-          <div><div class="cs-n" data-count="8">0</div><div class="cs-l">negociados este mês</div></div>
+        <div class="sb-item">
+          <i class="ti ti-trending-up sb-icon" aria-hidden="true"></i>
+          <span class="sb-n" data-count="8">0</span>
+          <span class="sb-l">negociados este mês</span>
         </div>
       </div>
     </div>
   </section>
 
   <!-- ──────────── INTENT SPLIT ──────────── -->
-  <section class="sec-cream" style="padding-top:0">
+  <section class="sec-cream" style="padding-top:0;padding-bottom:0">
     <div class="cnt">
-      <div class="intent-split">
-        <button class="intent-card" onclick="location.hash='#listings'">
-          <div class="intent-icon"><i class="ti ti-home-search" aria-hidden="true"></i></div>
-          <div class="intent-title">Estou buscando um imóvel</div>
-          <div class="intent-sub">Explore 127 imóveis disponíveis ou ative o Radar para ser avisado primeiro.</div>
-          <span class="intent-link">Explorar<i class="ti ti-arrow-right" aria-hidden="true"></i></span>
+      <div class="qa-row">
+        <button class="qa" onclick="go('listings')" aria-label="Buscar imóveis">
+          <div class="qa-icon"><i class="ti ti-home-search" aria-hidden="true"></i></div>
+          <div class="qa-text">
+            <div class="qa-title">Buscar imóvel</div>
+            <div class="qa-meta">127 disponíveis agora</div>
+          </div>
+          <i class="ti ti-arrow-right qa-arrow" aria-hidden="true"></i>
         </button>
-        <button class="intent-card dark" onclick="location.hash='#anunciar'">
-          <div class="intent-icon"><i class="ti ti-speakerphone" aria-hidden="true"></i></div>
-          <div class="intent-title">Quero anunciar meu imóvel</div>
-          <div class="intent-sub">Grátis. Apareça para 54 compradores ativos no Radar. Sem mensalidade.</div>
-          <span class="intent-link">Anunciar agora<i class="ti ti-arrow-right" aria-hidden="true"></i></span>
+        <button class="qa dark" onclick="go('anunciar')" aria-label="Anunciar imóvel">
+          <div class="qa-icon"><i class="ti ti-speakerphone" aria-hidden="true"></i></div>
+          <div class="qa-text">
+            <div class="qa-title">Anunciar imóvel</div>
+            <div class="qa-meta">Compradores no Radar</div>
+          </div>
+          <i class="ti ti-arrow-right qa-arrow" aria-hidden="true"></i>
         </button>
       </div>
     </div>
   </section>
 
   <!-- ──────────── RADAR STRIP ──────────── -->
-  <section class="sec sec-cream" style="padding-top:var(--s6)">
+  <section class="sec sec-cream" style="padding-top:var(--s4)">
     <div class="cnt">
       <div class="radar-strip">
         <div class="radar-eyebrow"><i class="ti ti-radar" aria-hidden="true"></i>KAZA Radar</div>
-        <h2 class="radar-headline">Tem gente esperando pelo imóvel que você vai anunciar.</h2>
-        <p class="radar-sub">O Radar avisa compradores e proprietários no WhatsApp quando aparece um imóvel compatível — antes mesmo de virar anúncio público.</p>
+        <h2 class="radar-headline">Tem gente esperando pelo seu imóvel.</h2>
+        <p class="radar-sub">O Radar avisa compradores no WhatsApp assim que aparece um imóvel compatível.</p>
         <div class="radar-stats">
           <div class="radar-stat">
             <div class="radar-stat-n" data-count="34">0</div>
-            <div class="radar-stat-l">Compradores<br>ativos no Radar</div>
+            <div class="radar-stat-l">Compradores<br>no Radar</div>
           </div>
           <div class="radar-stat">
             <div class="radar-stat-n" data-count="12">0</div>
-            <div class="radar-stat-l">Locatários<br>ativos no Radar</div>
+            <div class="radar-stat-l">Locatários<br>ativos</div>
           </div>
           <div class="radar-stat">
             <div class="radar-stat-n" data-count="8">0</div>
-            <div class="radar-stat-l">Buscas rurais<br>aguardando alerta</div>
+            <div class="radar-stat-l">Buscas rurais<br>aguardando</div>
           </div>
         </div>
         <div class="radar-ctas">
-          <a class="btn btn-primary btn-lg" href="#radar"><i class="ti ti-bell" aria-hidden="true"></i>Ativar meu alerta</a>
-          <a class="btn btn-md" href="#anunciar" style="background:rgba(255,255,255,.08);color:#fff;border:1.5px solid rgba(255,255,255,.18)"><i class="ti ti-speakerphone" aria-hidden="true"></i>Anunciar — tem comprador</a>
+          <a class="btn btn-primary btn-md" onclick="go('radar')"><i class="ti ti-bell" aria-hidden="true"></i>Ativar meu alerta</a>
+          <a class="btn btn-md" onclick="go('anunciar')" style="background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.15)"><i class="ti ti-speakerphone" aria-hidden="true"></i>Anunciar</a>
         </div>
       </div>
     </div>
@@ -2337,6 +2395,57 @@ function cardH(l){
   </article>`;
 }
 
+/* ─────────────── HERO MINI FEED ─────────────── */
+function renderHeroMiniCards(){
+  const feed = document.getElementById('heroMiniFeed');
+  if(!feed) return;
+
+  const badgeClass = {residential:'res',rural:'rur',lot:'lot',commercial:'com'};
+  const badgeLabel = {residential:'Residencial',rural:'Rural',lot:'Lote',commercial:'Comercial'};
+
+  // Usar todos os imóveis, embaralhados para parecer feed dinâmico
+  const items = [...L].sort(() => Math.random() - .5).slice(0, 12);
+
+  if(!items.length){
+    feed.style.display = 'none';
+    return;
+  }
+
+  feed.innerHTML = items.map(l => {
+    const price = l.price
+      ? (l.purpose === 'rent'
+          ? 'R$ ' + l.price.toLocaleString('pt-BR') + '/mês'
+          : l.price >= 1e6
+            ? 'R$ ' + (l.price/1e6).toFixed(1).replace('.',',') + ' mi'
+            : 'R$ ' + Math.round(l.price/1000) + 'mil')
+      : '—';
+
+    const loc = l.neigh && l.neigh !== l.city ? l.neigh : l.city || '';
+    const bc  = badgeClass[l.type] || 'res';
+    const bl  = badgeLabel[l.type] || '';
+
+    // Título curto: tipo + quartos
+    const shortTitle = l.beds
+      ? (['Casa','Apto','Studio'][Math.min(l.beds-1,2)] || 'Casa') + ' ' + l.beds + '/4'
+      : l.type === 'rural' ? 'Fazenda ' + (l.area_ha||'') + 'ha'
+      : l.type === 'lot'   ? 'Lote ' + (l.area||'') + 'm²'
+      : l.title.split(' ').slice(0,3).join(' ');
+
+    return `<button class="hmc" onclick="openDetail(${JSON.stringify(l.id)})" aria-label="${l.title}">
+      <div class="hmc-img-wrap">
+        <img class="hmc-img" src="${l.img}" alt="${l.title}" loading="lazy"
+          onerror="this.style.background='#e5dccc';this.style.display='block'">
+        <span class="hmc-badge ${bc}">${bl}</span>
+      </div>
+      <div class="hmc-body">
+        <div class="hmc-title">${shortTitle}</div>
+        <div class="hmc-loc"><i class="ti ti-map-pin" style="font-size:9px;flex-shrink:0" aria-hidden="true"></i>${loc}</div>
+        <div class="hmc-price">${price}</div>
+      </div>
+    </button>`;
+  }).join('');
+}
+
 function renderFeatured(){
   const grid = document.getElementById('featuredGrid');
   // Skeletons
@@ -2607,6 +2716,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Load real listings from API (renders with static data first for speed)
   renderFeatured();
   renderStories();
+  renderHeroMiniCards();
   updateFavBadges();
   setupCounters();
   checkReturnUser();
@@ -2616,6 +2726,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   loadListingsFromAPI().then(loaded => {
     if(loaded && (S.page === 'home' || !S.page)){
       renderFeatured();
+      renderHeroMiniCards(); // atualiza com dados reais da API
     }
     if(loaded && S.page === 'listings') renderListingsPg();
   });
