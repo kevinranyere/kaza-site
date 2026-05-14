@@ -4,6 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
 <meta name="theme-color" content="#1E3A2F">
+<meta name="description" content="Casas, apartamentos, lotes, fazendas e imóveis comerciais em Barreiras, São Desidério, Luís Eduardo Magalhães e região. Compre, alugue ou anuncie grátis.">
+<meta property="og:title" content="KAZA Imóveis — Oeste da Bahia">
+<meta property="og:description" content="O marketplace imobiliário do Oeste Baiano. Encontre casas, fazendas, lotes e imóveis comerciais.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://kaza-site.vercel.app">
+<link rel="canonical" href="https://kaza-site.vercel.app">
 <title>KAZA Imóveis — Oeste da Bahia</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css" rel="stylesheet">
@@ -2239,6 +2245,7 @@ function mapListing(r){
       type:        advertiser.type || 'person',
       creci:       advertiser.creci || '',
       verified:    advertiser.is_verified || false,
+      phone:       advertiser.phone || advertiser.whatsapp || '',
     },
   };
 }
@@ -2774,9 +2781,14 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // Then reload with real data in background
   loadListingsFromAPI().then(loaded => {
-    if(loaded && (S.page === 'home' || !S.page)){
-      renderFeatured();
-      renderHeroMiniCards(); // atualiza com dados reais da API
+    if(loaded){
+      // Update dynamic counts
+      const qaCount = document.querySelector('.qa-meta');
+      if(qaCount) qaCount.textContent = L.length + ' disponíveis agora';
+      if(S.page === 'home' || !S.page){
+        renderFeatured();
+        renderHeroMiniCards();
+      }
     }
     if(loaded && S.page === 'listings') renderListingsPg();
   });
@@ -2818,7 +2830,7 @@ function route(){
   let page = 'home', detailId = null;
   if(!hash || hash === '#home') page = 'home';
   else if(hash.startsWith('#listings')) page = 'listings';
-  else if(hash.startsWith('#detail-')){ page = 'detail'; detailId = parseInt(hash.replace('#detail-',''),10); }
+  else if(hash.startsWith('#detail-')){ page = 'detail'; detailId = hash.replace('#detail-',''); }
   else if(hash === '#radar') page = 'radar';
   else if(hash === '#favoritos') page = 'favoritos';
   else if(hash === '#login' || hash === '#cadastro') page = 'login';
@@ -2876,7 +2888,9 @@ function buildWaLink(l){
   const msg = encodeURIComponent(
     `Olá! Vi o imóvel *${l.title}* no portal KAZA Imóveis.\n💰 ${price}\n📍 ${l.neigh}, ${l.city} — BA\n\nGostaria de mais informações e agendar uma visita.`
   );
-  return `https://wa.me/5577999999999?text=${msg}`;
+  // Usa telefone do anunciante se disponível, senão número da KAZA
+  const phone = (l.advertiser?.phone || '').replace(/\D/g,'') || '5577999999999';
+  return `https://wa.me/${phone}?text=${msg}`;
 }
 
 /* Registra lead quando usuário clica em contato */
@@ -3028,12 +3042,12 @@ function renderDetailPg(id){
                 </div>
               </div>
               <div class="contact-form">
-                <input type="text" placeholder="Seu nome" aria-label="Seu nome">
-                <input type="tel" placeholder="WhatsApp (77) 9..." aria-label="Seu WhatsApp" inputmode="tel">
-                <textarea placeholder="Tenho interesse neste imóvel. Podemos agendar uma visita?" aria-label="Mensagem"></textarea>
-                <a class="btn btn-whatsapp btn-block btn-lg" href="${buildWaLink(l)}" target="_blank" rel="noopener" aria-label="Contato via WhatsApp">
+                <input type="text" id="cf_name_${l.id}" placeholder="Seu nome" aria-label="Seu nome" autocomplete="name">
+                <input type="tel" id="cf_phone_${l.id}" placeholder="WhatsApp (77) 9..." aria-label="Seu WhatsApp" inputmode="tel" autocomplete="tel">
+                <textarea id="cf_msg_${l.id}" placeholder="Tenho interesse neste imóvel. Podemos agendar uma visita?" aria-label="Mensagem"></textarea>
+                <button class="btn btn-whatsapp btn-block btn-lg" onclick="sendContactForm('${l.id}')" aria-label="Enviar mensagem e abrir WhatsApp">
                   <i class="ti ti-brand-whatsapp" aria-hidden="true"></i>Falar no WhatsApp
-                </a>
+                </button>
                 <div class="contact-hint"><i class="ti ti-clock" aria-hidden="true"></i>Responde em menos de 2 horas</div>
               </div>
             </div>
@@ -3047,7 +3061,7 @@ function renderDetailPg(id){
                   <div style="font-size:var(--t1);color:var(--cz)">O Radar avisa você primeiro</div>
                 </div>
               </div>
-              <button class="btn btn-outline btn-md btn-block" onclick="location.hash='#radar'">
+              <button class="btn btn-outline btn-md btn-block" onclick="go('radar')">
                 <i class="ti ti-bell" aria-hidden="true"></i>Ativar Radar para ${TL_MAP[l.type]}
               </button>
             </div>
@@ -4136,10 +4150,25 @@ function wizNext(){
 }
 function wizBack(){ if(WIZ.step>1){ WIZ.step--; renderWizStep(); } else go('home'); }
 function wizAddPhotos(){
-  if(!WIZ.data.photos) WIZ.data.photos=[];
-  const samples=['https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=400&q=60','https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400&q=60','https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=400&q=60'];
-  if(WIZ.data.photos.length<6){ WIZ.data.photos.push(samples[WIZ.data.photos.length%samples.length]); renderWizStep(); showToast('Foto adicionada!','success'); }
-  else showToast('Máximo de 6 fotos na versão demo','info');
+  // Create hidden file input for real photo selection
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.accept = 'image/*';
+  input.multiple = true;
+  input.onchange = (e) => {
+    if(!WIZ.data.photos) WIZ.data.photos = [];
+    const files = Array.from(e.target.files || []);
+    files.slice(0, 6 - WIZ.data.photos.length).forEach(file => {
+      const url = URL.createObjectURL(file);
+      WIZ.data.photos.push(url);
+      // Store file for upload
+      if(!WIZ.data.photoFiles) WIZ.data.photoFiles = [];
+      WIZ.data.photoFiles.push(file);
+    });
+    renderWizStep();
+    if(files.length) showToast(files.length + ' foto(s) adicionada(s)','success');
+  };
+  input.click();
 }
 function wizRemovePhoto(i){ WIZ.data.photos.splice(i,1); renderWizStep(); }
 async function wizPublish(){
@@ -4257,12 +4286,22 @@ async function renderPainelPg(){
       +'<div class="painel-listing-info"><div class="painel-listing-title">'+l.title+'</div>'
       +'<div class="painel-listing-meta"><span>'+(l.city||'')+'</span>'
       +'<span><i class="ti ti-eye" style="font-size:12px" aria-hidden="true"></i> '+(l.views||0)+' visitas</span>'
-      +'<span style="color:'+(l.status==='active'?'#059669':'var(--cz)')+'">● '+(l.status==='active'?'Ativo':'Inativo')+'</span></div></div>'
+      +'<span style="color:'+(l.status==='active'?'#059669':l.status==='sold'?'#1d4ed8':'var(--cz)')+'">● '+(l.status==='active'?'Ativo':l.status==='sold'?'Vendido/Alugado':'Pausado')+'</span></div></div>'
       +'<div class="painel-listing-price">'+fmt(l.price,l.purpose==='rent')+'</div>'
       +'<div class="painel-listing-actions">'
-      +'<button onclick="event.stopPropagation();showToast(\'Editor em breve!\',\'info\')"><i class="ti ti-pencil" aria-hidden="true"></i>Editar</button>'
-      +'<button onclick="event.stopPropagation();removeListing(\''+l.id+'\')" style="color:#c62828;border-color:#fca5a5"><i class="ti ti-trash" aria-hidden="true"></i></button>'
+      +(l.status==='active'
+        ?'<button onclick="event.stopPropagation();toggleListingStatus(\''+l.id+'\',\'inactive\')" title="Pausar anúncio"><i class="ti ti-player-pause" aria-hidden="true"></i></button>'
+        :'<button onclick="event.stopPropagation();toggleListingStatus(\''+l.id+'\',\'active\')" title="Reativar anúncio" style="color:#059669"><i class="ti ti-player-play" aria-hidden="true"></i></button>')
+      +(l.status!=='sold'?'<button onclick="event.stopPropagation();markAsSold(\''+l.id+'\')" title="Marcar como vendido/alugado" style="color:#1d4ed8"><i class="ti ti-check" aria-hidden="true"></i></button>':'')
+      +'<button onclick="event.stopPropagation();removeListing(\''+l.id+'\')" style="color:#c62828;border-color:#fca5a5" title="Remover anúncio"><i class="ti ti-trash" aria-hidden="true"></i></button>'
       +'</div></div>').join('');
+
+  // Load leads and inject
+  const listingIds = myListings.map(l=>l.id);
+  loadPainelLeads(listingIds).then(leadsHtml => {
+    const leadsContainer = document.getElementById('painelLeadsSection');
+    if(leadsContainer) leadsContainer.innerHTML = leadsHtml;
+  });
 
   root.innerHTML='<div class="page-enter">'
     +'<section class="painel-head"><div class="cnt"><div class="painel-head-inner">'
@@ -4273,6 +4312,7 @@ async function renderPainelPg(){
     +'<div style="display:flex;gap:var(--s2)">'
     +'<button class="btn btn-outline btn-md" onclick="openStoryUploadModal()" style="background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.2);color:#fff"><i class="ti ti-video-plus" aria-hidden="true"></i>Postar Story</button>'
     +'<button class="btn btn-primary btn-md" onclick="go(\'anunciar\')"><i class="ti ti-plus" aria-hidden="true"></i>Novo anúncio</button>'
+    +'<button class="btn btn-md" onclick="doLogout()" title="Sair" style="background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.12);color:rgba(255,255,255,.6);padding:10px 12px"><i class="ti ti-logout" aria-hidden="true"></i></button>'
     +'</div>'
     +'</div></div></section>'
     +'<div class="cnt" style="padding-bottom:var(--s8)">'
@@ -4287,16 +4327,76 @@ async function renderPainelPg(){
     +(myListings.length?'<button class="btn btn-outline btn-sm" onclick="go(\'anunciar\')"><i class="ti ti-plus" aria-hidden="true"></i>Novo</button>':'')
     +'</div>'
     +listingsHtml
+    +'<div id="painelLeadsSection"></div>'
     +'</div></div>';
 }
 
 function removeListing(id){
   if(!confirm('Remover este anúncio?')) return;
-  let myListings=JSON.parse(localStorage.getItem('kaza_my_listings')||'[]');
-  myListings=myListings.filter(l=>String(l.id)!==String(id));
-  localStorage.setItem('kaza_my_listings',JSON.stringify(myListings));
-  renderPainelPg();
-  showToast('Anúncio removido','default');
+  apiFetch('/listings/'+id, {method:'DELETE'})
+    .then(() => { showToast('Anúncio removido','default'); renderPainelPg(); })
+    .catch(() => {
+      // Fallback local
+      let myListings=JSON.parse(localStorage.getItem('kaza_my_listings')||'[]');
+      myListings=myListings.filter(l=>String(l.id)!==String(id));
+      localStorage.setItem('kaza_my_listings',JSON.stringify(myListings));
+      renderPainelPg();
+      showToast('Anúncio removido','default');
+    });
+}
+
+async function toggleListingStatus(id, newStatus){
+  const label = newStatus==='active' ? 'Reativar anúncio?' : 'Pausar este anúncio?';
+  if(!confirm(label)) return;
+  try{
+    await apiFetch('/listings/'+id, {method:'PATCH', body:JSON.stringify({status:newStatus})});
+    showToast(newStatus==='active' ? 'Anúncio reativado' : 'Anúncio pausado', 'success');
+    renderPainelPg();
+  } catch(e){
+    showToast(e.message || 'Erro ao atualizar status','error');
+  }
+}
+
+async function markAsSold(id){
+  if(!confirm('Marcar como vendido/alugado?\nO anúncio sairá do ar e aparecerá como concluído.')) return;
+  try{
+    await apiFetch('/listings/'+id, {method:'PATCH', body:JSON.stringify({status:'sold'})});
+    showToast('Parabéns pela negociação! 🎉','success');
+    renderPainelPg();
+  } catch(e){
+    showToast(e.message || 'Erro ao atualizar','error');
+  }
+}
+
+async function loadPainelLeads(listingIds){
+  if(!listingIds.length) return '';
+  try{
+    const res = await apiFetch('/me/leads');
+    const leads = res.leads || [];
+    if(!leads.length) return '';
+    return '<div class="painel-listings-head" style="margin-top:var(--s6)"><div style="font-family:var(--fd);font-size:var(--t5)">Leads recebidos</div>'
+      +'<span style="font-size:var(--t1);color:var(--cz)">'+leads.length+' mensagens</span></div>'
+      +leads.map(ld=>'<div style="background:#fff;border:1px solid rgba(30,58,47,.07);border-radius:var(--r-lg);padding:var(--s4);margin-bottom:var(--s3);display:flex;gap:var(--s3);align-items:flex-start">'
+        +'<div style="width:36px;height:36px;border-radius:50%;background:'+(ld.is_read?'var(--a)':'rgba(30,58,47,.08)')+';display:flex;align-items:center;justify-content:center;flex-shrink:0">'
+        +'<i class="ti ti-user" style="font-size:16px;color:'+(ld.is_read?'var(--cz)':'var(--v)')+'"></i></div>'
+        +'<div style="flex:1;min-width:0">'
+        +'<div style="font-size:var(--t2);font-weight:600;color:var(--ch);margin-bottom:2px">'+( ld.name||'Visitante')+' '
+        +(ld.phone?'<a href="https://wa.me/'+ld.phone.replace(/\D/g,'')+'" target="_blank" style="color:var(--t);font-size:var(--t1)"><i class="ti ti-brand-whatsapp"></i> '+(ld.phone)+'</a>':'')
+        +'</div>'
+        +'<div style="font-size:var(--t1);color:var(--cz);margin-bottom:var(--s2)">'+(ld.message||'')+'</div>'
+        +'<div style="font-size:var(--t1);color:var(--cz);display:flex;align-items:center;gap:var(--s3)">'
+        +'<span>'+(ld.listings?.title||'')+'</span>'
+        +'<span>'+daysSince(ld.created_at)+'</span>'
+        +(ld.is_read?'':'<button onclick="markLeadRead(\''+ld.id+'\')" style="font-size:var(--t1);color:var(--t);background:none;border:none;cursor:pointer;padding:0">Marcar como lido</button>')
+        +'</div></div></div>').join('');
+  } catch(e){ return ''; }
+}
+
+async function markLeadRead(id){
+  try{
+    await apiFetch('/me/leads/'+id+'/read', {method:'PATCH'});
+    renderPainelPg();
+  } catch(e){ /* silently fail */ }
 }
 
 /* ═══════════════════════════════════════
@@ -4357,7 +4457,7 @@ function buildLoginForm(){
         </button>
       </div>
     </div>
-    <div class="login-forgot"><a onclick="showToast('Enviaremos um link de recuperação por e-mail.','info')">Esqueci minha senha</a></div>
+    <div class="login-forgot"><a onclick="doForgotPassword()">Esqueci minha senha</a></div>
 
     <button class="login-btn" onclick="doLogin()">
       <i class="ti ti-arrow-right" aria-hidden="true"></i>Entrar na minha conta
@@ -4454,6 +4554,24 @@ function togglePass(inputId, btn){
   btn.setAttribute('aria-label', show ? 'Ocultar senha' : 'Mostrar senha');
 }
 
+async function doForgotPassword(){
+  const email = document.getElementById('loginEmail')?.value.trim();
+  if(!email || !email.includes('@')){
+    showToast('Digite seu e-mail acima para receber o link','info');
+    document.getElementById('loginEmail')?.focus();
+    return;
+  }
+  try{
+    await apiFetch('/auth/forgot-password', {
+      method:'POST',
+      body: JSON.stringify({ email })
+    });
+    showToast('Link de recuperação enviado para ' + email,'success');
+  } catch(e){
+    showToast('Erro ao enviar. Verifique o e-mail informado.','error');
+  }
+}
+
 async function doLogin(){
   const email = document.getElementById('loginEmail')?.value.trim();
   const pass  = document.getElementById('loginPass')?.value;
@@ -4516,6 +4634,35 @@ async function doRegister(){
     showToast(e.message || 'Erro ao criar conta. Tente novamente.','error');
     if(btn){ btn.disabled = false; btn.innerHTML = '<i class="ti ti-user-plus" aria-hidden="true"></i>Criar minha conta grátis'; }
   }
+}
+
+function doLogout(){
+  localStorage.removeItem('kaza_token');
+  localStorage.removeItem('kaza_user_name');
+  localStorage.removeItem('kaza_user_wa');
+  localStorage.removeItem('kaza_radar_active');
+  S.token = null;
+  S.user = null;
+  const btn = document.getElementById('navLoginBtn');
+  if(btn){ btn.innerHTML = '<i class="ti ti-user" aria-hidden="true"></i>Entrar'; btn.setAttribute('onclick',"go('login')"); }
+  renderStories();
+  showToast('Você saiu da conta','default');
+  go('home');
+}
+
+function sendContactForm(listingId){
+  const nameEl  = document.getElementById('cf_name_'+listingId);
+  const phoneEl = document.getElementById('cf_phone_'+listingId);
+  const msgEl   = document.getElementById('cf_msg_'+listingId);
+  const name    = nameEl?.value.trim();
+  const phone   = phoneEl?.value.trim();
+  const message = msgEl?.value.trim();
+  if(!name){ showToast('Informe seu nome','error'); return; }
+  if(!phone||phone.replace(/\D/g,'').length<10){ showToast('Informe um WhatsApp válido','error'); return; }
+  trackLead(listingId, name, phone, message||'Tenho interesse neste imóvel.');
+  showToast('Mensagem enviada! O anunciante entrará em contato em breve.','success');
+  const l = L.find(x=>String(x.id)===String(listingId));
+  if(l) window.open(buildWaLink(l), '_blank', 'noopener');
 }
 
 function updateNavLoginBtn(name){
