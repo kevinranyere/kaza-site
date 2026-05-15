@@ -819,38 +819,88 @@ async function makeAdmin(id, name){
 ═══════════════════════════════════════ */
 async function renderLeads(){
   const c = document.getElementById('content');
-  // Leads via me/leads requer token de anunciante. Admin acessa via admin/stats apenas.
-  // Implementar GET /admin/leads se necessário.
-  c.innerHTML = `
-    <div class="table-wrap">
-      <div class="table-header">
-        <div class="table-title"><i class="ti ti-messages"></i>Leads — visão geral</div>
-      </div>
-      <div style="padding:24px">
-        <div style="background:var(--card2);border:1px solid var(--border);border-radius:var(--r);padding:20px;margin-bottom:16px">
-          <p style="color:var(--text2);font-size:13px;line-height:1.7;margin-bottom:12px">
-            Os leads são vinculados a cada anunciante e acessíveis no painel do anunciante via <code style="background:rgba(255,255,255,.06);padding:2px 6px;border-radius:3px">/api/me/leads</code>.
-          </p>
-          <p style="color:var(--text3);font-size:12px">
-            Para visualizar todos os leads da plataforma, adicione a rota <code style="background:rgba(255,255,255,.06);padding:2px 6px;border-radius:3px">GET /api/admin/leads</code> no <code>admin.js</code>.
-          </p>
-        </div>
-        <div id="leadsStatsArea"><div class="spinner"></div></div>
-      </div>
-    </div>
-  `;
+  c.innerHTML = '<div class="loading"><div class="spinner"></div>Carregando leads…</div>';
   try{
-    const s = await api('/admin/stats');
-    document.getElementById('leadsStatsArea').innerHTML = `
-      <div class="stats-grid" style="margin-bottom:0">
-        <div class="stat-card">
-          <div class="stat-label"><i class="ti ti-messages"></i>Total de leads</div>
-          <div class="stat-n">${s.totalLeads || 0}</div>
-          <div class="stat-sub">desde o início</div>
+    const res = await api('/admin/leads?limit=100');
+    const leads = res.leads || [];
+    const unread = leads.filter(l => !l.is_read).length;
+
+    c.innerHTML = `
+      <div class="table-wrap">
+        <div class="table-header">
+          <div class="table-title">
+            <i class="ti ti-messages"></i>Leads recebidos
+            <span style="color:var(--text3);font-size:12px">${res.total || leads.length} total</span>
+            ${unread > 0 ? `<span class="nav-badge">${unread} novos</span>` : ''}
+          </div>
+          <div class="table-filters">
+            <button class="filter-btn active" id="fAll" onclick="filterLeads('all',this)">Todos</button>
+            <button class="filter-btn" id="fNew" onclick="filterLeads('new',this)">Não lidos</button>
+            <button class="filter-btn" id="fRead" onclick="filterLeads('read',this)">Lidos</button>
+          </div>
         </div>
+        ${leads.length === 0
+          ? '<div class="empty"><i class="ti ti-messages-off"></i>Nenhum lead ainda.</div>'
+          : `<table id="leadsTable">
+            <thead><tr>
+              <th></th><th>Contato</th><th>Mensagem</th>
+              <th>Imóvel</th><th>Anunciante</th><th>Data</th><th>Ações</th>
+            </tr></thead>
+            <tbody>
+              ${leads.map(lead => leadRow(lead)).join('')}
+            </tbody>
+          </table>`}
       </div>
     `;
-  } catch(e){}
+    window._leads = leads;
+  } catch(e){
+    c.innerHTML = `<div class="empty"><i class="ti ti-alert-circle"></i>${e.message}</div>`;
+  }
+}
+
+function leadRow(l){
+  const listing = l.listings || {};
+  const advertiser = listing.users || {};
+  const date = l.created_at ? new Date(l.created_at).toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'}) : '—';
+  const waLink = l.phone ? `https://wa.me/${l.phone.replace(/\D/g,'')}` : null;
+  return `<tr id="lead-${l.id}" style="opacity:${l.is_read?'0.6':'1'}">
+    <td><div style="width:8px;height:8px;border-radius:50%;background:${l.is_read?'transparent':'var(--info)'};border:1px solid ${l.is_read?'var(--border)':'var(--info)'};margin:0 auto"></div></td>
+    <td class="name">
+      <div style="font-weight:600">${l.name || '—'}</div>
+      ${l.email ? `<div style="font-size:11px;color:var(--text3)">${l.email}</div>` : ''}
+      ${waLink ? `<a href="${waLink}" target="_blank" style="font-size:11px;color:#4ade80;display:inline-flex;align-items:center;gap:3px"><i class="ti ti-brand-whatsapp"></i>${l.phone}</a>` : ''}
+    </td>
+    <td style="max-width:200px;font-size:12px;color:var(--text2)">
+      <div style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:180px">${l.message || '<span style="color:var(--text3)">Sem mensagem</span>'}</div>
+    </td>
+    <td style="font-size:12px;color:var(--text3);max-width:160px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${listing.title || '—'}</td>
+    <td style="font-size:12px;color:var(--text3)">${advertiser.name || advertiser.agency_name || '—'}</td>
+    <td style="font-size:11px;color:var(--text3);white-space:nowrap">${date}</td>
+    <td>
+      ${!l.is_read ? `<button class="act verify" onclick="markLeadRead('${l.id}')"><i class="ti ti-check"></i>Lido</button>` : ''}
+    </td>
+  </tr>`;
+}
+
+function filterLeads(filter, btn){
+  document.querySelectorAll('#fAll,#fNew,#fRead').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const leads = window._leads || [];
+  const filtered = filter === 'new' ? leads.filter(l=>!l.is_read)
+    : filter === 'read' ? leads.filter(l=>l.is_read)
+    : leads;
+  const tbody = document.querySelector('#leadsTable tbody');
+  if(tbody) tbody.innerHTML = filtered.map(leadRow).join('');
+}
+
+async function markLeadRead(id){
+  try{
+    await api(`/admin/leads/${id}/read`, {method:'PATCH'});
+    const row = document.getElementById('lead-'+id);
+    if(row){ row.style.opacity='0.6'; row.querySelector('.act.verify')?.remove(); row.querySelector('div[style*="var(--info)"]')?.setAttribute('style','width:8px;height:8px;border-radius:50%;background:transparent;border:1px solid var(--border);margin:0 auto'); }
+    if(window._leads){ const l = window._leads.find(x=>x.id===id); if(l) l.is_read=true; }
+    toast('Lead marcado como lido','s');
+  } catch(e){ toast(e.message,'e'); }
 }
 
 /* ═══════════════════════════════════════
