@@ -671,6 +671,7 @@ function listingRow(l){
           <button class="act" onclick="patchListing('${l.id}','paused')"><i class="ti ti-player-pause"></i>Pausar</button>
         `:''}
         ${l.status==='paused'?`<button class="act approve" onclick="patchListing('${l.id}','active')"><i class="ti ti-player-play"></i>Reativar</button>`:''}
+        <button class="act" onclick='openEditListingModal(${JSON.stringify({id:l.id,title:l.title,price:l.price,city:l.city,neighborhood:l.neighborhood,status:l.status,type:l.type,purpose:l.purpose,bedrooms:l.bedrooms,area_m2:l.area_m2,area_ha:l.area_ha,is_featured:l.is_featured})})' ><i class="ti ti-pencil"></i>Editar</button>
         <button class="act danger" onclick="deleteListing('${l.id}','${l.title.replace(/'/g,"\\'")}')"><i class="ti ti-trash"></i></button>
       </div>
     </td>
@@ -790,8 +791,10 @@ function userRow(u){
     <td style="font-size:11px;color:var(--text3)">${date}</td>
     <td>
       <div class="actions">
+        <button class="act" onclick='openEditUserModal(${JSON.stringify(u)})'><i class="ti ti-pencil"></i>Editar</button>
         ${!u.is_verified?`<button class="act verify" onclick="verifyUser('${u.id}')"><i class="ti ti-rosette-discount-check"></i>Verificar</button>`:''}
         ${!u.is_admin?`<button class="act" onclick="makeAdmin('${u.id}','${(u.name||'').replace(/'/g,"\\'")}')"><i class="ti ti-shield"></i>Admin</button>`:''}
+        <button class="act danger" onclick="deleteUser('${u.id}','${(u.name||'').replace(/'/g,"\\'")}')"><i class="ti ti-trash"></i></button>
       </div>
     </td>
   </tr>`;
@@ -1029,6 +1032,183 @@ async function deleteStory(id){
     toast('Story removido','i');
     renderStories();
   } catch(e){ toast(e.message,'e'); }
+}
+
+/* ═══════════════════════════════════════
+   EDIT USER MODAL
+═══════════════════════════════════════ */
+function openEditUserModal(u){
+  const m = document.createElement('div');
+  m.className = 'modal-bg';
+  m.innerHTML = `<div class="modal" style="max-width:500px">
+    <div class="modal-title"><i class="ti ti-user-edit" style="color:var(--tl)"></i>Editar usuário</div>
+
+    <label class="login-label" style="font-size:10px;color:var(--text3);margin-bottom:5px;display:block">Nome</label>
+    <input class="modal-fi" id="eu_name" value="${u.name||''}" placeholder="Nome completo">
+
+    <label class="login-label" style="font-size:10px;color:var(--text3);margin-bottom:5px;display:block">WhatsApp / Telefone</label>
+    <input class="modal-fi" id="eu_phone" value="${u.phone||''}" placeholder="(77) 9...">
+
+    <label class="login-label" style="font-size:10px;color:var(--text3);margin-bottom:5px;display:block">Nome da Imobiliária</label>
+    <input class="modal-fi" id="eu_agency" value="${u.agency_name||''}" placeholder="Opcional">
+
+    <label class="login-label" style="font-size:10px;color:var(--text3);margin-bottom:5px;display:block">CRECI</label>
+    <input class="modal-fi" id="eu_creci" value="${u.creci||''}" placeholder="Opcional">
+
+    <label class="login-label" style="font-size:10px;color:var(--text3);margin-bottom:5px;display:block">Tipo</label>
+    <select class="modal-fi" id="eu_type" style="margin-bottom:4px">
+      <option value="person" ${u.type==='person'?'selected':''}>Pessoa</option>
+      <option value="agency" ${u.type==='agency'?'selected':''}>Imobiliária</option>
+    </select>
+
+    <div style="display:flex;align-items:center;gap:8px;margin:10px 0 16px">
+      <input type="checkbox" id="eu_verified" ${u.is_verified?'checked':''} style="width:15px;height:15px;accent-color:var(--t)">
+      <label for="eu_verified" style="font-size:13px;color:var(--text2);cursor:pointer">Usuário verificado</label>
+    </div>
+
+    <div class="modal-actions">
+      <button class="modal-btn" onclick="this.closest('.modal-bg').remove()">Cancelar</button>
+      <button class="modal-btn primary" onclick="saveUser('${u.id}',this)"><i class="ti ti-check"></i>Salvar</button>
+    </div>
+  </div>`;
+  document.body.appendChild(m);
+}
+
+async function saveUser(id, btn){
+  const updates = {
+    name:        document.getElementById('eu_name').value.trim(),
+    phone:       document.getElementById('eu_phone').value.trim(),
+    agency_name: document.getElementById('eu_agency').value.trim() || null,
+    creci:       document.getElementById('eu_creci').value.trim() || null,
+    type:        document.getElementById('eu_type').value,
+    is_verified: document.getElementById('eu_verified').checked,
+  };
+  if(!updates.name){ toast('Nome é obrigatório','e'); return; }
+  btn.disabled = true; btn.textContent = 'Salvando…';
+  try{
+    await api(`/admin/users/${id}`, {method:'PATCH', body:JSON.stringify(updates)});
+    toast('Usuário atualizado ✓','s');
+    btn.closest('.modal-bg').remove();
+    renderUsers();
+  } catch(e){ toast(e.message,'e'); btn.disabled=false; btn.innerHTML='<i class="ti ti-check"></i>Salvar'; }
+}
+
+async function deleteUser(id, name){
+  if(!confirm(`Excluir permanentemente o usuário:\n"${name}"?\n\nTodos os anúncios desse usuário também serão removidos.\nEssa ação não pode ser desfeita.`)) return;
+  try{
+    await api(`/admin/users/${id}`, {method:'DELETE'});
+    toast('Usuário excluído','i');
+    renderUsers();
+  } catch(e){ toast(e.message,'e'); }
+}
+
+/* ═══════════════════════════════════════
+   EDIT LISTING MODAL
+═══════════════════════════════════════ */
+function openEditListingModal(l){
+  const m = document.createElement('div');
+  m.className = 'modal-bg';
+  m.innerHTML = `<div class="modal" style="max-width:560px;max-height:90vh;overflow-y:auto">
+    <div class="modal-title"><i class="ti ti-home-edit" style="color:var(--tl)"></i>Editar imóvel</div>
+
+    <label class="login-label" style="font-size:10px;color:var(--text3);margin-bottom:5px;display:block">Título</label>
+    <input class="modal-fi" id="el_title" value="${(l.title||'').replace(/"/g,'&quot;')}" placeholder="Título do anúncio">
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+      <div>
+        <label class="login-label" style="font-size:10px;color:var(--text3);margin-bottom:5px;display:block">Preço (R$)</label>
+        <input class="modal-fi" id="el_price" type="number" value="${l.price||''}" placeholder="Ex: 380000">
+      </div>
+      <div>
+        <label class="login-label" style="font-size:10px;color:var(--text3);margin-bottom:5px;display:block">Status</label>
+        <select class="modal-fi" id="el_status">
+          ${['active','pending','paused','sold','rented','rejected'].map(s=>
+            `<option value="${s}" ${l.status===s?'selected':''}>${{active:'Ativo',pending:'Pendente',paused:'Pausado',sold:'Vendido',rented:'Alugado',rejected:'Rejeitado'}[s]}</option>`
+          ).join('')}
+        </select>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+      <div>
+        <label class="login-label" style="font-size:10px;color:var(--text3);margin-bottom:5px;display:block">Cidade</label>
+        <input class="modal-fi" id="el_city" value="${l.city||''}" placeholder="Barreiras">
+      </div>
+      <div>
+        <label class="login-label" style="font-size:10px;color:var(--text3);margin-bottom:5px;display:block">Bairro</label>
+        <input class="modal-fi" id="el_neigh" value="${l.neighborhood||''}" placeholder="Bairro / Localidade">
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px">
+      <div>
+        <label class="login-label" style="font-size:10px;color:var(--text3);margin-bottom:5px;display:block">Tipo</label>
+        <select class="modal-fi" id="el_type">
+          ${['residential','rural','lot','commercial'].map(t=>
+            `<option value="${t}" ${l.type===t?'selected':''}>${{residential:'Residencial',rural:'Rural',lot:'Lote',commercial:'Comercial'}[t]}</option>`
+          ).join('')}
+        </select>
+      </div>
+      <div>
+        <label class="login-label" style="font-size:10px;color:var(--text3);margin-bottom:5px;display:block">Finalidade</label>
+        <select class="modal-fi" id="el_purpose">
+          <option value="sale" ${l.purpose==='sale'?'selected':''}>Venda</option>
+          <option value="rent" ${l.purpose==='rent'?'selected':''}>Aluguel</option>
+        </select>
+      </div>
+      <div>
+        <label class="login-label" style="font-size:10px;color:var(--text3);margin-bottom:5px;display:block">Quartos</label>
+        <input class="modal-fi" id="el_beds" type="number" value="${l.bedrooms||''}" placeholder="—" min="0">
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+      <div>
+        <label class="login-label" style="font-size:10px;color:var(--text3);margin-bottom:5px;display:block">Área m²</label>
+        <input class="modal-fi" id="el_area" type="number" value="${l.area_m2||''}" placeholder="—">
+      </div>
+      <div>
+        <label class="login-label" style="font-size:10px;color:var(--text3);margin-bottom:5px;display:block">Área ha (rural)</label>
+        <input class="modal-fi" id="el_ha" type="number" value="${l.area_ha||''}" placeholder="—">
+      </div>
+    </div>
+
+    <div style="display:flex;align-items:center;gap:8px;margin:10px 0 16px">
+      <input type="checkbox" id="el_featured" ${l.is_featured?'checked':''} style="width:15px;height:15px;accent-color:var(--t)">
+      <label for="el_featured" style="font-size:13px;color:var(--text2);cursor:pointer">Imóvel em destaque</label>
+    </div>
+
+    <div class="modal-actions">
+      <button class="modal-btn" onclick="this.closest('.modal-bg').remove()">Cancelar</button>
+      <button class="modal-btn primary" onclick="saveListing('${l.id}',this)"><i class="ti ti-check"></i>Salvar alterações</button>
+    </div>
+  </div>`;
+  document.body.appendChild(m);
+}
+
+async function saveListing(id, btn){
+  const title = document.getElementById('el_title').value.trim();
+  if(!title){ toast('Título é obrigatório','e'); return; }
+  const updates = {
+    title,
+    price:        parseFloat(document.getElementById('el_price').value) || null,
+    status:       document.getElementById('el_status').value,
+    city:         document.getElementById('el_city').value.trim(),
+    neighborhood: document.getElementById('el_neigh').value.trim() || null,
+    type:         document.getElementById('el_type').value,
+    purpose:      document.getElementById('el_purpose').value,
+    bedrooms:     parseInt(document.getElementById('el_beds').value) || null,
+    area_m2:      parseFloat(document.getElementById('el_area').value) || null,
+    area_ha:      parseFloat(document.getElementById('el_ha').value) || null,
+    is_featured:  document.getElementById('el_featured').checked,
+  };
+  btn.disabled = true; btn.textContent = 'Salvando…';
+  try{
+    await api(`/admin/listings/${id}`, {method:'PATCH', body:JSON.stringify(updates)});
+    toast('Imóvel atualizado ✓','s');
+    btn.closest('.modal-bg').remove();
+    renderListings();
+  } catch(e){ toast(e.message,'e'); btn.disabled=false; btn.innerHTML='<i class="ti ti-check"></i>Salvar alterações'; }
 }
 
 /* ═══════════════════════════════════════
