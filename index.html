@@ -515,95 +515,141 @@ nav.navbar{
   .radar-ctas .btn{text-align:center;justify-content:center}
 }
 
-/* ─────────────── STORIES — INSTAGRAM/TIKTOK STYLE ─────────────── */
-.stories-section{padding:var(--s5) 0 0;background:#fff;border-bottom:1px solid rgba(30,58,47,.06)}
-.stories-head{display:flex;align-items:center;justify-content:space-between;padding:0 var(--s5);margin-bottom:var(--s3)}
-.stories-title{font-size:var(--t1);font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--cz);display:flex;align-items:center;gap:6px}
-.stories-title i{color:var(--t)}
+/* ─── STORIES SECTION — topo da home ─── */
+.stories-section{
+  background:var(--v);  /* integra com o hero */
+  padding:var(--s3) 0 0;
+  border-bottom:none;
+  position:relative;
+  z-index:1;
+}
+.stories-head{
+  display:none; /* sem label no topo — contexto visual já comunica */
+}
 .stories-row{
-  display:flex;gap:var(--s4);
+  display:flex;gap:14px;
   overflow-x:auto;overflow-y:hidden;
-  padding:var(--s2) var(--s5) var(--s5);
+  padding:var(--s2) var(--s5) var(--s4);
   scrollbar-width:none;-webkit-overflow-scrolling:touch;
   scroll-snap-type:x mandatory;
+  -webkit-mask:linear-gradient(to right,transparent,#000 4%,#000 88%,transparent);
+  mask:linear-gradient(to right,transparent,#000 4%,#000 88%,transparent);
 }
 .stories-row::-webkit-scrollbar{display:none}
 
-/* Story ring — estilo Instagram */
+/* Story ring — sobre fundo escuro */
 .story{
-  display:flex;flex-direction:column;align-items:center;gap:7px;
+  display:flex;flex-direction:column;align-items:center;gap:5px;
   cursor:pointer;flex-shrink:0;scroll-snap-align:start;
-  text-align:center;width:72px;border:none;background:none;padding:0;
+  text-align:center;width:76px;border:none;background:none;padding:0;
   -webkit-tap-highlight-color:transparent;
   transition:transform .18s var(--ease);
 }
-.story:active{transform:scale(.94)}
+.story:active{transform:scale(.93)}
 
-/* Anel gradiente — brand KAZA */
+/* Anel gradiente terracota — visível sobre verde escuro */
 .story-ring{
-  width:68px;height:68px;border-radius:50%;
+  width:72px;height:72px;border-radius:50%;
   padding:2.5px;
-  background:conic-gradient(from 135deg,#C4622D,#E8845A,#1E3A2F,#C4622D);
+  background:conic-gradient(from 120deg,#C4622D 0%,#E8845A 35%,#1E3A2F 65%,#C4622D 100%);
   position:relative;
-  box-shadow:0 2px 10px rgba(196,98,45,.25);
+  box-shadow:0 2px 12px rgba(196,98,45,.35),0 0 0 0 rgba(196,98,45,0);
+  transition:box-shadow .2s;
 }
+.story:hover .story-ring{box-shadow:0 4px 20px rgba(196,98,45,.5)}
 .story.seen .story-ring{
-  background:conic-gradient(from 0deg,#ccc,#e0d8d0,#ccc);
+  background:conic-gradient(from 0deg,rgba(255,255,255,.2),rgba(255,255,255,.08),rgba(255,255,255,.2));
   box-shadow:none;
 }
 .story-add .story-ring{
-  background:linear-gradient(135deg,var(--v),#2a5c40);
-  box-shadow:0 2px 10px rgba(30,58,47,.2);
+  background:linear-gradient(135deg,rgba(255,255,255,.12),rgba(255,255,255,.06));
+  border:1.5px solid rgba(255,255,255,.15);
+  box-shadow:none;
+  padding:0;
 }
 
-/* Thumbnail dentro do anel */
+/* Thumb */
 .story-inner{
   width:100%;height:100%;border-radius:50%;
-  border:2.5px solid #fff;
-  background:var(--a);
+  border:2.5px solid var(--v); /* mantém gap entre ring e thumb */
+  background:rgba(255,255,255,.06);
   overflow:hidden;
   display:flex;align-items:center;justify-content:center;
   position:relative;
 }
 .story-inner img{width:100%;height:100%;object-fit:cover}
-.story-inner video{width:100%;height:100%;object-fit:cover}
 
-/* Ícone "+" para adicionar story */
-.story-add-icon{
-  width:22px;height:22px;border-radius:50%;
-  background:var(--t);
+/* Play icon overlay para stories de vídeo */
+.story-play{
+  position:absolute;inset:0;
   display:flex;align-items:center;justify-content:center;
-  position:absolute;bottom:-2px;right:-2px;
-  border:2px solid #fff;
-  font-size:13px;color:#fff;font-weight:700;
+  background:rgba(0,0,0,.18);
+}
+.story-play i{font-size:16px;color:rgba(255,255,255,.9);filter:drop-shadow(0 1px 2px rgba(0,0,0,.5))}
+
+/* Badge NOVO */
+.story-badge{
+  position:absolute;top:-2px;right:-2px;
+  background:var(--t);color:#fff;
+  font-size:8px;font-weight:800;
+  padding:2px 5px;border-radius:4px;
+  border:1.5px solid var(--v);
+  letter-spacing:.04em;text-transform:uppercase;
   z-index:2;
 }
 
-/* Label */
+/* Label — branco suave sobre fundo verde */
 .story-label{
-  font-size:11px;font-weight:500;
-  color:var(--ch);line-height:1.3;
-  white-space:nowrap;overflow:hidden;
-  text-overflow:ellipsis;width:100%;
+  font-size:10px;font-weight:500;
+  color:rgba(255,255,255,.75);
+  line-height:1.25;
+  white-space:normal;
+  text-align:center;
+  max-width:76px;
+  overflow:hidden;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;
 }
-.story.seen .story-label{color:var(--cz)}
+.story.seen .story-label{color:rgba(255,255,255,.4)}
 
-/* Live indicator */
-.story-live{
-  position:absolute;bottom:0;left:50%;transform:translateX(-50%);
-  background:#E31010;color:#fff;
-  font-size:8px;font-weight:700;letter-spacing:.06em;
-  padding:1px 5px;border-radius:3px;
-  border:1.5px solid #fff;
+/* Ícone "+" add story */
+.story-add-icon{
+  width:20px;height:20px;border-radius:50%;
+  background:var(--t);
+  display:flex;align-items:center;justify-content:center;
+  position:absolute;bottom:-2px;right:-2px;
+  border:2px solid var(--v);
+  font-size:11px;color:#fff;font-weight:700;z-index:2;
 }
 
-/* Estado vazio — nenhum story ainda */
+/* Estado vazio */
 .stories-empty{
-  padding:var(--s5) var(--s5) var(--s6);
+  padding:var(--s2) var(--s5) var(--s4);
   display:flex;align-items:center;gap:var(--s4);
 }
-.stories-empty-text{font-size:var(--t2);color:var(--cz);line-height:1.5}
-.stories-empty-text strong{color:var(--ch);display:block;margin-bottom:2px}
+.stories-empty-text{font-size:var(--t2);color:rgba(255,255,255,.5);line-height:1.5}
+.stories-empty-text strong{color:rgba(255,255,255,.8);display:block;margin-bottom:2px;font-size:var(--t2)}
+
+/* Desktop: stories abaixo do hero, fundo claro */
+@media(min-width:721px){
+  .stories-section{
+    background:#fff;
+    border-bottom:1px solid rgba(30,58,47,.06);
+    padding:var(--s4) 0 0;
+  }
+  .stories-head{display:flex;align-items:center;justify-content:space-between;padding:0 var(--s5);margin-bottom:var(--s3)}
+  .stories-title{font-size:var(--t1);font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--cz);display:flex;align-items:center;gap:6px}
+  .stories-title i{color:var(--t)}
+  .story-ring{
+    background:conic-gradient(from 120deg,#C4622D 0%,#E8845A 35%,#1E3A2F 65%,#C4622D 100%);
+  }
+  .story-inner{border-color:#fff}
+  .story-add .story-ring{background:linear-gradient(135deg,var(--v),#2a5c40);border:none;padding:2.5px}
+  .story-label{color:var(--ch)}
+  .story.seen .story-label{color:var(--cz)}
+  .story-add-icon{border-color:#fff}
+  .stories-empty-text{color:var(--cz)}
+  .stories-empty-text strong{color:var(--ch)}
+}
 
 /* ─────────────── SECTION HEADERS ─────────────── */
 .sec-head{
@@ -1918,6 +1964,14 @@ select.rdr-fi{appearance:auto}
 
 <main class="page page-enter" id="page-home">
 
+  <!-- ──────────── KAZA STORIES — topo mobile ──────────── -->
+  <section class="stories-section" id="storiesSection">
+    <div class="stories-head">
+      <div class="stories-title"><i class="ti ti-circle-dashed" aria-hidden="true"></i>KAZA Stories</div>
+    </div>
+    <div class="stories-row" id="storiesRow"></div>
+  </section>
+
   <!-- ──────────── HERO ──────────── -->
   <section class="hero">
     <div class="cnt">
@@ -2018,14 +2072,6 @@ select.rdr-fi{appearance:auto}
         </div>
       </div>
     </div>
-  </section>
-
-  <!-- ──────────── KAZA STORIES ──────────── -->
-  <section class="stories-section" id="storiesSection">
-    <div class="stories-head">
-      <div class="stories-title"><i class="ti ti-circle-dashed" aria-hidden="true"></i>KAZA Stories</div>
-    </div>
-    <div class="stories-row" id="storiesRow"></div>
   </section>
 
   <!-- ──────────── IMÓVEIS EM DESTAQUE ──────────── -->
@@ -2535,66 +2581,69 @@ function renderStories(){
   const row = document.getElementById('storiesRow');
   const section = document.getElementById('storiesSection');
   if(!row) return;
+  if(section) section.hidden = false;
 
   const userName = (S.user&&S.user.name) || localStorage.getItem('kaza_user_name');
 
-  // Anel "+ Adicionar story" — só para usuário logado
+  // Anel "+" — só para usuário logado
   const addBtn = userName ? `
-    <button class="story story-add" onclick="openStoryUploadModal([])" aria-label="Postar story">
+    <button class="story story-add" onclick="openStoryUploadModal()" aria-label="Postar story">
       <div class="story-ring">
-        <div class="story-inner" style="background:var(--a)">
-          <i class="ti ti-video-plus" style="font-size:22px;color:var(--v)" aria-hidden="true"></i>
+        <div class="story-inner">
+          <i class="ti ti-video-plus" style="font-size:20px;color:rgba(255,255,255,.7)" aria-hidden="true"></i>
         </div>
         <div class="story-add-icon">+</div>
       </div>
       <span class="story-label">Seu story</span>
     </button>` : '';
 
-  // Seção sempre visível para qualquer visitante
-  if(section) section.hidden = false;
-
-  // Stories reais da API
-  const storiesHtml = STORIES_DATA.map(s => {
-    const adv = s.users || {};
-    const name = adv.agency_name || adv.name || 'KAZA';
-    const firstName = name.split(' ')[0];
-    const initials = name.split(' ').map(w=>w[0]).join('').substring(0,2).toUpperCase();
-    const seen = !!S.storiesSeen[s.id];
+  // Stories reais de vídeo da API
+  const videoStories = STORIES_DATA.map(s => {
+    const adv   = s.users || {};
+    const name  = (adv.agency_name || adv.name || 'KAZA').split(' ')[0];
+    const seen  = !!S.storiesSeen[s.id];
     const thumb = s.thumb_url;
-    return `<button class="story ${seen?'seen':''}" onclick="openStory('${s.id}')" aria-label="Story de ${firstName}">
+    return `<button class="story ${seen?'seen':''}" onclick="openStory('${s.id}')" aria-label="Story de ${name}">
       <div class="story-ring">
         <div class="story-inner">
-          ${thumb
-            ? `<img src="${thumb}" alt="${firstName}" loading="lazy">`
-            : `<span style="font-family:var(--fd);font-size:.85rem;color:#fff">${initials}</span>`}
+          ${thumb ? `<img src="${thumb}" alt="${name}" loading="lazy">` : `<span style="font-family:var(--fd);font-size:.8rem;color:#fff">${name.substring(0,2).toUpperCase()}</span>`}
+          <div class="story-play"><i class="ti ti-player-play-filled" aria-hidden="true"></i></div>
         </div>
-        ${!seen ? '<span class="story-badge" aria-hidden="true">Novo</span>' : ''}
+        ${!seen ? '<span class="story-badge">Novo</span>' : ''}
       </div>
-      <span class="story-label">${firstName}</span>
+      <span class="story-label">${name}</span>
     </button>`;
   }).join('');
 
-  // Estado vazio — mensagem diferente para logado vs visitante
-  const emptyHint = STORIES_DATA.length === 0 ? `
-    <div class="stories-empty">
-      <button class="story story-add" onclick="${userName ? 'openStoryUploadModal()' : "go('login')"}" aria-label="${userName ? 'Postar story' : 'Entrar para postar'}">
-        <div class="story-ring">
-          <div class="story-inner" style="background:var(--a)">
-            <i class="ti ti-video-plus" style="font-size:22px;color:var(--v)" aria-hidden="true"></i>
+  // Fallback: rings dos imóveis reais quando não há vídeos
+  // Criam descoberta visual — clique vai para página do imóvel
+  const listingRings = STORIES_DATA.length === 0 && L.length > 0
+    ? [...L].sort(()=>Math.random()-.5).slice(0, 10).map(l => {
+        const sid  = 'listing-' + l.id;
+        const seen = !!S.storiesSeen[sid];
+        const label = l.neigh && l.neigh !== l.city
+          ? l.neigh.split(' ').slice(0,2).join(' ')
+          : (l.title.split(' ').slice(0,3).join(' '));
+        return `<button class="story ${seen?'seen':''}" onclick="openListingStory('${l.id}')" aria-label="${l.title}">
+          <div class="story-ring">
+            <div class="story-inner">
+              <img src="${l.img}" alt="${l.title}" loading="lazy"
+                onerror="this.src='https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=200&q=60'">
+            </div>
+            ${!seen ? '<span class="story-badge">Novo</span>' : ''}
           </div>
-          <div class="story-add-icon">+</div>
-        </div>
-        <span class="story-label">${userName ? 'Postar' : 'Entrar'}</span>
-      </button>
-      <div class="stories-empty-text">
-        <strong>${userName ? 'Seja o primeiro a postar' : 'Nenhum story ainda'}</strong>
-        ${userName
-          ? 'Grave um vídeo curto do seu imóvel e apareça aqui.'
-          : 'Anunciantes podem postar vídeos dos seus imóveis.'}
-      </div>
-    </div>` : '';
+          <span class="story-label">${label}</span>
+        </button>`;
+      }).join('')
+    : '';
 
-  row.innerHTML = (STORIES_DATA.length > 0 ? (addBtn + storiesHtml) : '') + emptyHint;
+  const content = STORIES_DATA.length > 0
+    ? addBtn + videoStories
+    : L.length > 0
+      ? addBtn + listingRings
+      : addBtn;  // apenas botão "+" se não há nada
+
+  row.innerHTML = content;
 }
 
 function openStory(id){
@@ -2603,6 +2652,16 @@ function openStory(id){
   const idx = STORIES_DATA.findIndex(s => s.id === id);
   if(idx >= 0) openStoryViewer(STORIES_DATA, idx);
   else showToast('Story não encontrado','error');
+}
+
+function openListingStory(id){
+  const sid = 'listing-' + id;
+  S.storiesSeen[sid] = true;
+  localStorage.setItem('kaza_stories_seen', JSON.stringify(S.storiesSeen));
+  // re-render apenas o ring para atualizar visualmente (visto)
+  document.querySelectorAll(`[onclick="openListingStory('${id}')"]`)
+    .forEach(el => el.classList.add('seen'));
+  go('detail-' + id);
 }
 
 /* ─────────────── FAVORITOS ─────────────── */
@@ -2782,12 +2841,12 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Then reload with real data in background
   loadListingsFromAPI().then(loaded => {
     if(loaded){
-      // Update dynamic counts
       const qaCount = document.querySelector('.qa-meta');
       if(qaCount) qaCount.textContent = L.length + ' disponíveis agora';
       if(S.page === 'home' || !S.page){
         renderFeatured();
         renderHeroMiniCards();
+        renderStories(); // atualiza rings com imóveis reais da API
       }
     }
     if(loaded && S.page === 'listings') renderListingsPg();
